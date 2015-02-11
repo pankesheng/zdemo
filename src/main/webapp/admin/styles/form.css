@@ -1,0 +1,213 @@
+html, body {
+    overflow-x:hidden;
+    overflow-y:auto;
+	background-color:#F8F8F8;
+}
+body{
+	line-height:20px;
+}
+.form .gray{
+	color:#999;
+}
+.form .red{
+	color:#C00;
+}
+
+.form td{
+	line-height:22px;
+	padding-bottom:4px;
+	vertical-align:top;
+}
+
+
+.form .label label{
+	display:block;
+	width:100px;
+	text-align:right;
+}
+.form .label b{
+	color:#C30;
+	font-weight:normal;
+	padding-right:3px;
+}
+
+
+.form .txt{
+	width:180px;
+	height:15px;
+	line-height:15px;
+	font-size:12px;
+	font-family:Arial;
+	padding:2px 5px 3px 5px;
+	border:1px solid #BBB;
+}
+
+
+.form .select{
+	width:192px;
+	height:22px;
+	line-height:22px;
+	color:#404040;
+	font-size:12px;
+	border:1px solid #BBB;
+}
+
+
+.form .txtarea{
+	width:472px;
+	height:70px;
+	line-height:18px;
+	color:#404040;
+	font-size:12px;
+	font-family:Arial;
+	padding:5px;
+	border:1px solid #BBB;
+}
+
+
+.form .radio{
+	float:left;
+	display:inline;
+	margin-right:16px;
+}
+.form .radio input{
+	float:left;
+	width:13px;
+	height:13px;
+	margin:4px 4px 0 0;
+}
+.form .radio label{
+	overflow:hidden;
+	float:left;
+	height:22px;
+	_line-height:23px;
+}
+
+
+.form .btn, .form .btn-gray, .form .btn-gray:hover{
+	overflow:hidden;
+	width:72px;
+	height:25px;
+	line-height:25px;
+	_line-height:27px;
+	color:#FFF;
+	font-size:12px;
+	cursor:pointer;
+	border:0;
+	margin-right:6px;
+	visibility:visible;
+	background:url(../images/form-btn.png) no-repeat;
+}
+.form .btn-gray{
+	background-position:0 -25px;
+}
+.form a.btn, .form a.btn-gray{
+	float:left;
+	text-align:center;
+}
+
+.form-type{
+	height:21px;
+	line-height:21px;
+	color:#202020;
+	padding:0 12px;
+	margin:8px 0 16px 0;
+	border-top:1px solid #FFF;
+	border-left:1px solid #FFF;
+	border-right:1px solid #CCC;
+	border-bottom:1px solid #CCC;
+	background:#EEE;
+}
+
+
+.upload-pic{
+	position:relative;
+	overflow:hidden;
+	float:left;
+	display:inline;
+	width:240px;
+	height:180px;
+	margin:2px 6px 6px 0;
+	border:1px solid #BBB;
+	background:#FFF;
+}
+.upload-pic p{
+	position:absolute;
+	right:0;
+	bottom:2px;
+}
+.upload-pic .operate-btn{
+	float:left;
+	display:inline;
+	height:20px;
+	line-height:20px;
+	color:#FFF;
+	padding:0 6px;
+	margin-right:4px;
+	filter:alpha(Opacity=60);
+	-moz-opacity:0.6;
+	opacity:0.6;
+	background:#000;
+}
+.upload-pic .operate-btn:hover{
+	color:#FB0;
+	filter:alpha(Opacity=100);
+	-moz-opacity:1;
+	opacity:1;
+}
+.upload-btn{
+	clear:both;
+	width:72px;
+	height:25px;
+	margin:0 0 12px 0;
+	background:url(../images/upload-btn.png) no-repeat;
+}
+
+
+/*--------------------------*/
+.condition-show, .condition-hide{
+	width:64px;
+	margin:0 auto;
+}
+.condition-show a, .condition-hide a{
+	overflow:hidden;
+	display:block;
+	width:64px;
+	height:12px;
+	filter:alpha(Opacity=80);
+	-moz-opacity:0.8;
+	opacity:0.8;
+	margin:8px auto;
+	background:url(../images/show-query.png) no-repeat;
+}
+.condition-hide a{
+	background-position:0 -15px;
+}
+.condition-show a{
+	margin-top:20px;
+}
+.condition-show a:hover, .condition-hide a:hover{
+	filter:alpha(Opacity=100);
+	-moz-opacity:1;
+	opacity:1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

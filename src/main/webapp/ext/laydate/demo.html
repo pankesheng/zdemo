@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	
+	<title>laydate--日期控件</title>
+	
+	<script type="text/javascript" src="../jquery/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="laydate.js"></script>
+	
+	<script>
+	
+	/* 
+		min: '1900-01-01 00:00:00', //最小日期
+	    max: '2099-12-31 23:59:59', //最大日期
+	    start: '2014-6-15 23:00:00',    //开始日期
+	    fixed: false, //是否固定在可视区域
+	    choose: function(dates){ //选择好日期的回调
+	    } 
+	*/
+	
+		$(document).ready(function(){
+			laydate({
+			    elem: '#date1', //目标元素。
+			    event: 'focus', //响应事件。
+			    format: 'YYYY-MM-DD hh:mm:ss',//日期格式
+			    istime: true,//是否开启时间选择
+			    festival: false//是否显示节日
+			});
+		});
+	</script>
+</head>
+<body>
+	<!-- 默认日期：${((obj.showtime)?string("yyyy-MM-dd HH:mm:ss"))!'${.now}'} -->
+	<input id="date1" readonly="readonly" type="text" name="showtime" size="20" value="">
+</body>
+</html>

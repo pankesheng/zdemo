@@ -1,0 +1,303 @@
+@charset 'utf-8';
+/* 首页 */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.top {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+}
+#container.top-iframe-margin {
+  top: 88px;
+  _height: expression(document.body.offsetHeight - 88 + 'px');
+}
+.left-collapse-body .left {
+  width: 0;
+}
+.left-collapse-body .left-collapse {
+  left: 0;
+}
+.left-collapse-body .main {
+  left: 0;
+  _width: expression(document.body.offsetWidth);
+}
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  _height: 100%;
+  background-color: #fff;
+}
+.container .container-iframe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.left {
+  position: absolute;
+  width: 187px;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+.main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 187px;
+  _width: expression(document.body.offsetWidth - 187 + 'px');
+  height: 100%;
+}
+.main .place {
+  height: 40px;
+  font-family: Microsoft YaHei, 微软雅黑, MicrosoftJhengHei;
+  background: url(../images/righttop.gif) repeat-x;
+}
+.main .place .place-ul {
+  overflow: hidden;
+  zoom: 1;
+}
+.main .place .label-span {
+  line-height: 40px;
+  font-weight: bold;
+  float: left;
+  margin-left: 12px;
+}
+.main .place li {
+  float: left;
+  line-height: 40px;
+  padding-left: 7px;
+  padding-right: 12px;
+}
+.main .content-wrap {
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  _height: expression(document.body.offsetHeight - 44 + 'px');
+  background-color: #fff;
+}
+.left-collapse {
+  position: absolute;
+  left: 187px;
+  top: 50%;
+  width: 9px;
+  height: 56px;
+  background: url(../images/left-collapse.png) 0 0 no-repeat;
+  cursor: pointer;
+}
+.left-collapse.collapsed {
+  left: 0;
+  background-position: 0 -56px;
+}
+.top-collapse {
+  position: absolute;
+  top: 88px;
+  right: 50%;
+  z-index: 999;
+  width: 56px;
+  height: 9px;
+  background: url(../images/top-collapse.png) -56px 0 no-repeat;
+  cursor: pointer;
+}
+.top-collapse.collapsed {
+  top: 0;
+  background-position: 0 0;
+}
+.left-menu {
+  position: relative;
+  height: 100%;
+  font-family: Microsoft YaHei, 微软雅黑, MicrosoftJhengHei;
+  background: #c2dcf5 url(../images/leftline.gif) repeat-y right;
+  overflow: auto;
+  zoom: 1;
+}
+.left-menu .left-menu-top {
+  position: relative;
+  background-color: #c6e9f8;
+  border-right: 1px solid #b7d5df;
+}
+.left-menu .left-menu-top ul {
+  padding: 5px 10px;
+}
+.left-menu .left-menu-top .left-menu-top-btn {
+  position: relative;
+  padding: 5px 0;
+  text-align: center;
+  overflow: hidden;
+  zoom: 1;
+}
+.left-menu .left-menu-top .left-menu-top-btn.border {
+  background: url(../images/left-menu-top-btn-border.png) 26px 100% no-repeat;
+}
+.left-menu .left-menu-top .left-menu-top-btn .icon {
+  position: absolute;
+  top: 0;
+  left: 4px;
+}
+.left-menu .left-menu-top .left-menu-top-btn .icon img {
+  margin: 7px 0;
+  vertical-align: middle;
+}
+.left-menu .left-menu-top .left-menu-top-btn a {
+  display: block;
+  height: 23px;
+  line-height: 23px;
+  padding-left: 30px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.left-menu .left-menu-top .left-menu-top-btn a:hover {
+  background-color: #a8d7ed;
+}
+.left-menu .left-menu-top .left-menu-top-btn a.active {
+  background-color: #a8d7ed;
+}
+.left-menu .left-menu-list {
+  position: relative;
+}
+.left-menu .left-menu-list .left-menu-first-node {
+  position: relative;
+  height: 40px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 40px;
+  background: url(../images/lefttop.gif) repeat-x;
+}
+.left-menu .left-menu-list .left-menu-first-node .first-icon {
+  margin-left: 14px;
+  margin-top: 10px;
+  margin-right: 6px;
+  background: url(../images/leftico.png) no-repeat;
+  width: 20px;
+  height: 21px;
+  float: left;
+}
+.left-menu .left-menu-list .left-menu-first-node .first-title .text {
+  font-weight: bold;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .second-title {
+  background: url(../images/leftmenubg.gif) repeat-x;
+  color: #252525;
+  height: 35px;
+  line-height: 35px;
+  font-size: 12px;
+  border-right: 1px solid #b7d5df;
+  cursor: pointer;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .second-title .second-icon {
+  margin-left: 16px;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .second-title .second-icon img {
+  margin: 10px 0;
+  vertical-align: middle;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .second-title .text {
+  margin-left: 8px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .second-title.default-second-icon {
+  overflow: hidden;
+  zoom: 1;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .second-title.default-second-icon .second-icon {
+  float: left;
+  background: url(../images/leftico01.png);
+  width: 16px;
+  height: 16px;
+  margin-top: 10px;
+  vertical-align: middle;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .second-title.default-second-icon .text {
+  float: left;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .menu-son {
+  position: relative;
+  display: none;
+  line-height: 30px;
+  font-weight: normal;
+  font-size: 12px;
+  background-color: #fff;
+  zoom: 1;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .menu-son li {
+  position: relative;
+  *float: left;
+  width: 100%;
+  cursor: pointer;
+  overflow: hidden;
+  zoom: 1;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .menu-son li .li-icon {
+  float: left;
+  margin-left: 35px;
+  background: url(../images/list.gif) no-repeat;
+  width: 16px;
+  height: 16px;
+  margin-top: 7px;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .menu-son li.active {
+  background: url(../images/libg.png) repeat-x;
+  line-height: 30px;
+  color: #fff;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .menu-son li.active .li-icon {
+  background: url(../images/list1.gif) no-repeat;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .menu-son li.active .right-arrow {
+  position: absolute;
+  z-index: 10000;
+  top: 9px;
+  right: 0;
+  _right: -1px;
+  display: block;
+  width: 6px;
+  height: 11px;
+  background: url(../images/sj.png) no-repeat;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .menu-son li.active a {
+  color: #fff;
+}
+.left-menu .left-menu-list .left-menu-first-node .left-menu-second-node .menu-son li a {
+  display: block;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 1px solid #b7d5df;
+}
+.left-menu .left-menu-list .active .left-menu-second-node {
+  display: block;
+}
