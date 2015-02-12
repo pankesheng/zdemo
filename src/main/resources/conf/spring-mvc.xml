@@ -25,6 +25,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 			<list>
 				<value>/file/upload.ajax</value>
 				<value>/index/index.do</value>
+				<value>/index2/index.do</value>
 				<value>/index/logout.ajax</value>
 				<value>/index/staticize.ajax</value>
 				<value>/www/.*</value>
