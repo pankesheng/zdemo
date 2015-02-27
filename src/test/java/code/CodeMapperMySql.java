@@ -12,6 +12,7 @@ public class CodeMapperMySql {
 		
 		Field[] f = className.getDeclaredFields();
 
+		System.out.println("	<!-- 大于等于(&gt;=);小于等于(&lt;=);IS NOT NULL; -->");
 		System.out.println("	<sql id=\"qbuilder\">");
 		System.out.println("		<where>");
 		System.out.println("			<if test=\"qbuilder.id != null\">"+tableName+".id = #{qbuilder.id}</if>");
