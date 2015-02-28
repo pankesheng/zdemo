@@ -139,13 +139,13 @@ function z_openIframe(title, width, height, src) {
 	});
 }
 
-// 删除
-function z_delete(dataString, url) {
+// 操作
+function z_oper(dataString, url, oper) {
 	if (dataString.length == 0) {
 		layer.alert('请选择至少一条记录！', 8);
 		return false;
 	}
-	layer.confirm('确认删除选定记录？', function() {
+	layer.confirm('确认'+oper+'？', function() {
 		$.getJSON(url + '?' + dataString, function(json, textStatus) {
 			if (json.s) {
 				grid.reload();
@@ -155,6 +155,11 @@ function z_delete(dataString, url) {
 			}
 		});
 	});
+}
+
+// 删除
+function z_delete(dataString, url) {
+	z_oper(dataString, url, "删除");
 }
 
 // 图片居中显示
