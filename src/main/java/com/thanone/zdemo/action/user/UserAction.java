@@ -1,11 +1,15 @@
 package com.thanone.zdemo.action.user;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
@@ -16,9 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thanone.zdemo.common.BuiPageResult;
+import com.thanone.zdemo.common.Configuration;
+import com.thanone.zdemo.dto.ExportExcelUserDto;
 import com.thanone.zdemo.entity.user.User;
 import com.thanone.zdemo.service.user.UserService;
 import com.zcj.util.UtilString;
+import com.zcj.util.poi.excel.ExcelUtil;
+import com.zcj.web.dto.DownloadResult;
 import com.zcj.web.dto.ServiceResult;
 import com.zcj.web.springmvc.action.BasicAction;
 
@@ -93,6 +101,49 @@ public class UserAction extends BasicAction {
 	public void cancelvalid(HttpServletRequest request, @PathVariable Long id, PrintWriter out) {
 		userService.updateState(id, 0);
 		out.write(ServiceResult.initSuccessJson(null));
+	}
+	
+	@RequestMapping("/export")
+	public void export(PrintWriter out) {
+		// 查询数据
+		Map<String, Object> qbuilder = new HashMap<String, Object>();
+		List<User> stList = userService.find(null, qbuilder, null);
+		List<ExportExcelUserDto> dtoList = ExportExcelUserDto.byEntityList(stList);
+		
+		// 通过模板生成Excel
+		String absoluteFile = Configuration.getRealPath() + File.separator + "template" + File.separator + ExportExcelUserDto.FILENAME_TEMPLAT;
+		String path = File.separator + "download" + File.separator + UtilString.getUUID() + ".xls";
+		String downloadFile = Configuration.getRealPath() + path;
+		try {
+			ExcelUtil.getInstance().exportObjToExcelByTemplate(null, absoluteFile, downloadFile, dtoList, ExportExcelUserDto.class);
+			out.write(ServiceResult.initSuccessJson(new DownloadResult(ExportExcelUserDto.FILENAME_EXPORT, path)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			out.write(ServiceResult.initErrorJson("生成Excel失败"));
+		}
+	}
+
+	@RequestMapping("/exportdownload")
+	public void exportdownload(String path, String fileName, HttpServletRequest request, HttpServletResponse response) {
+//		if (StringUtils.isBlank(path) || StringUtils.isBlank(fileName)) {
+//			return;
+//		}
+//		OutputStream fOut = null;
+//		try {
+//			InputStream excelStream = new FileInputStream(new File(Configuration.getRealPath() + path));
+//			fileName = URLEncoder.encode(fileName, "UTF-8");
+//			
+//			response.setContentType("application/vnd.ms-excel");
+//			response.setHeader("content-disposition", "attachment;filename=" + fileName);
+//			fOut = response.getOutputStream();
+//			
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 }

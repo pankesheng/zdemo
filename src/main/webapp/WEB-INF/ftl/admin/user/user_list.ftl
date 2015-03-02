@@ -28,6 +28,7 @@
     	<div class="list-hd">
         	<a onclick="add()" href="#" title="" class="c-btn primary-label">添加</a>
         	<a onclick="removeItems()" href="#" title="" class="c-btn primary-label">删除</a>
+        	<a onclick="zexport()" href="#" title="" class="c-btn primary-label">导出</a>
             <b class="round-left"></b>
             <b class="round-right"></b>
         </div>
@@ -104,6 +105,19 @@
 	function removeItems(){
 		var data = $('#grid').getSelectedValuesString();
 		z_delete(data, '${contextPath}/user/delete.ajax');
+	}
+	
+	// 导出
+	function zexport() {
+		$.ajax({url:"${contextPath}/user/export.ajax",data:{},type:"post",dataType:"json", success: function(data){
+	        if(data.s!=1){
+	          alert(data.d);
+	          return;
+	        }
+	        var url = "${contextPath}/user/exportdownload.ajax?path="+encodeURI(data.d.url)+"&fileName="+encodeURI(data.d.fileName);
+	        alert(url);
+	        // window.location.href=url;
+		}});
 	}
 	
 	//显示隐藏

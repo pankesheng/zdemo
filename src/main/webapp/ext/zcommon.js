@@ -145,8 +145,12 @@ function z_oper(dataString, url, oper) {
 		layer.alert('请选择至少一条记录！', 8);
 		return false;
 	}
+	var theUrl = url + '?' + dataString;
+	if (url.indexOf("?") > 0) {
+		theUrl = url + '&' + dataString;
+	}
 	layer.confirm('确认'+oper+'？', function() {
-		$.getJSON(url + '?' + dataString, function(json, textStatus) {
+		$.getJSON(theUrl, function(json, textStatus) {
 			if (json.s) {
 				grid.reload();
 				layer.closeAll();

@@ -29,6 +29,7 @@
 </script>
 </head>
 <body>
-
+<button onclick="location.href='<%=request.getContextPath() %>/index/index.do'">第一套样式入口</button>
+<button onclick="location.href='<%=request.getContextPath() %>/index2/index.do'">第二套样式入口</button>
 </body>
 </html>
