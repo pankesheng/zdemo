@@ -100,7 +100,6 @@
                     }else{
                         $children.slideDown();
                     }
-                    
                 });
                 //选择
                 $aim.find('.menu-son li').bind('click', function(event) {
