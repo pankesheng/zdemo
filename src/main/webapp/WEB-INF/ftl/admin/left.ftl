@@ -9,14 +9,28 @@
     <link rel="stylesheet" href="${contextPath}/admin2/stylesheets/index.css" />
 </head>
 <body>
-    <div class="left-menu">
+	<div class="left-menu">
         <div class="left-menu-top">
             <ul>
-                <li class="left-menu-top-btn">
+                <!-- 下部边框加 border 最后一个不要加 -->
+                <li class="left-menu-top-btn border">
+                    <i class="icon">
+                        <img src="${contextPath}/admin2/images/top-icon-1.png" width="18" height="18" />
+                    </i> 
+                    <!-- data-path是存放右侧的路径的 href要对应 -->
+                    <a class="navigation" data-path="<li><a href='${contextPath}/admin2/main.html' target='rightFrame'>系统菜单</a></li>" href="${contextPath}/admin2/main.html" target="rightFrame">系统菜单</a>
+                </li>
+                <li class="left-menu-top-btn border">
                     <i class="icon">
                         <img src="${contextPath}/admin2/images/top-icon-2.png" width="18" height="18" />
                     </i> 
-                    <a class="navigation" data-path="<li><a href='${contextPath}/article/toadd.do' target='rightFrame'>信息发布</a></li>" href="${contextPath}/article/toadd.do" target="rightFrame">信息发布</a>
+                    <a class="navigation" data-path="<li><a href='${contextPath}/admin2/main.html' target='rightFrame'>系统菜单</a></li>" href="${contextPath}/admin2/main.html" target="rightFrame">系统菜单</a>
+                </li>
+                <li class="left-menu-top-btn">
+                    <i class="icon">
+                        <img src="${contextPath}/admin2/images/top-icon-3.png" width="18" height="18" />
+                    </i>
+                    <a class="navigation" data-path="<li><a href='${contextPath}/admin2/main.html' target='rightFrame'>系统菜单</a></li>" href="${contextPath}/admin2/main.html" target="rightFrame">系统菜单</a>
                 </li>
             </ul>
         </div>
@@ -27,7 +41,7 @@
     <!--[if lt IE 8]>
     <script type="text/javascript" src="${contextPath}/ext/DD_belatedPNG/DD_belatedPNG.js"></script>
     <script>
-    DD_belatedPNG.fix('.first-icon, .right-arrow, img, img');
+        DD_belatedPNG.fix('.first-icon, .right-arrow, background, background');
     </script>
     <![endif]-->
     <script type="text/javascript" src="${contextPath}/admin2/javascripts/jquery-zwbam-0.0.1.js"></script>
@@ -55,53 +69,22 @@
                         "url": "${contextPath}/user/tolist.do"
                     }]
                 }, {
-                    "name": "用户组管理",
-                    "url": "#",
-                    "childs": [{
-                        "name": "用户组管理",
-                        "url": "/usergroup/tolist.do"
-                    }, {
-                        "name": "用户管理",
-                        "url": "/user/tolist.do"
-                    }, {
-                        "name": "广告管理",
-                        "url": "/ad/tolist.do"
-                    }, {
-                        "name": "广告管理",
-                        "url": "/ad/tolist.do"
-                    }, {
-                        "name": "广告管理",
-                        "url": "/ad/tolist.do"
-                    }]
-                }, {
-                    "name": "用户管理",
-                    "url": "#",
-                    "childs": [{
-                        "name": "用户组管理",
-                        "url": "/usergroup/tolist.do"
-                    }, {
-                        "name": "用户管理",
-                        "url": "/user/tolist.do"
-                    }, {
-                        "name": "广告管理",
-                        "url": "/ad/tolist.do"
-                    }]
-                }, {
                     "name": "广告管理",
                     "url": "#",
                     "childs": [{
                         "name": "用户组管理",
-                        "url": "/usergroup/tolist.do"
+                        "url": "${contextPath}/user/tolist.do"
                     }, {
                         "name": "用户管理",
-                        "url": "/user/tolist.do"
+                        "url": "${contextPath}/user/tolist.do"
                     }, {
                         "name": "广告管理",
-                        "url": "/ad/tolist.do"
+                        "url": "${contextPath}/user/tolist.do"
                     }]
                 }]
             }]
         });
     </script>
+
 </body>
 </html>

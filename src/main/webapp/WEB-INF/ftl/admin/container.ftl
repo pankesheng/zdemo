@@ -23,11 +23,11 @@
             <iframe class="content" src="${contextPath}/admin2/main.html" name="rightFrame" id="rightFrame" frameborder="0" title="rightFrame" ></iframe>
         </div>
     </div>
-    <div class="left-collapse" id="left-collapse" title="向左折叠"></div>
+    <div class="left-collapse" id="left-collapse" title="折叠"></div>
     <!--[if lt IE 8]>
     <script type="text/javascript" src="${contextPath}/ext/DD_belatedPNG/DD_belatedPNG.js"></script>
     <script>
-    DD_belatedPNG.fix('.left-collapse, .top-collapse, img, img');
+    	DD_belatedPNG.fix('.left-collapse, background');
     </script>
     <![endif]-->
     <script>
@@ -40,11 +40,26 @@
         /*向左折叠*/
         $(function(){
             $('#left-collapse').toggle(function() {
-                $('body').addClass('left-collapse-body');
-                $(this).addClass('collapsed');
+                $('.left').width(0);
+                $('.main').css({
+                    left: '0',
+                    width: '100%'
+                });
+                $(this).attr('title', '展开').css({
+                    left: '0',
+                    top: '50%',
+                    backgroundPosition: '0 -56px'
+                });
             }, function() {
-                $('body').removeClass('left-collapse-body');
-                $(this).removeClass('collapsed');
+                $('.left').width(187);
+                $('.main').attr('style', '').css({
+                    left: '187px'
+                });
+                $(this).attr('title', '折叠').css({
+                    left: '187px',
+                    top: '50%',
+                    backgroundPosition: '0 0'
+                });
             });
         });
     </script>
