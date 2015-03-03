@@ -114,9 +114,8 @@
 	          alert(data.d);
 	          return;
 	        }
-	        var url = "${contextPath}/user/exportdownload.ajax?path="+encodeURI(data.d.url)+"&fileName="+encodeURI(data.d.fileName);
-	        alert(url);
-	        // window.location.href=url;
+	        var url = "${contextPath}/file/download.ajax?path="+encodeURI(data.d.url)+"&fileName="+encodeURI(data.d.fileName);
+	        window.location.href=url;
 		}});
 	}
 	

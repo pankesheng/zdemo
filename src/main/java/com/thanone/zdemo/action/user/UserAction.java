@@ -3,13 +3,13 @@ package com.thanone.zdemo.action.user;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
@@ -24,6 +24,7 @@ import com.thanone.zdemo.common.Configuration;
 import com.thanone.zdemo.dto.ExportExcelUserDto;
 import com.thanone.zdemo.entity.user.User;
 import com.thanone.zdemo.service.user.UserService;
+import com.zcj.util.UtilDate;
 import com.zcj.util.UtilString;
 import com.zcj.util.poi.excel.ExcelUtil;
 import com.zcj.web.dto.DownloadResult;
@@ -115,7 +116,11 @@ public class UserAction extends BasicAction {
 		String path = File.separator + "download" + File.separator + UtilString.getUUID() + ".xls";
 		String downloadFile = Configuration.getRealPath() + path;
 		try {
-			ExcelUtil.getInstance().exportObjToExcelByTemplate(null, absoluteFile, downloadFile, dtoList, ExportExcelUserDto.class);
+			Map<String, String> datas = new HashMap<String, String>();
+			datas.put("title", "这里是标题");
+			datas.put("date", UtilDate.SDF_DATETIME.get().format(new Date()));
+			datas.put("dep", "这里是额外信息");
+			ExcelUtil.getInstance().exportObjToExcelByTemplate(datas, absoluteFile, downloadFile, dtoList, ExportExcelUserDto.class);
 			out.write(ServiceResult.initSuccessJson(new DownloadResult(ExportExcelUserDto.FILENAME_EXPORT, path)));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,27 +128,4 @@ public class UserAction extends BasicAction {
 		}
 	}
 
-	@RequestMapping("/exportdownload")
-	public void exportdownload(String path, String fileName, HttpServletRequest request, HttpServletResponse response) {
-//		if (StringUtils.isBlank(path) || StringUtils.isBlank(fileName)) {
-//			return;
-//		}
-//		OutputStream fOut = null;
-//		try {
-//			InputStream excelStream = new FileInputStream(new File(Configuration.getRealPath() + path));
-//			fileName = URLEncoder.encode(fileName, "UTF-8");
-//			
-//			response.setContentType("application/vnd.ms-excel");
-//			response.setHeader("content-disposition", "attachment;filename=" + fileName);
-//			fOut = response.getOutputStream();
-//			
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-	}
-	
 }

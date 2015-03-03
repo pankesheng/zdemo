@@ -1,10 +1,20 @@
 package com.thanone.zdemo.action;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -109,6 +119,44 @@ public class FileAction extends BasicAction {
 			return;
 		}
 		
+	}
+	
+	/**
+	 * 文件下载
+	 * @param path 相对项目的路径，如"/download/test.xls"
+	 * @param fileName 保存的文件名，带文件后缀，可以是中文，如"用户信息.xls"
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/download")
+	public String download(String path, String fileName, HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+			File f = new File(Configuration.getRealPath() + path);
+
+			InputStream ins = new BufferedInputStream(new FileInputStream(Configuration.getRealPath() + path));
+			byte[] buffer = new byte[ins.available()];
+			ins.read(buffer);
+			ins.close();
+
+			response.reset();
+			response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+			response.addHeader("Content-Length", "" + f.length());
+			OutputStream ous = new BufferedOutputStream(response.getOutputStream());
+			response.setContentType("application/vnd.ms-excel");
+			ous.write(buffer);
+			ous.flush();
+			ous.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 }
