@@ -286,11 +286,12 @@ body {
 .header {
   height: 88px;
   padding: 0 0 0 18px;
-  background-color: #366dd1;
+  background-color: #428BCA;
 }
 .header .logo {
   float: left;
-  margin-top: 14px;
+  margin-top: 10px;
+  margin-right: 15px;
 }
 .header .logo img {
   display: block;

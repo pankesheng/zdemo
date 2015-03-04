@@ -17,14 +17,17 @@
     <script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
     <script>
         $(function(){
+            var height = 0;
+
             $('#top-collapse').toggle(function() {
-                $('#container').css('height', '100%').removeClass('top-iframe-margin');
+                height = $('#container').height();
+                $('#container').height('100%').removeClass('top-iframe-margin');
                 $(this).attr('title', '展开').css({
                     top: '0',
                     backgroundPosition: '0 0'
                 });
             }, function() {
-                $('#container').attr('style', '').addClass('top-iframe-margin');
+                $('#container').height(height).addClass('top-iframe-margin');
                 $(this).attr('title', '折叠').css({
                     top: '88px',
                     backgroundPosition: '-56px 0'
