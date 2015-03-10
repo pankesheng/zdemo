@@ -1,4 +1,4 @@
-<#ftl strip_whitespace=true>
+<#-- <#ftl strip_whitespace=true> -->
 
 <#-- <@z.z_substring val="abcdefg" len=3/> -->
 <#macro z_substring val len>

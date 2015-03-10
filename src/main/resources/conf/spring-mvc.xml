@@ -82,7 +82,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
     </bean>
 	
 	<!-- freemarker config -->
-    <bean id="freemarkerConfig" name="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"> 
+    <bean id="freemarkerConfig" name="freemarkerConfig" class="com.zcj.util.freemarker.MyFreeMarkerConfigurer"> 
         <property name="templateLoaderPath" value=""/> 
         <property name="defaultEncoding" value="UTF-8" /><!-- 指定编码格式 -->
         <property name="freemarkerVariables">
