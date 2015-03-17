@@ -48,7 +48,7 @@
     <script>
         /*菜单生成
         * $('.left-menu-list').zwbam('initMenu', 第二个参数)
-        * 第二个参数可以为 json对象 或 菜单json请求地址
+        * 第二个参数可以为 json对象 或 菜单json请求地址，如果是请求地址，则需要带上随机数的参数，因为是get请求，会缓存
         */
         $('.left-menu-list').zwbam('initMenu', {
             "s": 1,
