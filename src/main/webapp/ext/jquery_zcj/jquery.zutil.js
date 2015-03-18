@@ -45,8 +45,13 @@ function zutil_browser() {
     	browserParams.btype = "firefox";
     	browserParams.bversion = sys.firefox;
     } else if (sys.chrome) {
-    	browserParams.btype = "chrome";
-    	browserParams.bversion = sys.chrome;
+    	if(window.navigator.webkitPersistentStorage){  
+    		browserParams.btype = "chrome";
+        	browserParams.bversion = sys.chrome;
+        }else{
+        	browserParams.btype = "360";
+        	browserParams.bversion = sys.chrome;
+        }
     } else if (sys.opera) {
     	browserParams.btype = "opera";
     	browserParams.bversion = sys.opera;
