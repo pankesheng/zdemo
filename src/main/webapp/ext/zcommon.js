@@ -165,32 +165,3 @@ function z_oper(dataString, url, oper) {
 function z_delete(dataString, url) {
 	z_oper(dataString, url, "删除");
 }
-
-// 图片居中显示
-// z_DrawImage($("#img1"),80,60);
-function z_DrawImage(ImgD,iwidth,iheight){
-	var image=new Image();
-	image.src=ImgD.src;
-	if(image.width > 0 && image.height > 0){
-		if(image.width/image.height >= iwidth/iheight){
-			if(image.width>iwidth){
-				ImgD.width=iwidth;
-				ImgD.height=(image.height*iwidth)/image.width;
-			}else{
-				ImgD.width=image.width;
-				ImgD.height=image.height;
-			}
-			$(ImgD).css({"margin-top":(iheight - ImgD.height) / 2,"margin-left":(iwidth - ImgD.width) / 2});
-		}
-		else{
-			if(image.height>iheight){
-				ImgD.height=iheight;
-				ImgD.width=(image.width*iheight)/image.height;
-			}else{
-				ImgD.width=image.width;
-				ImgD.height=image.height;
-			}
-			$(ImgD).css({"margin-top":(iheight - ImgD.height) / 2,"margin-left":(iwidth - ImgD.width) / 2});
-		}
-	}
-}
