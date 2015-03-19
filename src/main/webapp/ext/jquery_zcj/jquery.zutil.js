@@ -27,8 +27,47 @@ function zutil_drawImage(ImgD,iwidth,iheight){
 	}
 }
 
-// 获取浏览器内核类型和版本号，返回JSON对象(如：{btype:"ie",bversion:"9.0"})
+/**
+ * 获取浏览器内核类型和版本号，返回JSON对象(如：{btype:"ie",bversion:"9.0"})
+ * 依赖 jquery-1.8.1.min.js 和 jquery.ua.js。不支持jquery-1.9。
+ */
 function zutil_browser() {
+	
+	var btype = "";
+	if ($.ua.isChrome) {
+		btype = "chrome";
+	} else if ($.ua.isFirefox) {
+		btype = "firefox";
+	} else if ($.ua.is360se) {
+		btype = "360se";
+	} else if ($.ua.is360ee) {
+		btype = "360ee";
+	} else if ($.ua.isLiebao) {
+		btype = "liebao";
+	} else if ($.ua.isSougou) {
+		btype = "sougou";
+	} else if ($.ua.isQQ) {
+		btype = "qq";
+	} else if ($.ua.isMaxthon) {
+		btype = "maxthon";
+	} else if ($.ua.isIe) {
+		btype = "ie";
+	}
+	
+	if (btype != "") {
+		return {btype: btype, bversion: $.browser.version};
+	} else {
+		return zutil_browser_base();
+	}
+	
+}
+
+/** 
+ * @deprecated
+ * 无法识别外壳，由zutil_browser()方法代替。
+ * 获取浏览器内核类型和版本号，返回JSON对象(如：{btype:"ie",bversion:"9.0"})
+  */
+function zutil_browser_base() {
 	var browserParams = {btype:"",bversion:""};
     var sys = {};
     var ua = navigator.userAgent.toLowerCase();
@@ -45,13 +84,8 @@ function zutil_browser() {
     	browserParams.btype = "firefox";
     	browserParams.bversion = sys.firefox;
     } else if (sys.chrome) {
-    	if(window.navigator.webkitPersistentStorage){  
-    		browserParams.btype = "chrome";
-        	browserParams.bversion = sys.chrome;
-        }else{
-        	browserParams.btype = "360";
-        	browserParams.bversion = sys.chrome;
-        }
+    	browserParams.btype = "chrome";
+        browserParams.bversion = sys.chrome;
     } else if (sys.opera) {
     	browserParams.btype = "opera";
     	browserParams.bversion = sys.opera;
