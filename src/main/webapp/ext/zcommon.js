@@ -150,14 +150,15 @@ function z_oper(dataString, url, oper) {
 		theUrl = url + '&' + dataString;
 	}
 	layer.confirm('确认'+oper+'？', function() {
-		$.getJSON(theUrl, function(json, textStatus) {
-			if (json.s) {
-				grid.reload();
+		$.post(theUrl, function(data){
+			if(data.s!=1){
+				layer.alert(data.d, 8);
+	        } else {
+	        	grid.reload();
 				layer.closeAll();
-			} else {
-				layer.alert(json.d, 8);
-			}
-		});
+				alert(data.d||"操作成功！");
+	        }
+		}, "json");
 	});
 }
 

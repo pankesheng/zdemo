@@ -9,6 +9,14 @@ function _submit() {
         alert(data.d||"操作成功！");
         window.location.href="<%=request.getContextPath() %>/2011";
 	}});
+	
+	$.post("test.php", { "func": "getNameAndTime" }, function(data){
+		if(data.s!=1){
+			alert(data.d);
+			return;
+        }
+        alert(data.d||"操作成功！");
+	}, "json");
 }
 function Jquery_js() {
 	$(document).ready(function(){
