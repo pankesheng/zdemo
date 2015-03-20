@@ -1,4 +1,4 @@
-package service;
+package test.service;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

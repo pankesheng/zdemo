@@ -1,4 +1,4 @@
-package code;
+package test.code;
 
 import com.zcj.web.mybatis.entity.BasicEntity;
 

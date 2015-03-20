@@ -9,7 +9,7 @@
 	<url>http://maven.apache.org</url>
 
 	<build>
-		<finalName>ohedumes</finalName>
+		<finalName>zdemo</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<resources>
@@ -25,6 +25,9 @@
 			</resource>
 		</resources>
 		<testResources>
+			<testResource>
+				<directory>src/test/java</directory>
+			</testResource>
 			<testResource>
 				<directory>src/test/resources</directory>
 			</testResource>
