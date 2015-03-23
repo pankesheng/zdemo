@@ -1,6 +1,8 @@
 
-// 图片居中显示 zutil_drawImage($("#img1"),80,60);
-function zutil_drawImage(ImgD,iwidth,iheight){
+var zutil = {};
+
+//图片居中显示 zutil.drawImage($("#img1"),80,60);
+zutil.drawImage = function (ImgD,iwidth,iheight) {
 	var image=new Image();
 	image.src=ImgD.src;
 	if(image.width > 0 && image.height > 0){
@@ -31,8 +33,7 @@ function zutil_drawImage(ImgD,iwidth,iheight){
  * 获取浏览器内核类型和版本号，返回JSON对象(如：{btype:"ie",bversion:"9.0"})
  * 依赖 jquery-1.8.1.min.js 和 jquery.ua.js。不支持jquery-1.9。
  */
-function zutil_browser() {
-	
+zutil.browser = function() {
 	var btype = "";
 	if ($.ua.isChrome) {
 		btype = "chrome";
@@ -57,17 +58,16 @@ function zutil_browser() {
 	if (btype != "") {
 		return {btype: btype, bversion: $.browser.version};
 	} else {
-		return zutil_browser_base();
+		return zutil.browser_base();
 	}
-	
 }
 
 /** 
  * @deprecated
- * 无法识别外壳，由zutil_browser()方法代替。
+ * 无法识别外壳，由browser()方法代替。
  * 获取浏览器内核类型和版本号，返回JSON对象(如：{btype:"ie",bversion:"9.0"})
   */
-function zutil_browser_base() {
+zutil.browser_base = function() {
 	var browserParams = {btype:"",bversion:""};
     var sys = {};
     var ua = navigator.userAgent.toLowerCase();
