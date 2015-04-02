@@ -19,7 +19,11 @@
 	<div class="header">
     	<p class="logo"><img src="${contextPath}/admin/images/logo.png" height="35" title="" alt=""></p>
         <div class="user-set">
-        	<span></span>
+        	<span>李先生【信访科】</span>
+            <span class="line">|</span>
+        	<a href="#" title="">修改密码</a>
+            <span class="line">|</span>
+        	<a href="#" title="">退出</a>
         </div>
     </div>
     

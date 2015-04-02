@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>教育系统</title>
+<link rel="stylesheet" type="text/css" href="../styles/reset.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../styles/common.css" media="screen" />
+</head>
+<body class="body"><!--全屏加class="full-left",class="full-top"-->
+	<div class="header">
+    	<p class="logo"><a href="#" title=""><img src="../images/logo.png" width="292" height="45" title="" alt="" /></a></p>
+        <div class="user-set">
+        	<span>李先生【信访科】</span>
+            <span class="line">|</span>
+        	<a href="#" title="">修改密码</a>
+            <span class="line">|</span>
+        	<a href="#" title="">退出</a>
+        </div>
+    </div>
+    
+    <div class="content">
+        <div class="menu">
+            <div class="menu-box">
+            	<h2 class="menu-hd">系统菜单</h2>
+                <ul>
+                    <li><h6>线索录入</h6></li>
+                    <li class="on">
+						<h6>查看本单位线索</h6>
+						<div class="item">
+							<a href="#" title="">修改密码</a>
+							<a href="#" title="">我的订单</a>
+							<a href="#" title="">用户中心</a>
+							<a href="#" title="">系统设置</a>
+							<a href="#" title="">我的收藏</a>
+							<a href="#" title="">查看更多</a>
+						</div>
+					</li>
+                    <li>
+                        <h6>查看全局线索</h6>
+                        <div class="item">
+                            <a href="#" title="">修改密码</a>
+                            <a href="#" title="">我的订单</a>
+                            <a href="#" title="">用户中心</a>
+                            <a href="#" title="">系统设置</a>
+                            <a href="#" title="">我的收藏</a>
+                            <a href="#" title="">查看更多</a>
+                        </div>
+                    </li>
+                    <li><h6>嫌疑图片库</h6></li>
+                    <li><h6>查询统计</h6></li>
+                    <li><h6>查看待审核线索</h6></li>
+                </ul>
+            </div>
+            
+            <div class="shadow-left"></div><!--阴影-->
+        </div>
+        
+        <div class="main">
+            <div class="tab-body">
+            	<iframe class="iframe" scrolling="auto" frameborder="0" src="form.html"></iframe>
+            </div>
+            <div class="comp-box">
+                <div class="comp-hd">
+                </div>
+                <div class="comp-bd">
+                </div>
+            </div> 
+            
+            <div class="screen-left"><a href="javascript:void(0);" title="向左缩进"></a></div>
+            <div class="screen-top"><a href="javascript:void(0);" title="向上缩进"></a></div>
+            <div class="round-left-top"></div><!--左上圆角-->
+            <div class="round-left-bottom"></div><!--左下圆角-->
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>   
+	<!--[if lt IE 8]>
+	<script type="text/javascript" src="../js/DD_belatedPNG.js"></script>        
+	<script type="text/javascript">     
+	    DD_belatedPNG.fix('.round-left-top, .round-left-bottom, .shadow-left');    
+	</script>
+	<![endif]-->
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        $(".screen-left,.screen-top").click(function(){
+	            var b=$(document.body);
+	            if($(this).hasClass("screen-left")){
+	                b.hasClass("full-left")?b.removeClass("full-left"):b.addClass("full-left");
+	            }
+	            else{
+	                b.hasClass("full-top")?b.removeClass("full-top"):b.addClass("full-top");
+	            }
+	        });
+	        //左侧菜单导航
+	        $('.menu li').click(function(){
+	            var item = $(this).find('.item');
+	            
+	            if(!item.is(':hidden')){
+	                return false;
+	            }
+	            
+	            //移除选中效果
+	            $('.menu li.on').removeClass('on');
+	            //添加选中效果
+	            $(this).addClass('on');
+	
+	            $('.menu li .item').slideUp('fast');
+	            item.slideDown('fast');
+	        });
+	
+	        //导航
+	        $('.menu li .item a').click(function(){
+	            $('.menu li .item a').removeClass('selected');
+	            $(this).addClass('selected');
+	            
+	            //载入页面
+	            $('.main iframe').attr('src', $(this).attr('href') + '?n=' + Math.random());
+	        });
+	    });
+    </script>
+</body>
+</html>
