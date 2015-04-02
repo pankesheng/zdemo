@@ -20,7 +20,7 @@
             </ul>
         </div>
         <div class="content-wrap">
-            <iframe class="content" src="${contextPath}/admin2/main.html" name="rightFrame" id="rightFrame" frameborder="0" title="rightFrame" ></iframe>
+            <iframe class="content" src="${contextPath}/index/main.do" name="rightFrame" id="rightFrame" frameborder="0" title="rightFrame" ></iframe>
         </div>
     </div>
     <div class="left-collapse" id="left-collapse" title="折叠"></div>

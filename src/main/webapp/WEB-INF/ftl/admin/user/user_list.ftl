@@ -11,20 +11,24 @@
 	<script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/ext/layer/layer.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/ext/zw/grid.js?v=${sversion}"></script>
-	<script type="text/javascript" src="${contextPath}/ext/zcommon.js?v=${sversion}" basepath="${contextPath}"></script>
+	<script type="text/javascript" src="${contextPath}/ext/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
 </head>
 <body>
 <div class="space">
     <div>
-    	<#-- 
     	<div id="searchDiv">
-    		<select id="depSelect" size="1">
-    			<option value="">--请选择部门--</option>
-			</select>
-			<input id="checkDea" type="checkbox" name="defaults" value="1" ><label for="checkDea">只看默认</label>
-			<input id="searchKey" type="text" size="20"><a id="searchBtn" href="javascript:void(0);" class="c-btn primary-label">搜索</a>
+    		选择筛选条件：<select id="searchRole" size="1">
+    			<option value="">--请选择角色--</option>
+    			<option value="1">超级管理员</option>
+    			<option value="2">普通用户</option>
+			</select>&nbsp;
+			<select id="searchState" size="1">
+    			<option value="">--请选择状态--</option>
+    			<option value="1">启用</option>
+    			<option value="0">冻结</option>
+			</select>&nbsp;&nbsp;&nbsp;&nbsp;
+			输入关键字搜索：<input id="searchKey" type="text" size="20"><a id="searchBtn" href="javascript:void(0);" class="c-btn primary-label">搜索</a>
     	</div>
-    	 -->
     	<div class="list-hd">
         	<a onclick="add()" href="#" title="" class="c-btn primary-label">添加</a>
         	<a onclick="removeItems()" href="#" title="" class="c-btn primary-label">删除</a>
@@ -57,7 +61,27 @@
 				{
 					dataIndex: 'realname',
 					align: 'left',
-					header: '名称'
+					header: '真实姓名'
+				},
+				{
+					dataIndex: 'username',
+					header: '账号'
+				},
+				{
+					dataIndex: 'password',
+					header: '密码'
+				},
+				{
+					type: 'custom',
+					dataIndex: 'role',
+					header: '角色',
+					renderer: function(value){
+						if(value == 1){
+							return '超级管理员';
+						}else if (value == 2){
+							return '普通用户';
+						}
+					}
 				},
 				{
 					type: 'custom',
@@ -67,7 +91,7 @@
 						if(value){
 							return '<span style="color:blue">启用</span>';
 						}else{
-							return '<span style="color:red">停用</span>';
+							return '<span style="color:red">冻结</span>';
 						}
 					}
 				},
@@ -76,8 +100,10 @@
 					dataIndex: 'state',
 					renderer: function(value, record){
 						var content = '<a href="#" onclick="editItem($(this));" class="c-btn primary-label">编辑</a>';
+						<#-- 
 						//显示隐藏切换
 						value ? (content += '<a href="#" onclick="showHide($(this));" class="c-btn primary-label" >隐藏</a>'):(content += '<a href="#" onclick="showHide($(this));" class="c-btn primary-label" >显示</a>');
+						 -->
 						return content;
 					},
                     header: '操作'
@@ -88,7 +114,7 @@
 	
 	//添加
 	function add(){
-		z_openIframe('新增', 620, 500, '${contextPath}/user/toadd.do');
+		z_openIframe('新增', 620, 400, '${contextPath}/user/toadd.do');
 		
 		// window.location.href = '${contextPath}/ztTopicArticle/toadd.do';
 	}
@@ -96,7 +122,7 @@
 	//编辑
 	function editItem(that){
 		var data = that.parents('tr').data();
-		z_openIframe('编辑', 620, 500, '${contextPath}/user/tomodify/' + data.id + '.do');
+		z_openIframe('编辑', 620, 400, '${contextPath}/user/tomodify/' + data.id + '.do');
 		
 		// window.location.href = '${contextPath}/ztTopicArticle/tomodify/' + data.id + '.do';
 	}
@@ -119,6 +145,7 @@
 		}});
 	}
 	
+	<#--
 	//显示隐藏
 	function showHide(that){
 		var data = that.parents('tr').data();
@@ -140,13 +167,13 @@
 	        }, "json");
 		}
 	}
+	-->
 	
-	<#-- 
 	$('#searchBtn').click(function(){
     	var params = {
-    		departmentId: $('#depSelect').val(),
+    		searchRole: $('#searchRole').val(),
     		searchKey: $('#searchKey').val(),
-    		defaults: $('#checkDea').is(':checked')?1:0,
+    		searchState: $('#searchState').val(),
     		start: 0
     	};
     	//读取数据
@@ -157,10 +184,10 @@
 		   $('#searchBtn').click(); //处理事件
 		}
 	});
-	$('#depSelect').add('#checkDea').change(function(){
+	$('#searchRole').add('#searchState').change(function(){
 		$('#searchBtn').click();
 	});
-	-->
+	
 </script>
 </body>
 </html>

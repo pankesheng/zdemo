@@ -8,6 +8,10 @@
 		<where>
 			<if test="qbuilder.id != null">t_user.id = #{qbuilder.id}</if>
 			<if test="qbuilder.realname != null">AND t_user.realname like #{qbuilder.realname}</if>
+			<if test="qbuilder.username != null">AND t_user.username = #{qbuilder.username}</if>
+			<if test="qbuilder.password != null">AND t_user.password = #{qbuilder.password}</if>
+			<if test="qbuilder.role != null">AND t_user.role = #{qbuilder.role}</if>
+			<if test="qbuilder.state != null">AND t_user.state = #{qbuilder.state}</if>
 			<!-- 
 				<if test="qbuilder.timebegin != null">AND t_xxx.time &gt;= #{qbuilder.timebegin}</if>
 				<if test="qbuilder.timeend != null">AND t_xxx.time &lt;= #{qbuilder.timeend}</if>
@@ -43,7 +47,7 @@
 				ORDER BY t_user.${orderby}
 			</when>
 			<otherwise>
-				ORDER BY t_user.id
+				ORDER BY t_user.role
 			</otherwise>
 		</choose>
 		<choose>
@@ -69,18 +73,25 @@
 	
 	<insert id="insert">
 		INSERT INTO t_user
-			(id,realname,state,ctime,utime)
+			(id,username,password,role,realname,state,ctime,utime)
 		VALUES
-			(#{object.id},#{object.realname},#{object.state},now(),now())
+			(#{object.id},#{object.username},#{object.password},#{object.role},#{object.realname},#{object.state},now(),now())
 	</insert>
 	
 	<update id="update">
 		UPDATE t_user
 		SET
+			username = #{object.username},
+			password = #{object.password},
+			role = #{object.role},
 			realname = #{object.realname},
 			state = #{object.state},
 			utime = now()
 		WHERE id = #{object.id}
+	</update>
+	
+	<update id="updatePassword">
+		UPDATE t_user SET password = #{password} WHERE id = #{id}
 	</update>
 	
 	<update id="updateState">

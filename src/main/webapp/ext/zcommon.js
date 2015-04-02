@@ -2,19 +2,20 @@
 // 后台管理系统各页面引入
 
 // 参数
-// 		basepath : 根路径，默认空串。
-//		loginpath : 登陆页的绝对路径，如：/poh/login.jsp，默认"/login.jsp"。
-//		loginpager : 是否为登陆页，默认否。
+// 		basepath : 根路径，默认""。
+//		loginpath : 登陆页的相对路径，默认"/login.jsp"。
+//		baseinit : 默认调用哪个方法。可取值：iframeCheckLogin、ajaxCheckLogin。
 var _z_basepath=$("script:last").attr("basepath")||"";
 var _z_loginpath=$("script:last").attr("loginpath")||"/login.jsp";
-var _z_donothing=$("script:last").attr("donothing");
-if (_z_donothing) {
-	
-} else {
+var _z_baseinit=$("script:last").attr("baseinit")||"";
+
+if (_z_baseinit == "iframeCheckLogin") {
+	z_iframeCheckLogin(_z_basepath+_z_loginpath);
+} else if (_z_baseinit == "ajaxCheckLogin") {
 	z_ajaxCheckLogin(_z_basepath+_z_loginpath);
 }
 
-// 验证当前AJAX请求时的登陆状态，如果未登陆，则转到登陆页面
+// 内页调用：验证当前AJAX请求时的登陆状态，如果未登陆，则转到登陆页面
 // z_ajaxCheckLogin("/ohedu/login.jsp");
 function z_ajaxCheckLogin(loginPage) {
 	$(document).ajaxSuccess(function(evt, request, settings){
@@ -31,15 +32,13 @@ function z_ajaxCheckLogin(loginPage) {
 	});
 }
 
-// 当前页面的最顶层页面转到登录页面
+// 登录页调用：当前页面的最顶层页面转到登录页面
 // z_iframeCheckLogin("/ohedu/login.jsp");
 function z_iframeCheckLogin(loginPage) {
 	var ws=_getParents();
 	var w=ws.pop();
 	if(w) {
 		w.location.href=loginPage;
-	} else {
-		window.location.href=loginPage;
 	}
 }
 

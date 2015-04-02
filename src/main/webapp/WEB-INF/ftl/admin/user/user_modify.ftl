@@ -17,7 +17,7 @@
 	<script type="text/javascript" src="${contextPath}/ext/jquery_zcj/jquery.zimgslider.js?v=${sversion}"></script>
 	<script type="text/javascript" src="${contextPath}/ext/laydate/laydate.js"></script>
 	<script type="text/javascript" src="${contextPath}/ext/layer/layer.min.js"></script>
-	<script type="text/javascript" src="${contextPath}/ext/zcommon.js?v=${sversion}" basepath="${contextPath}"></script>
+	<script type="text/javascript" src="${contextPath}/ext/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
 </head>
 <body>
 <div class="space">
@@ -25,20 +25,27 @@
 		<input type="hidden" name="id" value="${(obj.id)!}"/>
 		<table class="form">
 			<tr>
-				<td class="label"><label><b>*</b>名称：</label></td>
-				<td><input datatype="*" type="text" name="realname" size="20" value="${(obj.realname)!}">
-				<input type="checkbox" name="state" value="1" <#if ((obj.state)!0)==1>checked</#if>>开启</td>
+				<td class="label"><label><b>*</b>真实姓名：</label></td>
+				<td><input datatype="*" type="text" name="realname" size="20" value="${(obj.realname)!}">&nbsp;<input type="checkbox" name="state" value="1" <#if !(obj??) || ((obj.state)!0)==1>checked</#if>>启用</td>
 			</tr>
-			<#-- 
 			<tr>
-				<td class="label"><label><b>*</b>类型：</label></td>
+				<td class="label"><label><b>*</b>角色：</label></td>
 				<td>
-					<select size="1" name="type" datatype="*">
-						<option value="15" <#if (obj.type)?? && obj.type=="15">selected</#if>>两边固定</option>
-						<option value="16" <#if (obj.type)?? && obj.type=="16">selected</#if>>页头固定</option>
+					<select size="1" name="role">
+						<option value="2" <#if (obj.role)?? && obj.role=="2">selected</#if>>普通用户</option>
+						<option value="1" <#if (obj.role)?? && obj.role=="1">selected</#if>>超级管理员</option>
 					</select>
 				</td>
 			</tr>
+			<tr>
+				<td class="label"><label><b>*</b>账号：</label></td>
+				<td><input datatype="*4-20" type="text" name="username" size="20" value="${(obj.username)!}"></td>
+			</tr>
+			<tr>
+				<td class="label"><label><b>*</b>密码：</label></td>
+				<td><input datatype="*4-20" type="text" name="password" size="20" value="${(obj.password)!'888888'}"></td>
+			</tr>
+			<#-- 
 			<tr>
 				<td class="label"><label><b>*</b>排序号：</label></td>
 				<td><input datatype="*,n" type="text" name="orders" size="20" value="${(obj.orders)!}"></td>
@@ -122,6 +129,8 @@
 			callback:function(data){
 				if(data.s){
 					window.parent.grid.reload();
+					// 解决IE6下关闭弹窗时焦点丢失的问题
+					$("#searchKey", window.parent.document).focus();
 					window.parent.layer.closeAll();
 					
 					// window.location.href = '${contextPath}/ztTopicArticle/tolist.do';
@@ -139,6 +148,7 @@
 		    festival: false
 		}); -->
 		
+		// 解决IE6下第二次打开弹窗时焦点丢失的问题
 		$('#form :input:not(:hidden):not(:button):first').focus();
 	});
 </script>

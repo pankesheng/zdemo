@@ -34,4 +34,14 @@ public class WebContext extends BasicWebContext {
 		}
 	}
 	
+	/** 获取登陆用户的角色 */
+	public static Integer getLoginUserRole(HttpServletRequest request) {
+		User user = getLoginUser(request);
+		if (user == null) {
+			return null;
+		} else {
+			return user.getRole();
+		}
+	}
+	
 }

@@ -11,4 +11,5 @@ public interface UserMapper extends BasicMapper<User, Long> {
 
 	void updateState(@Param(ID) Long id, @Param("value") Integer value);
 	
+	void updatePassword(@Param(ID) Long id, @Param("password") String newpassword);
 }

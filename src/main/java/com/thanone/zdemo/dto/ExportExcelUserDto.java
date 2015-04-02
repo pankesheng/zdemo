@@ -15,10 +15,13 @@ import com.zcj.util.poi.excel.ExcelResources;
 public class ExportExcelUserDto {
 	
 	public static final String FILENAME_TEMPLAT = "template1.xls";// 源文件名（不要用英文，不然打包的时候文件名会乱码）
-	public static final String FILENAME_EXPORT = "XXXXX用户账号.xls";// 导出的文件名
+	public static final String FILENAME_EXPORT = "用户账号.xls";// 导出的文件名
 
 	private String xh;
 	private String realname;// 真实姓名
+	private String username;
+	private String password;
+	private String role;// 角色（1：超级管理员；2：普通用户）
 	private String state;// 状态（1：可见；0：不可见）
 	
 	public static List<ExportExcelUserDto> byEntityList(List<User> userList) {
@@ -32,10 +35,17 @@ public class ExportExcelUserDto {
 			ExportExcelUserDto s = new ExportExcelUserDto();
 			s.setXh(String.valueOf(xh++));
 			s.setRealname(ws.getRealname());
+			s.setUsername(ws.getUsername());
+			s.setPassword(ws.getPassword());
+			if (1 == ws.getRole()) {
+				s.setRole("超级管理员");
+			} else if (2 == ws.getRole()) {
+				s.setRole("普通用户");
+			}
 			if (1 == ws.getState()) {				
-				s.setState("可见");
+				s.setState("启用");
 			} else {
-				s.setState("不可见");
+				s.setState("冻结");
 			}
 			list.add(s);
 		}
@@ -62,6 +72,33 @@ public class ExportExcelUserDto {
 	}
 
 	@ExcelResources(order = 3)
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@ExcelResources(order = 4)
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@ExcelResources(order = 5)
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	@ExcelResources(order = 6)
 	public String getState() {
 		return state;
 	}

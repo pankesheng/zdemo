@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="${contextPath}/admin2/stylesheets/index.css" />
 </head>
 <body>
-    <iframe class="top" src="${contextPath}/admin2/top.html" height="88" frameborder="0" scrolling="no"></iframe>
+    <iframe class="top" src="${contextPath}/index/top.do" height="88" frameborder="0" scrolling="no"></iframe>
     <!-- 有top页加class top-iframe-margin -->
     <div id="container" class="container top-iframe-margin">
         <iframe class="container-iframe" src="${contextPath}/index/container.do" scrolling="yes" noresize="noresize" frameborder="0"></iframe>
