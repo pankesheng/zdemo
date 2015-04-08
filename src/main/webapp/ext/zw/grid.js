@@ -30,6 +30,8 @@
 			},
 			//是否自动载入
 			autoLoad: true,
+			//序号
+			displayNums: false,
 			//表格模型
 			columns: [{
 				//类型 checkbox 单选框  string或者默认 字符串 custom 自定义 用 content对象来自定义
@@ -128,6 +130,10 @@
 				tr = '<tr class="bg-color"><td class="hide"><div></div></td>';
 			}
 			
+			if(opts.displayNums){
+				tr += '<td>' + parseInt((curPage - 1) * parseInt(opts.limit) + i + 1) + '</td>';
+			}
+			
 			tr += _renderTds(rows[i]) + '</tr>';
 
 			$me.append(tr);
@@ -145,8 +151,14 @@
 			
 			for(var i = 0; i < rowsNum; i++){
 				spaceTr = '<tr style="height: ' + trHeight + 'px;">';
-				for(var j = 0, len = opts.columns.length; j < len; j ++){
-					spaceTr += '<td>&nbsp;</td>';
+				if(opts.displayNums){
+					for(var j = 0, len = opts.columns.length; j <= len; j ++){
+						spaceTr += '<td>&nbsp;</td>';
+					}
+				}else{
+					for(var j = 0, len = opts.columns.length; j < len; j ++){
+						spaceTr += '<td>&nbsp;</td>';
+					}
 				}
 				$me.append(spaceTr + '</tr>');
 			}
@@ -360,6 +372,9 @@
 		//载入
 		$me.html('<tr class="title"></tr>');
 		$titleTr = $me.find('tr');
+		if(opts.displayNums){
+			$titleTr.append('<td></td>');
+		}
 		for(var i = 0; i < opts.columns.length; i++){
 			switch(opts.columns[i].type){
 				case 'checkbox':
