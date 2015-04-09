@@ -11,11 +11,14 @@ body{
 	height:92px;
 }
 .login-header .logo{
-	float:left;
-	height:74px;
-	padding-left:380px;
-	margin-top:8px;
-	background:url(../images/back-logo.png) no-repeat 0 8px;
+	float: left;
+	padding-top: 38px;
+	font-family: "宋体";
+	font-size: 36px;
+	font-weight: bold;
+	color: #000;
+	font-style: normal;
+	 text-shadow:#999 5px 5px 10px;
 }
 .login-header .logo h2 a{
 	font-size:18px;
