@@ -5,6 +5,12 @@
 
 --jquery_form		>> Form表单AJAX提交插件
 
+--jquery_mobile		>> 手机页面开发插件
+	--demos	>> 官方DEMO
+	--zdemo >> 个人DEMO
+		zhelp.html	>> 个人帮助文档
+		...			>> 示例DEMO
+
 --jquery_tmpl		>> 模板插件
 
 --jquery_ua			>> 浏览器版本判断插件
