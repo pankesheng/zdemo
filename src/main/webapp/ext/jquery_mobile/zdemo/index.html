@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" href="../jquery.mobile-1.4.5.min.css" media="screen" />
+<script type="text/javascript" src="../../jquery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../jquery.mobile-1.4.5.min.js"></script>
+
+<!-- <link rel="stylesheet" type="text/css" href="../jquery.mobile.icons-1.4.5.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../theme-classic.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../jquery.mobile.structure-1.4.5.min.css" media="screen" />
+<script type="text/javascript" src="../../jquery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../jquery.mobile-1.4.5.min.js"></script> -->
+	
+<script>
+	function _lists(id) {
+		window.location.href = "lists.html";
+	}
+	function _search() {
+		var key = $("#index_input_search").val();
+		if (key && key.length > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+</script>
+</head>
+<body>
+	<div data-role="page" data-title="瓯海教育网">
+		<div data-role="header">
+			<h1>瓯海教育网</h1>
+			<a href="menu.html" data-role="button" data-icon="grid" data-iconpos="right" class="ui-btn-right">栏目</a>
+		</div>
+		<div data-role="content">
+			<form method="post" action="search.html" onsubmit="return _search();">
+				<input id="index_input_search" data-type="search" placeholder="请输入搜索条件">
+			</form>
+			<br/>
+			<ul data-role="listview">
+				<li data-role="list-divider">本站公告<span class="ui-li-count" onclick="_lists(1);">更多</span></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li data-role="list-divider">教育动态</li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li data-role="list-divider">公文发布</li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+				<li><a href="#">
+						<h3>新居民子女就读公办学校需具备条件fsdagfagfdagfdagdfagdfagfdagfdg</h3>
+						<p>[2015-12-12]</p>
+				</a></li>
+			</ul>
+		</div>
+		<div data-role="footer">
+			<h4>主办单位：温州市瓯海区教育局</h4>
+		</div>
+	</div>
+</body>
+</html>
