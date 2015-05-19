@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 public class CodeMySql {
 
 	public static void main(String[] args) {
-//		printCode("t_user", User.class);
+		printCode("t_user", User.class);
 	}
 	
 	public static void printCode(String tableName, Class<?> className) {

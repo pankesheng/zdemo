@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 public class CodeSqlServer {
 
 	public static void main(String[] args) {
-//		printCode("oheduz", "t_catalog", Catalog.class);
+		printCode("oheduz", "t_user", User.class);
 	}
 	
 	public static void printCode(String databaseName, String tableName, Class<?> className) {
