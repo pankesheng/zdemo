@@ -44,6 +44,21 @@ function login2() {
 		}});
 	}
 }
+function login4() {
+	var a = $("input[name='username']").val() || "";
+	var b = $("input[name='password']").val() || "";
+	if ($.trim(a) == "" || $.trim(b) == "") {
+		alert("账号或密码不能为空！");
+	} else {
+		$.ajax({url:"<%=request.getContextPath() %>/user/login.ajax",data:{username:a,password:b},type:"post",dataType:"json", success: function(data){
+	        if(data.s!=1){
+	          alert(data.d);
+	          return;
+	        }
+	        window.location.href="<%=request.getContextPath() %>/index4/index.do";
+		}});
+	}
+}
 $(document).ready(function(){
 	$("input[name='password']").keydown(function(e){
 		if(e.which==13){login();return false;}
@@ -69,6 +84,7 @@ $(document).ready(function(){
                 <p>
                     <input type="button" onclick="login();" class="login-btn" value="" />
                     <input type="button" onclick="login2();" class="login-btn" value="" />
+                    <input type="button" onclick="login4();" class="login-btn" value="" />
                     <!-- <input type="button" class="digital-btn" value="" /> -->
                 </p>
             </form>

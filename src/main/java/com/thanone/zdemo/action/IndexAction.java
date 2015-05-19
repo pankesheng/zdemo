@@ -57,9 +57,9 @@ public class IndexAction extends BasicAction {
 		Integer role = WebContext.getLoginUserRole(request);
 
 		// 设置
-		MenuDto m31 = new MenuDto("账号管理", Configuration.getContextPath() + "/user/tolist.do", null);
-		MenuDto m33 = new MenuDto("修改密码", Configuration.getContextPath() + "/user/password.do", null);
-		MenuDto m34 = new MenuDto("注销", Configuration.getContextPath() + "/user/logout.do", null);
+		MenuDto m31 = new MenuDto("账号管理", Configuration.getContextPath() + "/user/tolist.do");
+		MenuDto m33 = new MenuDto("修改密码", Configuration.getContextPath() + "/user/password.do");
+		MenuDto m34 = new MenuDto("注销", Configuration.getContextPath() + "/user/logout.do");
 
 		List<MenuDto> m3List = new ArrayList<MenuDto>();
 		if (User.ROLE_ADMIN.equals(role)) {			
