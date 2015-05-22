@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.thanone.zdemo.common.BuiPageResult;
+import com.thanone.zdemo.common.ZwPageResult;
 import com.thanone.zdemo.entity.user.User;
 import com.thanone.zdemo.service.user.UserService;
 import com.zcj.web.dto.ServiceResult;
@@ -51,7 +51,7 @@ public class UserV4Action extends BasicAction {
 		List<User> userList = userService.findByPage(null, qbuilder);
 		page.setRows(userList);
 		page.setTotal(userService.getTotalRows(qbuilder));
-		out.write(BuiPageResult.converByServiceResult(ServiceResult.initSuccess(page)));
+		out.write(ZwPageResult.converByServiceResult(ServiceResult.initSuccess(page)));
 	}
 	
 	@RequestMapping("/toadd")
