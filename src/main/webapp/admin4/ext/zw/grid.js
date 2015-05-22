@@ -38,10 +38,13 @@
 ;!(function($) {
     "use strict";
 
-    var MyGrid = function($dom, config) {
+    var Grid = function($dom, config) {
         var me = this;
 
+        //dom引用
         this.$me = $dom;
+        //包装div
+        this.$wrapper = $dom.wrap('<div class="grid-wrapper"></div>').parent('.grid-wrapper');
         //当前页数
         this.curPage = 0;
         //缓存参数
@@ -88,6 +91,29 @@
                 successProperty: 's',
                 //排序
                 sortable: false
+            },
+            /**
+             * @cfg {Object} [schema] 表格视图
+             * @cfg {String} [schema.displayMode] 显示模式 list--列表模式 thumb--缩略图模式
+             * @cfg {String} [schema.thumbCls] 缩略图模式的样式
+             * @cfg {String} [schema.thumbItemCls] 缩略图模式单元的样式
+             * @cfg {Object} [schema.thumbRenderer] 缩略图模式的渲染函数
+             *     <p>-cellData 单元格数据 当dataIndex属性存在时才有值</p>
+             *     <p>-rowData 行数据</p>
+             *     <p>-grid grid对象</p>
+             *     <p>-cellIndex 列序号</p>
+             *     <p>-rowIndex 行序号</p>
+             *
+             *     thumbRenderer: function(rowData, grid, rowIndex){
+             *         console.log('本行对应的数据 ', rowData);
+             *         console.log('当前页 ', grid.getCurPage());
+             *         console.log('行序号', rowIndex);
+             *     }
+             */
+            schema: {
+                displayMode: 'list',
+                thumbCls: 'table-thumb',
+                thumbItemCls: 'thumb-item'
             },
             /**
              * @cfg {Object} [columns] (required) 表格模型
@@ -438,6 +464,24 @@
                 }else{
                     $.error('arguments must be number');
                 }
+            },
+            /**
+             * 切换显示模式
+             * @param  {String} modeName 模式名称
+             *
+             *     @example
+             *     grid.switchDisplayMode('list');//列表
+             *     grid.switchDisplayMode('thumb');//缩略图
+             */
+            switchDisplayMode: function(modeName){
+                if(modeName === 'list' || modeName === 'thumb'){
+                    if(me.opts.schema.displayMode !== modeName){
+                        me.opts.schema.displayMode = modeName;
+                        me.gridObj.refresh();
+                    }
+                }else{
+                    $.error('arguments must between "list" and "thumb"');
+                }
             }
         };
         //配置项
@@ -463,15 +507,22 @@
      * @param  {Number} page   页数
      * @param  {Object} params 参数
      */
-    MyGrid.prototype.loadPage = function(page, params) {
+    Grid.prototype.loadPage = function(page, params) {
         var me = this;
 
+        this.$wrapper.height(this.$wrapper.height());
         //清除
         this.clean();
         //移除空提示
         this.tableTip('hideTip');
-        //载入提示
-        this.tableTip('showLoadingTip');
+        this.ajaxStartTime = new Date().getTime();
+        //两秒后检查是否已返回数据
+        setTimeout(function() {
+            if(me.ajaxing !== false && (new Date().getTime() - me.ajaxing) >= 2000){
+                //载入提示
+                me.tableTip('showLoadingTip');
+            }
+        }, 2000);
         /* 生成参数 */
         if(params){
             this.ajaxParams = {};
@@ -508,18 +559,23 @@
                 }
             }
 
+            me.$wrapper.height('auto');
             //移除载入动画
             me.tableTip('hideLoadingTip');
         });
     };
 
     //渲染表格
-    MyGrid.prototype.renderGrid = function() {
-        //渲染表头
-        this.renderTableHead();
-
-        //渲染行
-        this.rendererTableRow();        
+    Grid.prototype.renderGrid = function() {
+        if(this.opts.schema.displayMode === 'list'){
+            //渲染表头
+            this.renderTableHead();
+            //渲染行
+            this.rendererTableRow();
+        }else{
+            //渲染缩略图模式
+            this.rendererThumb();
+        }
 
         //初始化工具
         this.initTool();
@@ -529,14 +585,12 @@
      * 渲染表头
      * @private
      */
-    MyGrid.prototype.renderTableHead = function() {
+    Grid.prototype.renderTableHead = function() {
         if (this.$me.find('thead').length === 0) {
             var $thead = this.$me.find('thead');
             var $tr = '';
             //已存在表头不再生成
-            if($thead.length){
-
-            }else{
+            if($thead.length === 0){
                 $thead = $('<thead><tr class="table-head"></tr></thead>');
             }
             var $tr = $thead.children('.table-head');
@@ -584,7 +638,7 @@
      * 渲染表格行
      * @private
      */
-    MyGrid.prototype.rendererTableRow = function() {
+    Grid.prototype.rendererTableRow = function() {
         for (var i = 0, len = this.data.length; i < len; i++) {
             this.$me.append(this.generateTableRow(this.data[i], i));
             this.store.push({
@@ -598,7 +652,7 @@
      * 生成表格行
      * @private
      */
-    MyGrid.prototype.generateTableRow = function(rowData, rowIndex) {
+    Grid.prototype.generateTableRow = function(rowData, rowIndex) {
         var $tr = $('<tr></tr>');
         var columns = this.opts.columns;
 
@@ -663,8 +717,136 @@
         return $tr;
     };
 
+    //渲染缩略图模式
+    Grid.prototype.rendererThumb = function() {
+        this.$me.find('.table-head').remove();
+        if (this.$thumb) {
+            this.$thumb.remove();
+        }
+        //初始化对象
+        this.$thumb = $('<ul class="' + this.opts.schema.thumbCls + '"></ul>');
+
+        for (var i = 0, len = this.data.length; i < len; i++) {
+            this.generateDom('thumbItem', this.data[i], i);
+        }
+
+        if (this.$tableBottomBar) {
+            this.$tableBottomBar.before(this.$thumb);
+        } else {
+            this.$wrapper.append(this.$thumb);
+        }
+    };
+
+    //获取数据
+    Grid.prototype.getData = function(callback) {
+        this.ajaxing = new Date().getTime();
+
+        if (this.opts.store.data && !this.opts.store.url) {
+            this.ajaxing = false;
+            /*返回本地数据*/
+            callback(this.opts.store.data);
+        } else {
+            /*返回ajax数据*/
+            var me = this;
+            var params = this.ajaxParams;
+            var opts = this.opts;
+            var method = 'GET';
+
+            if(opts.store.type === 'GET' || opts.store.type === 'POST'){
+                method = opts.store.type;
+            }
+
+            //加随机数防止缓存
+            if(method === 'GET'){
+                params._t = new Date().getTime();
+            }
+
+            //同步获取数据
+            $.ajax({
+                url: opts.store.url,
+                type: method,
+                dataType: 'json',
+                data: params,
+                success: function(json){
+                    me.ajaxing = new Date().getTime();
+                    if (json[opts.store.successProperty] == 1) {
+                        //获取成功
+                        callback(json);
+                    } else {
+                        callback('none');
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    me.ajaxing = new Date().getTime();
+                    if(textStatus === 'timeout'){
+                        callback('timeout');
+                    }else{
+                        callback('error');
+                    }
+                }
+            });
+        }
+    };
+
+    //获取数据项
+    Grid.prototype.getDataByDataIndex = function(dataIndex, rowData) {
+        if(!dataIndex || typeof dataIndex === 'undefined'){
+            return '';
+        }
+        var indexArray = dataIndex.split('.');
+        var data = '';
+
+        for (var i = 0, len = indexArray.length; i < len; i++) {
+            if(data){
+                data = data[indexArray[i]];
+            }else{
+                data = rowData[indexArray[i]];
+            }
+        };
+
+        return data;
+    };
+
+    //清除数据
+    Grid.prototype.clean = function() {
+        this.$me.find('tr').not('.table-head').remove();
+        this.$me.find('.selectAll:checked').prop('checked', false);
+        if(this.$thumb){
+            this.$thumb.remove();
+        }
+        //TO 清除右上角信息
+        $('.selected-info').text('');
+        if(this.$tableBottomBar){
+            this.$tableBottomBar.hide();
+        }
+    };
+
+    //表格提示
+    Grid.prototype.tableTip = function(type) {
+        if(!this.opts.tool.tableTip){
+            return false;
+        }
+        switch(type){
+            case 'showLoadingTip':
+                this.$me.after('<div class="table-tip table-loading"></div>');
+                break;
+            case 'showNoneTip':
+                this.$me.after('<div class="table-tip table-none"></div>');
+                break;
+            case 'showTimeoutTip':
+                this.$me.after('<div class="table-tip table-timeout"></div>');
+                break;
+            case 'hideLoadingTip':
+                this.$me.nextAll('.table-loading').remove();
+                break;
+            case 'hideTip':
+                this.$me.nextAll('.table-tip').remove();
+                break;
+        }
+    };
+
     //初始化工具
-    MyGrid.prototype.initTool = function() {
+    Grid.prototype.initTool = function() {
         /*分页*/
         if (this.opts.tool.pagingBar && this.total !== 0) {
             //作用域
@@ -748,49 +930,65 @@
         /*其他工具*/
     };
 
-    //获取数据
-    MyGrid.prototype.getData = function(callback) {
-        if (this.opts.store.data && !this.opts.store.url) {
-            /*返回本地数据*/
-            callback(this.opts.store.data);
-        } else {
-            /*返回ajax数据*/
-            var me = this;
-            var params = this.ajaxParams;
-            var opts = this.opts;
-            var method = 'GET';
+    //html生成
+    Grid.prototype.generateDom = function(type) {
+        var me = this;
+        var methods = {
+            //生成缩略图模式单元dom
+            thumbItem: function(rowData, index, type){
+                if(rowData){
+                    //内容
+                    var content = ''
 
-            if(opts.store.type === 'GET' || opts.store.type === 'POST'){
-                method = opts.store.type;
-            }
-
-            //加随机数防止缓存
-            if(method === 'GET'){
-                params._t = new Date().getTime();
-            }
-
-            //同步获取数据
-            $.ajax({
-                url: opts.store.url,
-                type: method,
-                dataType: 'json',
-                data: params,
-                success: function(json){
-                    if (json[opts.store.successProperty] == 1) {
-                        //获取成功
-                        callback(json);
-                    } else {
-                        callback('none');
-                    }
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown){
-                    if(textStatus === 'timeout'){
-                        callback('timeout');
+                    if(typeof me.opts.schema.thumbRenderer === 'function'){
+                        content = me.opts.schema.thumbRenderer(rowData, me.gridObj, index);
                     }else{
-                        callback('error');
+                        return $.error('thumb mode need thumbRenderer function to render');
+                    }
+
+                    var $li = $('<li class="thumb-item">' + content + '</li>');
+
+                    $li.data(rowData);
+                    me.$thumb.append($li);
+                }
+            },
+            tableBottomBar: function(){
+                if(!this.$tableBottomBar){
+                    var $tableBottomBar = $('<div class="table-bottom-bar clearfix"></div>');
+                    
+                    if(this.opts.tool.pagingBar){
+                        $tableBottomBar
+                            .append('<div class="table-bottom-left">'+
+                                '<span class="page-size mr-10">'+
+                                    '<select class="normal-select ' + this.opts.tool.pagingSizeCls + '">'+
+                                        '<option value="5">5</option>'+
+                                        '<option value="10">10</option>'+
+                                        '<option value="15">15</option>'+
+                                        '<option value="20">20</option>'+
+                                        '<option value="25">25</option>'+
+                                    '</select>'+
+                                '</span>'+
+                                '<span class="' + this.opts.tool.pagingCls + ' mr-10"></span>'+
+                                '<span class="page-jump">'+
+                                    '<input class="form-control mr-10 ' + this.opts.tool.pagingJumpCls + '" type="text">'+
+                                    '<a class="btn btn-primary btn-go" href="javascript:void(0);">GO</a>'+
+                                '</span>'+
+                            '</div>')
+                            .append(
+                                '<div class="page-function table-bottom-right">'+
+                                    '<span class="' + this.opts.tool.pagingInfoCls + '"></span>'+ 
+                                '</div>'
+                            );
+                        
+                        me.$wrapper.append($tableBottomBar);
+                        me.$tableBottomBar = $tableBottomBar;
                     }
                 }
-            });
+            }
+        };
+
+        if(methods[type]){
+            methods[type].apply(this, Array.prototype.slice.call(arguments, 1));
         }
     };
 
@@ -798,7 +996,7 @@
      * 事件侦听器
      * @private
      */
-    MyGrid.prototype.addListeners = function(type) {
+    Grid.prototype.addListeners = function(type) {
         var me = this;
         var listeners = {
             //基本事件
@@ -956,104 +1154,6 @@
         }
     };
 
-    //获取数据项
-    MyGrid.prototype.getDataByDataIndex = function(dataIndex, rowData) {
-        if(!dataIndex || typeof dataIndex === 'undefined'){
-            return '';
-        }
-        var indexArray = dataIndex.split('.');
-        var data = '';
-
-        for (var i = 0, len = indexArray.length; i < len; i++) {
-            if(data){
-                data = data[indexArray[i]];
-            }else{
-                data = rowData[indexArray[i]];
-            }
-        };
-
-        return data;
-    };
-
-    //清除数据
-    MyGrid.prototype.clean = function() {
-        this.$me.find('tr').not('.table-head').remove();
-        this.$me.find('.selectAll:checked').prop('checked', false);
-        //TO 清除右上角信息
-        $('.selected-info').text('');
-        if(this.$tableBottomBar){
-            this.$tableBottomBar.hide();
-        }
-    };
-
-    //html生成
-    MyGrid.prototype.generateDom = function(type) {
-        var me = this;
-        var methods = {
-            tableBottomBar: function(){
-                if(!this.$tableBottomBar){
-                    var $tableBottomBar = $('<div class="table-bottom-bar clearfix"></div>');
-                    
-                    if(this.opts.tool.pagingBar){
-                        $tableBottomBar
-                            .append('<div class="table-bottom-left">'+
-                                '<span class="page-size mr-10">'+
-                                    '<select class="normal-select ' + this.opts.tool.pagingSizeCls + '">'+
-                                        '<option value="5">5</option>'+
-                                        '<option value="10">10</option>'+
-                                        '<option value="15">15</option>'+
-                                        '<option value="20">20</option>'+
-                                        '<option value="25">25</option>'+
-                                    '</select>'+
-                                '</span>'+
-                                '<span class="' + this.opts.tool.pagingCls + ' mr-10"></span>'+
-                                '<span class="page-jump">'+
-                                    '<input class="form-control mr-10 ' + this.opts.tool.pagingJumpCls + '" type="text">'+
-                                    '<a class="btn btn-primary btn-go" href="javascript:void(0);">GO</a>'+
-                                '</span>'+
-                            '</div>')
-                            .append(
-                                '<div class="page-function table-bottom-right">'+
-                                    '<span class="' + this.opts.tool.pagingInfoCls + '"></span>'+ 
-                                '</div>'
-                            );
-                        
-                        me.$me.after($tableBottomBar);
-                        me.$tableBottomBar = $tableBottomBar;
-                    }
-                }
-            }
-        };
-
-        if(methods[type]){
-            methods[type].apply(this, Array.prototype.slice.call(arguments, 1));
-        }
-    };
-
-    //表格提示
-    MyGrid.prototype.tableTip = function(type) {
-        if(!this.opts.tool.tableTip){
-            return false;
-        }
-        switch(type){
-            case 'showLoadingTip':
-                this.$me.after('<div class="table-tip table-loading"></div>');
-                break;
-            case 'showNoneTip':
-                this.$me.after('<div class="table-tip table-none"></div>');
-                break;
-            case 'showTimeoutTip':
-                this.$me.after('<div class="table-tip table-timeout"></div>');
-                break;
-            case 'hideLoadingTip':
-                this.$me.nextAll('.table-loading').remove();
-                break;
-            case 'hideTip':
-                this.$me.nextAll('.table-tip').remove();
-                break;
-        }
-    };
-
     /**
      * @constructor grid初始化方法
      * @param  {Object} config 配置项
@@ -1064,7 +1164,7 @@
             return false;
         }
 
-        var myGrid = new MyGrid(this, config);
+        var myGrid = new Grid(this, config);
 
         return myGrid.gridObj;
     };

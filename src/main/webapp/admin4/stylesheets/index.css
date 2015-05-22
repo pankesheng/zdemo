@@ -252,6 +252,7 @@ body {
 }
 .left-menu-list .left-menu-second-node .menu-son li.hover {
   background-color: #d1e0ed;
+  text-decoration: none;
 }
 .left-menu-list .left-menu-second-node .menu-son li a {
   display: block;
@@ -263,6 +264,7 @@ body {
 }
 .left-menu-list .left-menu-second-node .menu-son li a:hover {
   color: #508cf9;
+  text-decoration: none;
 }
 .left-menu-list .active .left-menu-second-node {
   display: block;
@@ -329,6 +331,7 @@ body {
 .header .icon-bar .icon-ul li a:hover,
 .header .icon-bar .icon-ul li a.selected {
   background: url('../images/icon-2.png') -136px 0 no-repeat;
+  text-decoration: none;
 }
 .header .icon-bar .icon-ul li img {
   display: block;
@@ -426,10 +429,16 @@ body {
 .header .function-block.mini .user {
   *display: inline;
   float: left;
+  width: 85px;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-right: 0;
   *margin: 0;
 }
 .header .function-list {
-  padding-left: 14px;
+  padding-left: 10px;
   margin-bottom: 10px;
 }
 .header .function-list .icon {

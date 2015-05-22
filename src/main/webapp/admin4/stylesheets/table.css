@@ -73,6 +73,37 @@ body {
 .table img {
   margin: 5px 0;
 }
+.table-thumb {
+  text-align: left;
+}
+.table-thumb .thumb-item {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin: 0 10px 10px 0;
+  padding: 10px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #d2d2d2;
+}
+.thumb-content {
+  font-family: Microsoft YaHei, '微软雅黑', MicrosoftJhengHei;
+  overflow: hidden;
+  *zoom: 1;
+}
+.thumb-content .thumb-title {
+  margin-bottom: 1em;
+}
+.thumb-content .thumb-section {
+  margin: 0.5em 0;
+  word-break: break-all;
+  overflow: hidden;
+  *zoom: 1;
+}
+.thumb-content .thumb-btns {
+  padding-top: 10px;
+  border-top: 1px solid #e6e6e6;
+}
 .table-tool-bar {
   padding: 10px;
   font-family: Microsoft YaHei, '微软雅黑', MicrosoftJhengHei;
@@ -101,6 +132,21 @@ body {
 }
 .table-tool-bar .remove-btn {
   color: #ff0000;
+}
+.table-switch {
+  height: 33px;
+  margin-right: 10px;
+  font-size: 20px;
+  color: #8b8b8a;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.table-switch:hover {
+  color: #558ff9;
+  text-decoration: none;
+}
+.table-switch.selected {
+  color: #558ff9;
 }
 .table-top-bar {
   position: relative;

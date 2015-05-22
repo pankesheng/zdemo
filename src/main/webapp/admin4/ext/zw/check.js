@@ -37,9 +37,18 @@
  * @cfg [data-check.scope] 数字区间限制
  * 
  *      data-check="scope: 1-10"
- * @cfg [data-check.idcard] 18位身份证
+ * @cfg [data-check.idcard] 身份证
  * 
  *      data-check="idcard"
+ * @cfg [data-check.url] url地址
+ *
+ *      data-check="url"
+ * @cfg [data-check.email] 电子邮箱
+ *
+ *      data-check="email"
+ * @cfg [data-check.ip] ip地址
+ *
+ *      data-check="ip"
  * @cfg [data-check.custom] 自定义验证函数
  *
  *      在表单元素上定义函数名
@@ -58,6 +67,7 @@
  *
  */
 ;!(function($) {
+    var $me = {};
     var cls = {
         errorCls: 'error-input',
         selectCls: 'ui-selectbox'
@@ -104,10 +114,9 @@
                     return false;   
                 }   
             }   
-            /**  
+            /**
+             * @private
              * 判断身份证号码为18位时最后的验证位是否正确  
-             * @param a_idCard 身份证号码数组  
-             * @return  
              */  
             function isTrueValidateCodeBy18IdCard(a_idCard) {   
                 var sum = 0;                             // 声明加权求和变量   
@@ -124,10 +133,8 @@
                     return false;   
                 }   
             }   
-            /**  
+            /** @private
               * 验证18位数身份证号码中的生日是否是有效生日  
-              * @param idCard 18位书身份证字符串  
-              * @return  
               */  
             function isValidityBrithBy18IdCard(idCard18){   
                 var year =  idCard18.substring(6,10);   
@@ -143,10 +150,9 @@
                     return true;   
                 }   
             }   
-            /**  
+            /**
+            * @private
             * 验证15位数身份证号码中的生日是否是有效生日  
-            * @param idCard15 15位书身份证字符串  
-            * @return  
             */  
             function isValidityBrithBy15IdCard(idCard15){   
               var year =  idCard15.substring(6,8);   
@@ -185,6 +191,42 @@
                 }
             }
             return totalCount;
+        },
+        isUrl: function(val){
+            if(checkMethods.isEmpty(val)){
+                return true;
+            }
+            var regExp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+
+            if(regExp.test(val)){
+                return true;
+            }else{
+                return false;
+            }
+        },
+        isEmail: function(val){
+            if(checkMethods.isEmpty(val)){
+                return true;
+            }
+            var regExp = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
+
+            if(regExp.test(val)){
+                return true;
+            }else{
+                return false;
+            }
+        },
+        isIp: function(val){
+            if(checkMethods.isEmpty(val)){
+                return true;
+            }
+            var regExp = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
+            if(regExp.test(val)){
+                return true;
+            }else{
+                return false;
+            }
         }
     };
     var methods = {
@@ -193,16 +235,18 @@
          * @return {Boolean} 校验通过返回true 失败返回false
          */
         check: function() {
-            var $me = $(this);
+            $me = $(this);
             //校验DOM集合
             var $dom = $me.find('[data-check]');
             //校验规则
             var checkRules = new Array();
-            //校验通过标志
-            var isPass = true;
 
             //清空之前的提示
             removeTip($dom);
+
+            $me.data({
+                isPass: true
+            });
 
             for (var i = 0, domLen = $dom.length; i < domLen; i++) {
                 //包装DOM元素
@@ -214,12 +258,12 @@
                 });
 
                 //忽略data-ignore为true的元素
-                if ($control.attr('data-ignore') == "true") {
+                if ($control.data('ignore') == "true") {
                     continue;
                 }
 
                 //获取校验规则数组
-                checkRules = $.trim($control.attr('data-check')).split('|');
+                checkRules = $.trim($control.data('check')).split('|');
 
                 for (var j = 0, rulesLen = checkRules.length; j < rulesLen; j++) {
                     //没有包含:的规则
@@ -228,10 +272,6 @@
                             //非空判断
                             case 'must':
                                 if (checkMethods.isEmpty($control.val())) {
-                                    isPass = false;
-                                    $control.data({
-                                        isPass: false
-                                    });
                                     showTip(false, $control, '该项不能为空');
                                 }else{
                                     showTip(true, $control);
@@ -240,10 +280,6 @@
                             //仅为数字
                             case 'n':
                                 if (!checkMethods.isNumeric($control.val())) {
-                                    isPass = false;
-                                    $control.data({
-                                        isPass: false
-                                    });
                                     showTip(false, $control, '请输入数字');
                                 }else{
                                     showTip(true, $control);
@@ -252,23 +288,39 @@
                             //手机号
                             case 'mobile':
                                 if (!checkMethods.isMobile($control.val())) {
-                                    isPass = false;
-                                    $control.data({
-                                        isPass: false
-                                    });
                                     showTip(false, $control, '请输入正确的手机号码');
                                 }else{
                                     showTip(true, $control);
                                 }
                                 break;
-                            //1身份证
+                            //身份证
                             case 'idcard':
                                 if (!checkMethods.isIdcard($control.val())) {
-                                    isPass = false;
-                                    $control.data({
-                                        isPass: false
-                                    });
                                     showTip(false, $control, '请输入正确的身份证号码');
+                                }else{
+                                    showTip(true, $control);
+                                }
+                                break;
+                            //URL
+                            case 'url':
+                                if(!checkMethods.isUrl($control.val())){
+                                    showTip(false, $control, '请输入正确的URL地址');
+                                }else{
+                                    showTip(true, $control);
+                                }
+                                break;
+                            //电邮
+                            case 'email':
+                                if(!checkMethods.isEmail($control.val())){
+                                    showTip(false, $control, '请输入正确的电子邮箱');
+                                }else{
+                                    showTip(true, $control);
+                                }
+                                break;
+                            //ip
+                            case 'ip':
+                                if(!checkMethods.isIp($control.val())){
+                                    showTip(false, $control, '请输入正确的ip地址');
                                 }else{
                                     showTip(true, $control);
                                 }
@@ -284,10 +336,6 @@
                             //最大长度
                             case 'max-len':
                                 if ($control.val().length > parseInt(limit[1])) {
-                                    isPass = false;
-                                    $control.data({
-                                        isPass: false
-                                    });
                                     showTip(false, $control, '长度不能超过' + parseInt(limit[1]) + '个字符');
                                 }
                                 else{
@@ -297,10 +345,6 @@
                             //字符最大长度 区分汉字和英文
                             case 'max-char-len':
                                 if (checkMethods.countCharacters($control.val()) > parseInt(limit[1])) {
-                                    isPass = false;
-                                    $control.data({
-                                        isPass: false
-                                    });
                                     showTip(false, $control, '汉字不能超过' + parseInt(limit[1] / 2) + '个, 英文不能超过' + parseInt(limit[1]) + '个');
                                 }
                                 else{
@@ -310,10 +354,6 @@
                             //指定name的元素是否与校验元素值相同
                             case 'fit':
                                 if ($($me).find('[name=' + limit[1] + ']').val() !== $control.val()) {
-                                    isPass = false;
-                                    $control.data({
-                                        isPass: false
-                                    });
                                     showTip(false, $control, '两次输入的内容不一致');
                                 }
                                 else{
@@ -325,10 +365,6 @@
                                 var scope = $.trim(limit[1]).split('-');
 
                                 if(parseInt($control.val()) < Math.min(scope[0], scope[1]) || parseInt($control.val()) > Math.max(scope[0], scope[1])){
-                                    isPass = false;
-                                    $control.data({
-                                        isPass: false
-                                    });
                                     showTip(false, $control, '请输入在有效范围内的数字');
                                 }else{
                                     showTip(true, $control);
@@ -339,10 +375,6 @@
                                     var obj = window[limit[1]]($control);
 
                                     if(!obj.flag){
-                                        isPass = false;
-                                        $control.data({
-                                            isPass: false
-                                        });
                                         showTip(false, $control, obj.message);
                                     }else{
                                         showTip(true, $control);
@@ -357,7 +389,7 @@
                 $dom.filter('.' + cls.errorCls + ':first').focus();
             };
 
-            if (isPass) {
+            if ($me.data('isPass')) {
                 return true;
             } else {
                 return false;
@@ -449,18 +481,27 @@
             //校验未通过
             var html = '<span class="check-tip alert alert-danger">' + tipString + '</span>\n';
 
+            //下拉框特殊处理
             if($control.is('select')){
                 $control.parent().find('.' + cls.selectCls).addClass(cls.errorCls);
             }
 
+            $me.data({
+                isPass: false
+            });
+            $control.data({
+                isPass: false
+            });
+
+            //显示提示
             $control.addClass(cls.errorCls);
             $control.parent().append(html);
         }
 
-        if($control.data('isPass')){
+        if($control.data('isPass') == true){
             $control.parent().find('.' + cls.errorCls).removeClass(cls.errorCls).end()
                 .find('.form-tip').show();
-        }else{
+        }else if($control.data('isPass') == false){
             $control.parent().find('.form-tip').hide();
         }
     }

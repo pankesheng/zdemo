@@ -173,16 +173,16 @@
 
                     register($doms, json);
 
-                    if(typeof option.callback === 'function'){
-                        option.callback();
+                    if(typeof option.onCompleted === 'function'){
+                        option.onCompleted();
                     }
                 }else{
                     alert('菜单数据为空');
                 }
             };
             //API接口
-            if(typeof option === 'string'){
-                $.getJSON(option, function(json, textStatus) {
+            if(option && typeof option.data === 'string'){
+                $.getJSON(option.data, function(json, textStatus) {
                     if (! $.isEmptyObject(json)) {
                         init(json);
                     }else{
@@ -190,9 +190,9 @@
                     }
                 });
             //数据对象
-            }else if(typeof option === 'object'){
-                if (! $.isEmptyObject(option)) {
-                    init(option);
+            }else if(option && typeof option.data === 'object'){
+                if (! $.isEmptyObject(option.data)) {
+                    init(option.data);
                 }else{
                     alert('请检查菜单配置项');
                 }

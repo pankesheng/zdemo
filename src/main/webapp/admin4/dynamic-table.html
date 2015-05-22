@@ -33,7 +33,8 @@
             </form>
         </div>
         <div class="panel table-tool-bar">
-            <a class="btn right" href="javascript:void(0);"><i class="iconfont">&#xe608;</i>右侧按钮</a>
+            <a class="table-switch switchMode right" data-mode="thumb" title="缩略图模式"><i class="iconfont">&#xe629;</i></a>
+            <a class="table-switch switchMode right selected" data-mode="list" title="列表模式"><i class="iconfont">&#xe63d;</i></a>
             <a class="btn" id="add-btn" href="javascript:void(0);"><i class="add-btn iconfont">&#xe619;</i>新增</a>
             <a class="btn" href="javascript:void(0);"><i class="remove-btn iconfont">&#xe608;</i>删除</a>
         </div>
@@ -89,6 +90,19 @@
             grid = $('#table').grid({
                 store: {
                     data: {"s":1,"d":[{"_id":"5518b89dbc547f6c18c98dff","account":"admin","password":"7c4a8d09ca3762af61e59520943dc26494f8941b","__v":0,"phone":"123","role":2,"sex":"男","name":"管理员1"},{"_id":"551b56c11911ce040e0b9887","name":"123123","account":"admin1","password":"7c4a8d09ca3762af61e59520943dc26494f8941b","phone":"123123","__v":0,"role":1,"sex":"男"},{"_id":"551b59b377886a8c1d20b65e","name":"管理员","account":"admin12a","password":"601f1889667efaebb33b8c12572835da3f027f78","sex":"男","phone":"电话","role":2,"__v":0},{"_id":"551b64b577886a8c1d20b671","name":"asdfasdf","account":"asdfasdf","password":"601f1889667efaebb33b8c12572835da3f027f78","sex":"男","phone":"","role":1,"__v":0},{"_id":"551b691677886a8c1d20b683","name":"","account":"1231231a","password":"88ea39439e74fa27c09a4fc0bc8ebe6d00978392","sex":"男","phone":"","role":1,"__v":0},{"_id":"551b6d2177886a8c1d20b687","name":"asdf","account":"123123123","password":"73da7bb9d2a475bbc2ab79da7d4e94940cb9f9d5","sex":"男","phone":"3123123","role":1,"__v":0},{"_id":"551b8a4877886a8c1d20b698","name":"","account":"admin123a","password":"40bd001563085fc35165329ea1ff5c5ecbdbbeef","sex":"男","phone":"","role":1,"__v":0},{"_id":"551b8ac277886a8c1d20b69c","name":"","account":"admin1a","password":"601f1889667efaebb33b8c12572835da3f027f78","sex":"男","phone":"","role":1,"__v":0},{"_id":"551b8e9c77886a8c1d20b6a0","name":"","account":"adfadf","password":"40bd001563085fc35165329ea1ff5c5ecbdbbeef","sex":"男","phone":"","role":1,"__v":0},{"_id":"551b8ee477886a8c1d20b6a7","name":"","account":"123123adfs","password":"b51f92f87f2d066dc6163aab994990608d5bf73b","sex":"男","phone":"","role":1,"__v":0}],"total":1000}
+                },
+                schema: {
+                    thumbRenderer: function(rowData, grid, rowIndex){
+                        return '<div class="thumb-content">'+
+                            '<a class="thumb-title">瓯海教育OA系统</a>'+
+                            '<p class="thumb-section"><b>适用范围</b>：全区</p>'+
+                            '<p class="thumb-section"><b>应用类型</b>：系统应用</p>'+
+                            '<b>安装人数</b>：123456<b>&nbsp;&nbsp;&nbsp;&nbsp;使用人数</b>：12345'+
+                            '<p class="thumb-section"><b>使用状态</b>：启动</p>'+
+                            '<p class="thumb-section"><b>应用介绍</b>：这是一段应用介绍霍乱有多种传播途径什</p>'+
+                            '<p class="thumb-section thumb-btns"><a class="btn btn-mini btn-primary">编辑</a>\n<a class="btn btn-mini btn-primary">编辑</a>\n<a class="btn btn-mini btn-primary">编辑</a></p>'
+                        '</div>';
+                    }
                 },
                 tool: {
                     pagingBar: true
@@ -147,6 +161,11 @@
                 var index = showIframe('添加', './dialog-form.html', 800, 460);
 
                 console.log(index);
+            });
+            $('.switchMode').bind('click', function(){
+                $(this).siblings('.selected').removeClass('selected');
+                $(this).addClass('selected');
+                grid.switchDisplayMode($(this).data('mode'));
             });
         }
         function setManager (me){
