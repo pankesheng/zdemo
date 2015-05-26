@@ -118,6 +118,7 @@ function z_initFlieUpload(uploadButtonId, basePath, saveCatalog, resultPathInput
 }
 
 // 弹出窗口
+// 依赖插件：layer
 function z_openIframe(title, width, height, src) {
 	//如果没有附加参数
 	if (src.indexOf('?') == -1) {
@@ -139,6 +140,7 @@ function z_openIframe(title, width, height, src) {
 }
 
 // 操作
+// 依赖插件：layer
 function z_oper(dataString, url, oper) {
 	if (dataString.length == 0) {
 		layer.alert('请选择至少一条记录！', 8);
@@ -162,6 +164,7 @@ function z_oper(dataString, url, oper) {
 }
 
 // 删除
+// 依赖插件：layer
 function z_delete(dataString, url) {
 	z_oper(dataString, url, "删除");
 }
