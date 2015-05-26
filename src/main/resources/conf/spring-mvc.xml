@@ -33,7 +33,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	</bean>
 	<bean id="systemContextInterceptor" class="com.zcj.web.springmvc.interceptor.SystemContextInterceptor">
 		<property name="pagesizeKey" value="limit"/>
-		<property name="offsetKey" value="start"/>
+		<property name="offsetKey" value="start,offset"/>
 		<property name="defaultPagesize" value="20"/>
 		<property name="iframeCrossDomain" value="true"/>
 	</bean>

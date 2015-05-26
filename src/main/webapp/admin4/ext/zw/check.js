@@ -28,9 +28,15 @@
  * @cfg [data-check.max-len] 最大长度
  *
  *      data-check="max-len: 10"
- * @cfg [data-check.max-char-len] 字符最大长度
+ * @cfg [data-check.max-char-len] 字符最大长度 区分汉字和英文
  *
  *      data-check="max-char-len: 10"
+ * @cfg [data-check.min-len] 最小长度
+ *
+ *      data-check="min-len: 10"
+ * @cfg [data-check.min-char-len] 字符最小长度 区分汉字和英文
+ *
+ *      data-check="min-char-len: 10"
  * @cfg [data-check.fit] 校验指定name值的表单元素的值是否与校验元素相同，例如确认密码
  *
  *      data-check="fit: account"
@@ -54,7 +60,7 @@
  *      在表单元素上定义函数名
  *      data-check="custom: functionName"
  *      在window对象上添加新函数
- *      -$control 校验元素dom
+ *      --$control 校验元素dom
  *      function functionName($control){
  *          //CODE
  *          return {
@@ -336,7 +342,7 @@
                             //最大长度
                             case 'max-len':
                                 if ($control.val().length > parseInt(limit[1])) {
-                                    showTip(false, $control, '长度不能超过' + parseInt(limit[1]) + '个字符');
+                                    showTip(false, $control, '长度不能大于' + parseInt(limit[1]) + '个字符');
                                 }
                                 else{
                                     showTip(true, $control);
@@ -345,7 +351,29 @@
                             //字符最大长度 区分汉字和英文
                             case 'max-char-len':
                                 if (checkMethods.countCharacters($control.val()) > parseInt(limit[1])) {
-                                    showTip(false, $control, '汉字不能超过' + parseInt(limit[1] / 2) + '个, 英文不能超过' + parseInt(limit[1]) + '个');
+                                    showTip(false, $control, '汉字不能大于' + parseInt(limit[1] / 2) + '个, 英文不能大于' + parseInt(limit[1]) + '个');
+                                }
+                                else{
+                                    showTip(true, $control);
+                                }
+                                break;
+                            //最小长度
+                            case 'min-len':
+                                if(checkMethods.isEmpty($control.val())){
+                                    showTip(true, $control);
+                                }else if ($control.val().length < parseInt(limit[1])) {
+                                    showTip(false, $control, '长度不能小于' + parseInt(limit[1]) + '个字符');
+                                }
+                                else{
+                                    showTip(true, $control);
+                                }
+                                break;
+                            //字符最小长度 区分汉字和英文
+                            case 'min-char-len':
+                                if(checkMethods.isEmpty($control.val())){
+                                    showTip(true, $control);
+                                }else if (checkMethods.countCharacters($control.val()) < parseInt(limit[1])) {
+                                    showTip(false, $control, '汉字不能小于' + parseInt(limit[1] / 2) + '个, 英文不能小于' + parseInt(limit[1]) + '个');
                                 }
                                 else{
                                     showTip(true, $control);
@@ -363,9 +391,11 @@
                             //指定数字范围
                             case 'scope':
                                 var scope = $.trim(limit[1]).split('-');
+                                var min = Math.min(scope[0], scope[1]);
+                                var max = Math.max(scope[0], scope[1]);
 
-                                if(parseInt($control.val()) < Math.min(scope[0], scope[1]) || parseInt($control.val()) > Math.max(scope[0], scope[1])){
-                                    showTip(false, $control, '请输入在有效范围内的数字');
+                                if(parseInt($control.val()) < min || parseInt($control.val()) > max){
+                                    showTip(false, $control, '请输入范围在'+ min + ' - ' + max +' 的数字');
                                 }else{
                                     showTip(true, $control);
                                 }
@@ -484,6 +514,7 @@
             //下拉框特殊处理
             if($control.is('select')){
                 $control.parent().find('.' + cls.selectCls).addClass(cls.errorCls);
+                $control.addClass(cls.errorCls);
             }
 
             $me.data({

@@ -195,7 +195,32 @@
                 //分页跳转
                 pagingJumpCls: 'jump-select'
             },
-            event: {}
+            /**
+             * @cfg {Object} event 事件
+             * @cfg {Function} [event.onGetDataError] 获取数据失败时的处理回调，详见Events下的{@link grid#onGetDataError onGetDataError}
+             */
+            event: {
+                /**
+                 * @event onGetDataError
+                 * 获取数据失败时的处理回调
+                 * @param  {Object} json 请求返回的数据
+                 */
+                onGetDataError: function(json){
+                    if(window.parent.parent.tip){
+                        if(json.d){
+                            window.parent.parent.tip(json.d, 'danger');
+                        }else{
+                            window.parent.parent.tip('获取列表数据失败', 'danger');
+                        }
+                    }else{
+                        if(json.d){
+                            alert(json.d);
+                        }else{
+                            alert('获取列表数据失败');
+                        }
+                    }
+                }
+            }
         };
         //数据仓库
         this.store = new Array();
@@ -364,6 +389,45 @@
                 return values;
             },
             /**
+             * 获取选中行的数据字符串
+             * @param  {String Array} dataIndex 数据字段名 可以为字符串或数组
+             * @return {String}       参数字符串
+             *
+             *     @example
+             *     grid.getSelectedDataString('name');//return name=1&name=2&name=3
+             *     grid.getSelectedDataString(['name', 'id']);//return name=1&name=2&name=3&id=1&id=2
+             *     
+             */
+            getSelectedDataString: function(dataIndex){
+                var selections = me.$me.find(':checked:not(.selectAll)');
+                var len = selections.length;
+                var values = new Array();
+                
+                if(typeof dataIndex === 'string'){
+                    for(var i = 0; i < len; i++){
+                        var $tr = $(selections[i]).parents('tr');
+
+                        values.push(dataIndex + '=' + $tr.data('data')[dataIndex]);
+                    }
+                }else if(typeof dataIndex === 'object'){
+                    for(var j = 0, jLen = dataIndex.length; j < jLen; j++){
+                        for(var i = 0; i < len; i++){
+                            var $tr = $(selections[i]).parents('tr');
+
+                            values.push(dataIndex[j] + '=' + $tr.data('data')[dataIndex[j]]);
+                        }
+                    }
+                }else{
+                    return $.error('dataIndex must be string');
+                }
+
+                //取消选择
+                selections.prop('checked', false);
+                me.$me.find('.selectAll').prop('checked', false);
+
+                return values.join('&');
+            },
+            /**
              * 获取行数据根据行元素
              * @param  {Dom} dom 该行下的html元素
              * @return {Object}         数据对象
@@ -515,14 +579,13 @@
         this.clean();
         //移除空提示
         this.tableTip('hideTip');
-        this.ajaxStartTime = new Date().getTime();
         //两秒后检查是否已返回数据
         setTimeout(function() {
-            if(me.ajaxing !== false && (new Date().getTime() - me.ajaxing) >= 2000){
+            if(me.ajaxEndTime !== false && me.ajaxStartTime === me.ajaxEndTime){
                 //载入提示
                 me.tableTip('showLoadingTip');
             }
-        }, 2000);
+        }, 1000);
         /* 生成参数 */
         if(params){
             this.ajaxParams = {};
@@ -534,17 +597,16 @@
         //更新当前页数
         this.curPage = page;
         //获取数据
-        this.getData(function(json) {
-            if (json === 'error') {
+        this.getData(function(type, json) {
+            if (type === 'error') {
                 /*错误提示*/
                 if (typeof me.opts.event.onGetDataError === 'function') {
                     me.opts.event.onGetDataError(json);
                 }
-                me.tableTip('showNoneTip');
-            } else if (json === 'timeout') {
+            } else if (type === 'timeout') {
                 /*超时提示*/
                 me.tableTip('showTimeoutTip');
-            } else if (typeof json === 'object') {
+            } else if (type === 'success') {
                 if(json[me.opts.store.dataProperty].length){
                     /*有数据*/
                     //数据
@@ -554,8 +616,13 @@
                     //渲染
                     me.renderGrid(true);
                 }else{
-                    /*空数据提示*/
-                    me.tableTip('showNoneTip');
+                    //当不是第一页时跳转到上一页
+                    if(me.curPage !== 1){
+                        me.gridObj.prevPage();
+                    }else{
+                        /*空数据提示*/
+                        me.tableTip('showNoneTip');
+                    }
                 }
             }
 
@@ -631,6 +698,8 @@
             if (this.opts.tool.checkboxSelect === true) {
                 this.addListeners('checkbox');
             }
+        }else{
+            this.$me.find('thead').show();
         }
     };
 
@@ -719,7 +788,7 @@
 
     //渲染缩略图模式
     Grid.prototype.rendererThumb = function() {
-        this.$me.find('.table-head').remove();
+        this.$me.find('thead').remove();
         if (this.$thumb) {
             this.$thumb.remove();
         }
@@ -739,12 +808,12 @@
 
     //获取数据
     Grid.prototype.getData = function(callback) {
-        this.ajaxing = new Date().getTime();
+        this.ajaxStartTime = this.ajaxEndTime = new Date().getTime();
 
         if (this.opts.store.data && !this.opts.store.url) {
-            this.ajaxing = false;
+            this.ajaxEndTime = false;
             /*返回本地数据*/
-            callback(this.opts.store.data);
+            callback('success', this.opts.store.data);
         } else {
             /*返回ajax数据*/
             var me = this;
@@ -768,16 +837,16 @@
                 dataType: 'json',
                 data: params,
                 success: function(json){
-                    me.ajaxing = new Date().getTime();
+                    me.ajaxEndTime = new Date().getTime();
                     if (json[opts.store.successProperty] == 1) {
                         //获取成功
-                        callback(json);
+                        callback('success', json);
                     } else {
-                        callback('none');
+                        callback('error', json);
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown){
-                    me.ajaxing = new Date().getTime();
+                    me.ajaxEndTime = new Date().getTime();
                     if(textStatus === 'timeout'){
                         callback('timeout');
                     }else{
@@ -1046,8 +1115,10 @@
                 $('.btn-go', this.$tableBottomBar).bind('click', function() {
                     var pageNum = parseInt($('.' + me.opts.tool.pagingJumpCls, me.$tableBottomBar).val());
 
-                    if($.isNumeric(pageNum) && pageNum <= me.totalPage && pageNum >= 1){
+                    if($.isNumeric(pageNum) && pageNum >= 1){
                         me.loadPage(pageNum);
+                    }else if(pageNum <= me.totalPage){
+                        me.gridObj.lastPage();
                     }else{
                         if(window.parent.parent.tip){
                             window.parent.parent.tip('请输入正确的数字', 'danger');

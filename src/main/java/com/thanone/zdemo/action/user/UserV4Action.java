@@ -1,11 +1,13 @@
 package com.thanone.zdemo.action.user;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.thanone.zdemo.common.WebContext;
 import com.thanone.zdemo.common.ZwPageResult;
 import com.thanone.zdemo.entity.user.User;
 import com.thanone.zdemo.service.user.UserService;
@@ -63,6 +66,19 @@ public class UserV4Action extends BasicAction {
 	public String tomodify(@PathVariable Long id, Model model) {
 		model.addAttribute("obj", userService.findById(id));
 		return "/WEB-INF/ftl/admin_v4/user/user_modify.ftl";
+	}
+	
+	@RequestMapping("/delete")
+	public void delete(HttpServletRequest request, Long[] id, PrintWriter out) {
+		if (id == null || id.length == 0) {
+			out.write(ServiceResult.initErrorJson("请选择需要删除的记录！"));
+			return;
+		} else if (Arrays.asList(id).contains(WebContext.getLoginUserId(request))) {
+			out.write(ServiceResult.initErrorJson("不能删除自己的账号！"));
+			return;
+		}
+		userService.deleteByIds(Arrays.asList(id));
+		out.write(ServiceResult.initSuccessJson(null));
 	}
 
 	@RequestMapping("/password")

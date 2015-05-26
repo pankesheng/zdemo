@@ -75,6 +75,7 @@ body {
 }
 .table-thumb {
   text-align: left;
+  margin-right: -10px;
 }
 .table-thumb .thumb-item {
   display: inline-block;
