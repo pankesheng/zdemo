@@ -137,6 +137,11 @@ function z_alert_error(value) {
 	alert(value);
 }
 
+// 弹出layer提示
+function z_alert_layer(value) {
+	layer.alert(value, 8);
+}
+
 // 弹出窗口
 // 依赖插件：layer
 function z_openIframe(title, width, height, src) {
@@ -163,7 +168,7 @@ function z_openIframe(title, width, height, src) {
 // 依赖插件：layer、grid、tool
 function z_oper(dataString, url, oper) {
 	if (dataString.length == 0) {
-		layer.alert('请选择至少一条记录！', 8);
+		z_alert_layer('请选择至少一条记录！');
 		return false;
 	}
 	var theUrl = url + '?' + dataString;
@@ -173,7 +178,7 @@ function z_oper(dataString, url, oper) {
 	layer.confirm('确认'+oper+'？', function() {
 		$.post(theUrl, function(data){
 			if(data.s!=1){
-				layer.alert(data.d, 8);
+				z_alert_layer(data.d||"操作失败！");
 	        } else {
 	        	grid.refresh();
 				layer.closeAll();
