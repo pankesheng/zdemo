@@ -84,11 +84,8 @@ function _save() {
 				// 解决IE6下关闭弹窗时焦点丢失的问题
 				$("#searchKey", window.parent.document).focus();
 				window.parent.layer.closeAll();
-				<#-- 
-				window.location.href = '${contextPath}/user/tolist.do';
-				 -->
 			}else{
-				alert(data.d);
+				z_alert_error(data.d);
 			}
 		    return true;
 		}

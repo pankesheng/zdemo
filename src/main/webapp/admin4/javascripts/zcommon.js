@@ -127,6 +127,16 @@ function z_initFlieUpload(uploadButtonId, basePath, saveCatalog, resultPathInput
 	});
 }
 
+// 弹出成功提示
+function z_alert_success(value) {
+	alert(value);
+}
+
+// 弹出错误提示
+function z_alert_error(value) {
+	alert(value);
+}
+
 // 弹出窗口
 // 依赖插件：layer
 function z_openIframe(title, width, height, src) {
@@ -167,7 +177,7 @@ function z_oper(dataString, url, oper) {
 	        } else {
 	        	grid.refresh();
 				layer.closeAll();
-				window.parent.parent.tip(data.d||"操作成功！","success");
+				z_alert_success(data.d||"操作成功！");
 	        }
 		}, "json");
 	});
@@ -183,8 +193,8 @@ function z_delete(dataString, url) {
 function z_export(url) {
 	$.ajax({url:url,data:{},type:"post",dataType:"json", success: function(data){
         if(data.s!=1){
-          alert(data.d);
-          return;
+        	z_alert_error(data.d);
+        	return;
         }
         var url = _z_basepath+"/file/download.ajax?path="+encodeURI(data.d.url)+"&fileName="+encodeURI(data.d.fileName);
         window.location.href=url;
