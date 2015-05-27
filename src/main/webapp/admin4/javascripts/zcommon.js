@@ -129,7 +129,7 @@ function z_initFlieUpload(uploadButtonId, basePath, saveCatalog, resultPathInput
 
 // 弹出成功提示
 function z_alert_success(value) {
-	alert(value);
+	window.parent.parent.tip(value, 'success');
 }
 
 // 弹出错误提示
@@ -189,7 +189,7 @@ function z_oper(dataString, url, oper) {
 }
 
 // 删除。完成后自动调用 grid.refresh()
-// 依赖插件：layer、grid
+// 依赖插件：layer、grid、tool
 function z_delete(dataString, url) {
 	z_oper(dataString, url, "删除");
 }
