@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
@@ -14,27 +14,33 @@
             padding: 0;
             margin: 0;
         }
+        p{
+            margin: 10px 0;
+        }
         .not-found{
             width: 100%;
             height: 100%;
         }
         .btn{
-            display: block;
-            width: 140px;
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
             height: 28px;
+            padding: 0px 25px;
             line-height: 28px;
             color: #fff;
-            text-decoration: none;
-            border: none;
+            background-color: #498ef5;
+            border: 1px solid #2871f5;
             border-radius: 2px;
-            background-color: #2cc8f4;
+            text-decoration: none;
             cursor: pointer;
         }
-        .bg{
-            display: block;
-            margin-bottom: 20px;
-            max-width: 70%;
-            max-height: 70%;
+        .tip{
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+            margin-left: 10px;
+            font-family: Microsoft YaHei, '微软雅黑', MicrosoftJhengHei;
         }
     </style>
 </head>
@@ -43,8 +49,14 @@
         <table width="100%" height="100%">
             <tr>
                 <td align="center" valign="middle">
-                    <img class="bg" src="<%=request.getContextPath() %>/admin4/images/404.png" alt="404" />
-                    <a class="btn" href="<%=request.getContextPath() %>/login.jsp">返回首页</a>
+                    <div class="failed">
+                        <img src="<%=request.getContextPath() %>/admin4/images/failed-tip.png" alt="success-tip" />
+                        <div class="tip">
+                            <p>${error }</p>
+                            <P>您可以选择</p>
+                            <a href="<%=request.getContextPath() %>/login.jsp" class="btn">返回首页</a>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </table>
