@@ -1,12 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title></title>
-    <link rel="stylesheet" href="./stylesheets/common.css" />
-    <link rel="stylesheet" href="./stylesheets/login.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/admin4/stylesheets/common.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/admin4/stylesheets/login.css" />
+    <script type="text/javascript" src="<%=request.getContextPath() %>/ext/jquery/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/ext/zcommon.js?v=1" basepath="<%=request.getContextPath() %>" baseinit="iframeCheckLogin"></script>
 </head>
 <body>
     <table width="100%" height="100%">
@@ -19,11 +22,11 @@
                             <h2 class="login-title">用户登录</h2>
                             <div class="login-content">
                                 <!-- <div class="login-tip">您输入的账号或密码有误！</div> -->
-                                <form action="">
+                                <form>
                                     <div class="form-group">
                                         <input class="form-control" id="account" name="account" type="text" />
                                         <i class="iconfont">&#xe62c;</i>
-                                        <div class="placeholder">手机号码或邮箱账号</div>
+                                        <div class="placeholder">请输入账号</div>
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control" id="password" name="password" type="password" />
@@ -35,7 +38,7 @@
                                             <input class="form-checkbox" id="remember-password" type="checkbox" autocomplete="off" />
                                             <label for="remember-password">记住密码</label>
                                         </span>
-                                        <a class="right" href="##">忘记密码？</a>
+                                        <!-- <a class="right" href="##">忘记密码？</a> -->
                                     </div>
                                     <div class="form-group">
                                         <a class="login-submit" href="javascript:void(0);" id="login-submit">登&nbsp;&nbsp;录</a>
@@ -52,7 +55,6 @@
             </tr>
         </tbody>
     </table>
-    <script type="text/javascript" src="./ext/jquery/jquery-1.8.1.min.js"></script>
     <script>
         var docCookies = {
             getItem: function(sKey) {
@@ -98,6 +100,7 @@
                 return aKeys;
             }
         };
+        
         $(function() {
             loadCookies();
             removePlaceholder();
@@ -145,10 +148,7 @@
                     docCookies.removeItem('password');
                 }
 
-                //登录
-                // $.get('/path/to/file', function(data) {
-                //     /*optional stuff to do after success */
-                // });
+                login();
             });
         }
 
@@ -161,6 +161,22 @@
                 $('#password').val(password);
                 $('#remember-password').prop('checked', true);
             }
+        }
+        
+        function login() {
+        	var a = $("#account").val() || "";
+        	var b = $("#password").val() || "";
+        	if ($.trim(a) == "" || $.trim(b) == "") {
+        		alert("账号或密码不能为空！");
+        	} else {
+        		$.ajax({url:"<%=request.getContextPath() %>/user/login.ajax",data:{username:a,password:b},type:"post",dataType:"json", success: function(data){
+        	        if(data.s!=1){
+        	          alert(data.d);
+        	          return;
+        	        }
+        	        window.location.href="<%=request.getContextPath() %>/index4/index.do";
+        		}});
+        	}
         }
     </script>
 </body>

@@ -33,7 +33,7 @@ public class UserServiceImpl extends BasicServiceImpl<User, Long, UserMapper> im
 			if (u.getState() == null || u.getState() != 1) {
 				return ServiceResult.initError("账号被冻结，请联系管理员！");
 			}
-			return ServiceResult.initSuccess(ulist.get(0));
+			return ServiceResult.initSuccess(u);
 		}
 		return ServiceResult.initError("账号或密码错误！");
 	}
