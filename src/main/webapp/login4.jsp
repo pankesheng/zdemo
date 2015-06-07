@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/admin4/stylesheets/common.css" />
     <link rel="stylesheet" href="<%=request.getContextPath() %>/admin4/stylesheets/login.css" />
     <script type="text/javascript" src="<%=request.getContextPath() %>/ext/jquery/jquery-1.8.1.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/ext/zcommon.js?v=1" basepath="<%=request.getContextPath() %>" baseinit="iframeCheckLogin"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/admin4/javascripts/zcommon.js?v=1" basepath="<%=request.getContextPath() %>" baseinit="iframeCheckLogin"></script>
+	<script>
+		<% if (session.getAttribute("login_info") != null) {%>
+		window.location.href="<%=request.getContextPath() %>/index4/index.do";
+		<% }%>
+	</script>
 </head>
 <body>
     <table width="100%" height="100%">
