@@ -2,13 +2,13 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="${contextPath}/admin4/stylesheets/common.css" />
-    <link rel="stylesheet" href="${contextPath}/admin4/stylesheets/table.css" />
+	<link rel="stylesheet" href="${contextPath}/admin4/stylesheets/common.css?v=${sversion}" />
+    <link rel="stylesheet" href="${contextPath}/admin4/stylesheets/table.css?v=${sversion}" />
 	<script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
     <script type="text/javascript" src="${contextPath}/ext/layer/layer.min.js"></script>
     <script type="text/javascript" src="${contextPath}/admin4/ext/jquery/selectbox.js"></script>
-    <script type="text/javascript" src="${contextPath}/admin4/ext/zw/grid.js"></script>
-    <script type="text/javascript" src="${contextPath}/admin4/javascripts/tool.js"></script>
+    <script type="text/javascript" src="${contextPath}/admin4/ext/zw/grid.js?v=${sversion}"></script>
+    <script type="text/javascript" src="${contextPath}/admin4/javascripts/tool.js?v=${sversion}"></script>
 	<script type="text/javascript" src="${contextPath}/admin4/javascripts/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
 </head>
 <body>

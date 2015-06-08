@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="${contextPath}/ext/jquery_zcj/jquery.zimgslider.css?v=${sversion}" />
 	<script type="text/javascript" src="${contextPath}/ext/jquery_zcj/jquery.zimgslider.js?v=${sversion}"></script>
 	<script type="text/javascript" src="${contextPath}/admin4/ext/jquery/selectbox.js"></script>
-	<script type="text/javascript" src="${contextPath}/admin4/ext/zw/check.js"></script>
+	<script type="text/javascript" src="${contextPath}/admin4/ext/zw/check.js?v=${sversion}"></script>
 	<script type="text/javascript" src="${contextPath}/admin4/javascripts/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
 </head>
 <body>
