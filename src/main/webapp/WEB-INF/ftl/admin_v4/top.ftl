@@ -48,7 +48,7 @@
         };
     </script>
     <![endif]-->
-    <script type="text/javascript" src="${contextPath}/admin4/javascripts/jquery-zwbam.js"></script>
+    <script type="text/javascript" src="${contextPath}/admin4/javascripts/jquery-zwbam.js?v=${sversion}"></script>
     <script>
         /*顶部框架暴露对象*/
         var Header = {

@@ -43,7 +43,7 @@
         DD_belatedPNG.fix('.first-icon, .right-arrow, background, background');
     </script>
     <![endif]-->
-    <script type="text/javascript" src="${contextPath}/admin4/javascripts/jquery-zwbam.js"></script>
+    <script type="text/javascript" src="${contextPath}/admin4/javascripts/jquery-zwbam.js?v=${sversion}"></script>
     <script>
         $(function(){
             $('.left-menu-list').zwbam('initMenu', {
