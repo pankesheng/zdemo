@@ -23,6 +23,8 @@ public class CodeMySql {
 				System.out.println("  `"+ff.getName()+"` varchar(100) DEFAULT NULL,");
 			} else if ("class java.util.Date".equals(ff.getType().toString())) {
 				System.out.println("  `"+ff.getName()+"` datetime DEFAULT NULL,");
+			} else if ("class java.lang.Float".equals(ff.getType().toString())) {
+				System.out.println("  `"+ff.getName()+"` float DEFAULT NULL,");
 			}
 		}
 		System.out.println("  `ctime` datetime DEFAULT NULL,");
