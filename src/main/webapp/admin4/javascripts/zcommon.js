@@ -1,3 +1,4 @@
+// 2015-06-09 10:00
 
 // 后台管理系统各页面引入
 //		<script type="text/javascript" src="${contextPath}/admin4/javascripts/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
@@ -77,8 +78,11 @@ function z_initImgUpload(uploadButtonId, imgListId, basePath, saveCatalog, maxCo
 		formData: { type: saveCatalog },
 		swf: basePath+'/ext/jquery_uploadify/uploadify.swf',
 		
+		buttonImage: basePath+'/ext/jquery_uploadify/upload-btn2.png',
 		buttonText: '上传',
 		removeTimeout: 0.1,
+		width : 100,
+		height : 32,
 		
 		multi: multi,
 		fileSizeLimit: '20MB',// 文件大小限制
@@ -105,11 +109,11 @@ function z_initFlieUpload(uploadButtonId, basePath, saveCatalog, resultPathInput
 		formData: { type: saveCatalog },
 		swf: basePath+'/ext/jquery_uploadify/uploadify.swf',
 		
-		// buttonImage: basePath+'/ext/jquery_uploadify/upload-btn.png',
+		buttonImage: basePath+'/ext/jquery_uploadify/upload-btn2.png',
 		buttonText: '上传',
 		removeTimeout: 0.1,
-		// width : 100,
-		// height : 32,
+		width : 100,
+		height : 32,
 		
 		multi: false,
 		fileSizeLimit: '100MB',// 文件大小限制
