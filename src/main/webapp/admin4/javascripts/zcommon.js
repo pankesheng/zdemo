@@ -1,4 +1,4 @@
-// 2015-06-09 10:00
+// 2015-06-18 15:30
 
 // 后台管理系统各页面引入
 //		<script type="text/javascript" src="${contextPath}/admin4/javascripts/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
@@ -65,6 +65,9 @@ function _getParents(w){//获取父级win
 
 // 初始化图片上传功能
 // z_initImgUpload("upload1", "addOrModify_imgs", "${contextPath}", "Downloads-zt", 1);
+// 依赖：
+//	<link rel="stylesheet" type="text/css" href="${contextPath}/admin4/ext/uploadify/uploadify.css" media="screen" />
+//	<script type="text/javascript" src="${contextPath}/admin4/ext/uploadify/jquery.uploadify.min.js?t=<@z.z_now />"></script>
 function z_initImgUpload(uploadButtonId, imgListId, basePath, saveCatalog, maxCount) {
 	
 	var multi = false;
@@ -76,17 +79,18 @@ function z_initImgUpload(uploadButtonId, imgListId, basePath, saveCatalog, maxCo
 		
 		uploader: basePath+'/file/upload.ajax',
 		formData: { type: saveCatalog },
-		swf: basePath+'/ext/jquery_uploadify/uploadify.swf',
+		swf: basePath+'/admin4/ext/uploadify/uploadify.swf',
 		
-		buttonImage: basePath+'/ext/jquery_uploadify/upload-btn2.png',
-		buttonText: '上传',
+		buttonText: '上传图片',
+		buttonClass: 'btn btn-primary no-padding',
 		removeTimeout: 0.1,
-		width : 100,
-		height : 32,
+		width : 70,
+		height : 30,
 		
 		multi: multi,
 		fileSizeLimit: '20MB',// 文件大小限制
 		fileTypeExts: '*.gif;*.jpg;*.png;*.bmp;*.jpeg',// 默认为所有类型
+		fileTypeDesc: '图片',
 		
 		onUploadSuccess: function(file, data, response){
 			var data2 = JSON.parse(data);
@@ -101,23 +105,27 @@ function z_initImgUpload(uploadButtonId, imgListId, basePath, saveCatalog, maxCo
 
 //初始化文件上传功能
 // z_initFlieUpload("upload2", "${contextPath}", "Downloads-zt", "linkUrl");
+// 依赖：
+// 	<link rel="stylesheet" type="text/css" href="${contextPath}/admin4/ext/uploadify/uploadify.css" media="screen" />
+// 	<script type="text/javascript" src="${contextPath}/admin4/ext/uploadify/jquery.uploadify.min.js?t=<@z.z_now />"></script>
 function z_initFlieUpload(uploadButtonId, basePath, saveCatalog, resultPathInputId) {
 	
 	$('#'+uploadButtonId).uploadify({
 		
 		uploader: basePath+'/file/upload.ajax',
 		formData: { type: saveCatalog },
-		swf: basePath+'/ext/jquery_uploadify/uploadify.swf',
+		swf: basePath+'/admin4/ext/uploadify/uploadify.swf',
 		
-		buttonImage: basePath+'/ext/jquery_uploadify/upload-btn2.png',
-		buttonText: '上传',
+		buttonText: '上传文件',
+		buttonClass: 'btn btn-primary no-padding',
 		removeTimeout: 0.1,
-		width : 100,
-		height : 32,
+		width : 70,
+		height : 30,
 		
 		multi: false,
 		fileSizeLimit: '100MB',// 文件大小限制
 		// fileTypeExts: '*.gif;*.jpg;*.png;*.bmp;*.jpeg',// 默认为所有类型
+		fileTypeDesc: '文件',
 		
 		onUploadSuccess: function(file, data, response){
 			var data2 = JSON.parse(data);

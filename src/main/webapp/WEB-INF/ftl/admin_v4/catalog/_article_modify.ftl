@@ -8,8 +8,8 @@
 	<script type="text/javascript" src="${contextPath}/ext/jquery_form/jquery.form.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/ext/layer/layer.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/ext/laydate/laydate.js"></script>
-	<link rel="stylesheet" type="text/css" href="${contextPath}/ext/jquery_uploadify/uploadify.css" media="screen" />
-	<script type="text/javascript" src="${contextPath}/ext/jquery_uploadify/jquery.uploadify.js?t=<@z.z_now />"></script>
+	<link rel="stylesheet" type="text/css" href="${contextPath}/admin4/ext/uploadify/uploadify.css" media="screen" />
+	<script type="text/javascript" src="${contextPath}/admin4/ext/uploadify/jquery.uploadify.min.js?t=<@z.z_now />"></script>
 	<link rel="stylesheet" href="${contextPath}/ext/jquery_zcj/jquery.zimgslider.css?v=${sversion}" />
 	<script type="text/javascript" src="${contextPath}/ext/jquery_zcj/jquery.zimgslider.js?v=${sversion}"></script>
 	<script type="text/javascript" src="${contextPath}/admin4/ext/jquery/selectbox.js"></script>
@@ -57,14 +57,14 @@
 			                <td><label class="form-label" for="titleType">标题显示方式<b class="red">*</b></label></td>
 			                <td>
 			                	<select id="titleType" name="titleType" class="form-select" data-check="must">
+					    			<option value="3" <#if (obj?? && obj.titleType==3)>selected</#if> >纯文字</option>
 					    			<option value="1" <#if (obj?? && obj.titleType==1)>selected</#if> >大图+文字</option>
 					    			<option value="2" <#if (obj?? && obj.titleType==2)>selected</#if> >小图+文字</option>
-					    			<option value="3" <#if (obj?? && obj.titleType==3)>selected</#if> >纯文字</option>
 			                    </select>
 			                </td>
 			            </tr>
 			            <tr>
-			                <td><label class="form-label">标题图片<b class="red">*</b></label></td>
+			                <td><label class="form-label">标题图片</label></td>
 			                <td>
 			                	<input type="hidden" name="titleImg">
 								<div id="addOrModify_imgs"></div>
@@ -104,7 +104,7 @@ var ue = UE.getEditor('editor', {
 	toolbars : [ [ 'fullscreen', 'source', '|', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'strikethrough',
 			'removeformat', '|', 'forecolor', 'insertorderedlist', 'insertunorderedlist', '|', 'fontfamily',
 			'fontsize', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'link', 'unlink', '|',
-			'simpleupload', 'insertimage', 'attachment', '|', 'wordimage',
+			'simpleupload', 'insertimage', 'insertvideo', 'attachment', '|', 'wordimage',
 			'inserttable', 'preview' ] ],
 	"imageUrlPrefix" : prefix,
 	"scrawlUrlPrefix" : prefix,
