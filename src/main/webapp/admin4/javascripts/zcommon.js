@@ -1,7 +1,10 @@
-// 2015-06-18 15:30
+
+// 更新日志
+// 2015-07-16 v1.0
 
 // 后台管理系统各页面引入
-//		<script type="text/javascript" src="${contextPath}/admin4/javascripts/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
+//		登录页：<script type="text/javascript" src="<%=request.getContextPath() %>/admin4/javascripts/zcommon.js?v=1" basepath="<%=request.getContextPath() %>" baseinit="iframeCheckLogin"></script>
+//		其他页：<script type="text/javascript" src="${contextPath}/admin4/javascripts/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
 
 // 参数
 // 		basepath : 根路径，默认""。
@@ -105,10 +108,16 @@ function z_initImgUpload(uploadButtonId, imgListId, basePath, saveCatalog, maxCo
 
 //初始化文件上传功能
 // z_initFlieUpload("upload2", "${contextPath}", "Downloads-zt", "linkUrl");
+// z_initFlieUpload("upload2", "${contextPath}", "Downloads-zt", "linkUrl", "上传文件");
 // 依赖：
 // 	<link rel="stylesheet" type="text/css" href="${contextPath}/admin4/ext/uploadify/uploadify.css" media="screen" />
 // 	<script type="text/javascript" src="${contextPath}/admin4/ext/uploadify/jquery.uploadify.min.js?t=<@z.z_now />"></script>
-function z_initFlieUpload(uploadButtonId, basePath, saveCatalog, resultPathInputId) {
+function z_initFlieUpload(uploadButtonId, basePath, saveCatalog, resultPathInputId, buttonText) {
+	
+	var btext = "上传文件";
+	if (buttonText) {
+		btext = buttonText;
+	}
 	
 	$('#'+uploadButtonId).uploadify({
 		
@@ -116,7 +125,7 @@ function z_initFlieUpload(uploadButtonId, basePath, saveCatalog, resultPathInput
 		formData: { type: saveCatalog },
 		swf: basePath+'/admin4/ext/uploadify/uploadify.swf',
 		
-		buttonText: '上传文件',
+		buttonText: btext,
 		buttonClass: 'btn btn-primary no-padding',
 		removeTimeout: 0.1,
 		width : 70,
@@ -183,9 +192,11 @@ function z_oper(dataString, url, oper) {
 		z_alert_layer('请选择至少一条记录！');
 		return false;
 	}
-	var theUrl = url + '?' + dataString;
+	var theUrl = "";
 	if (url.indexOf("?") > 0) {
 		theUrl = url + '&' + dataString;
+	} else {
+		theUrl = url + '?' + dataString;
 	}
 	layer.confirm('确认'+oper+'？', function() {
 		$.post(theUrl, function(data){

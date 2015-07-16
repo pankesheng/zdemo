@@ -193,7 +193,7 @@
                 //分页条数设置样式
                 pagingSizeCls: 'pagesize-value',
                 //分页跳转
-                pagingJumpCls: 'jump-select'
+                pagingJumpCls: 'page-jump'
             },
             /**
              * @cfg {Object} event 事件
@@ -206,18 +206,22 @@
                  * @param  {Object} json 请求返回的数据
                  */
                 onGetDataError: function(json){
-                    if(window.parent.parent.tip){
+                    var message = '';
+
+                    if(json){
                         if(json.d){
-                            window.parent.parent.tip(json.d, 'danger');
+                            message = json.d;    
                         }else{
-                            window.parent.parent.tip('获取列表数据失败', 'danger');
+                            message = json;
                         }
                     }else{
-                        if(json.d){
-                            alert(json.d);
-                        }else{
-                            alert('获取列表数据失败');
-                        }
+                        message = '获取列表数据失败';
+                    }
+
+                    if(window.parent.parent.tip){
+                        window.parent.parent.tip(message, 'danger');
+                    }else{
+                        alert(message);
                     }
                 }
             }
@@ -277,14 +281,16 @@
             /**
              * 根据参数重新加载表格，之前的参数将被清除，并重新渲染表头，并返回第一页。
              * @param  {Object} params 参数对象
+             * @param  {Function} callback 回调函数
+             * -data 返回的数据
              *
              *     @example
              *     grid.load({
              *         filter: 'name'
-             *     });
+             *     }, function(data){});
              */
-            load: function(params) {
-                me.loadPage(1, params);
+            load: function(params, callback) {
+                me.loadPage(1, params, callback);
             },
             /**
              * 载入第一页。
@@ -571,14 +577,10 @@
      * @param  {Number} page   页数
      * @param  {Object} params 参数
      */
-    Grid.prototype.loadPage = function(page, params) {
+    Grid.prototype.loadPage = function(page, params, callback) {
         var me = this;
 
         this.$wrapper.height(this.$wrapper.height());
-        //清除
-        this.clean();
-        //移除空提示
-        this.tableTip('hideTip');
         //两秒后检查是否已返回数据
         setTimeout(function() {
             if(me.ajaxEndTime !== false && me.ajaxStartTime === me.ajaxEndTime){
@@ -590,14 +592,22 @@
         if(params){
             this.ajaxParams = {};
         }
-        this.ajaxParams = $.extend(true, this.ajaxParams, this.opts.store.extraParams || {}, params || {}, {
-            offset: (page - 1) * this.opts.store.pagesize,
-            limit: this.opts.store.pagesize
-        });
+        this.ajaxParams = $.extend(true, this.ajaxParams, this.opts.store.extraParams || {}, params || {});
+        if(this.opts.tool.pagingBar){
+            this.ajaxParams = $.extend(true, this.ajaxParams, {
+                offset: (page - 1) * this.opts.store.pagesize,
+                limit: this.opts.store.pagesize
+            });
+        }
         //更新当前页数
         this.curPage = page;
         //获取数据
         this.getData(function(type, json) {
+            //清除
+            me.clean();
+            //移除空提示
+            me.tableTip('hideTip');
+
             if (type === 'error') {
                 /*错误提示*/
                 if (typeof me.opts.event.onGetDataError === 'function') {
@@ -607,14 +617,16 @@
                 /*超时提示*/
                 me.tableTip('showTimeoutTip');
             } else if (type === 'success') {
-                if(json[me.opts.store.dataProperty].length){
+                var data = json[me.opts.store.dataProperty];
+
+                if(typeof data === 'object' && data.length){
                     /*有数据*/
                     //数据
                     me.data = json[me.opts.store.dataProperty];
                     //总数
                     me.total = json[me.opts.store.totalProperty];
                     //渲染
-                    me.renderGrid(true);
+                    me.renderGrid();
                 }else{
                     //当不是第一页时跳转到上一页
                     if(me.curPage !== 1){
@@ -629,6 +641,10 @@
             me.$wrapper.height('auto');
             //移除载入动画
             me.tableTip('hideLoadingTip');
+
+            if(typeof callback === 'function'){
+                callback(json);
+            }
         });
     };
 
@@ -917,77 +933,113 @@
     //初始化工具
     Grid.prototype.initTool = function() {
         /*分页*/
-        if (this.opts.tool.pagingBar && this.total !== 0) {
+        if (this.opts.tool.pagingBar) {
             //作用域
             var $aims = $('.' + this.opts.tool.pagingCls, this.$tableBottomBar);
             //引用对象
             var me = this;
-            //计算总页数
-            this.totalPage = function(pagesize, total) {
-                var rem = total % pagesize;
 
-                if (rem > 0) {
-                    return parseInt(total / pagesize) + 1;
-                } else {
-                    return parseInt(total / pagesize);
-                }
-            }(this.opts.store.pagesize, this.total);
+            if(this.total && this.total !== 0){
+                //计算总页数
+                this.totalPage = function(pagesize, total) {
+                    var rem = total % pagesize;
 
-            if (!$.isNumeric(this.totalPage)) {
-                return false;
-            }
-
-            $aims.each(function(index, el) {
-                var $that = $(this);
-                //按钮数
-                var len = me.opts.tool.pagingBtnNum;
-                //起始页
-                var startPage = 0;
-                //清空
-                $that.html('');
-
-                //起始页超过一半
-                if(me.curPage > (len / 2)){
-                    startPage = me.curPage - parseInt(len / 2);
-                }else{
-                    startPage = 1;
-                }
-
-                for (var i = 1; i <= len && startPage <= me.totalPage; i++) {
-                    if (startPage == me.curPage) {
-                        //当前页
-                        $that.append('<a class="num-page on" href="javascript:void(0);">' + startPage + '</a>\n');
+                    if (rem > 0) {
+                        return parseInt(total / pagesize) + 1;
                     } else {
-                        $that.append('<a class="num-page" href="javascript:void(0);">' + startPage + '</a>\n');
+                        return parseInt(total / pagesize);
                     }
-                    startPage++;
+                }(this.opts.store.pagesize, this.total);
+
+                if (!$.isNumeric(this.totalPage)) {
+                    return false;
                 }
 
-                //加入首页 上一页
-                if (me.curPage !== 1) {
-                    $that.prepend('<a class="prev-page" href="javascript:void(0);">&nbsp;前页&nbsp;</a>\n');
-                }else{
-                    $that.prepend('<a class="prev-page disabled" href="javascript:void(0);">&nbsp;前页&nbsp;</a>\n');
+                $aims.each(function(index, el) {
+                    var $that = $(this);
+                    //按钮数
+                    var len = me.opts.tool.pagingBtnNum;
+                    //起始页
+                    var startPage = 0;
+                    //清空
+                    $that.html('');
+
+                    //起始页超过一半
+                    if(me.curPage > (len / 2)){
+                        startPage = me.curPage - parseInt(len / 2);
+                    }else{
+                        startPage = 1;
+                    }
+
+                    for (var i = 1; i <= len && startPage <= me.totalPage; i++) {
+                        if (startPage == me.curPage) {
+                            //当前页
+                            $that.append('<a class="num-page on" href="javascript:void(0);">' + startPage + '</a>\n');
+                        } else {
+                            $that.append('<a class="num-page" href="javascript:void(0);">' + startPage + '</a>\n');
+                        }
+                        startPage++;
+                    }
+
+                    //加入首页 上一页
+                    if (me.curPage !== 1) {
+                        $that.prepend('<a class="prev-page" href="javascript:void(0);">&nbsp;前页&nbsp;</a>\n');
+                    }else{
+                        $that.prepend('<a class="prev-page disabled" href="javascript:void(0);">&nbsp;前页&nbsp;</a>\n');
+                    }
+
+                    //加入下一页 尾页
+                    if (me.curPage !== me.totalPage) {
+                        $that.append('<a class="next-page" href="javascript:void(0);">&nbsp;后页&nbsp;</a>\n');
+                    }else{
+                        $that.append('<a class="next-page disabled" href="javascript:void(0);">&nbsp;后页&nbsp;</a>\n');
+                    }
+
+                    //点击事件
+                    me.addListeners('pageBtn', $that.find('a:not(.disabled):not(.on)'));
+                });
+
+                if(this.$tableBottomBar){
+                    //分页信息显示
+                    $('.' + this.opts.tool.pagingInfoCls, this.$tableBottomBar).html('当前第 <b>' + this.curPage + '</b> / <b>' + me.totalPage + '</b> 页， 共有 <b>' + this.total + '</b> 条记录');
+                    //每页显示条数
+                    $('.' + this.opts.tool.pagingSizeCls, this.$tableBottomBar).val(this.opts.store.pagesize);
+
+                    this.$tableBottomBar.show();
                 }
+            }else if(me.data && me.data.length){
+                //无总页数的分页
+                $aims.each(function(index, el) {
+                    var $that = $(this);
+                    //清空
+                    $that.html('');
 
-                //加入下一页 尾页
-                if (me.curPage !== me.totalPage) {
-                    $that.append('<a class="next-page" href="javascript:void(0);">&nbsp;后页&nbsp;</a>\n');
-                }else{
-                    $that.append('<a class="next-page disabled" href="javascript:void(0);">&nbsp;后页&nbsp;</a>\n');
+                    //加入首页 上一页
+                    if (me.curPage !== 1) {
+                        $that.prepend('<a class="prev-page" href="javascript:void(0);">&nbsp;前页&nbsp;</a>\n');
+                    }else{
+                        $that.prepend('<a class="prev-page disabled" href="javascript:void(0);">&nbsp;前页&nbsp;</a>\n');
+                    }
+
+                    //加入下一页 尾页
+                    if (me.data.length === me.ajaxParams.limit) {
+                        $that.append('<a class="next-page" href="javascript:void(0);">&nbsp;后页&nbsp;</a>\n');
+                    }else{
+                        $that.append('<a class="next-page disabled" href="javascript:void(0);">&nbsp;后页&nbsp;</a>\n');
+                    }
+
+                    //点击事件
+                    me.addListeners('pageBtn', $that.find('a:not(.disabled):not(.on)'));
+                });
+
+                if(this.$tableBottomBar){
+                    //每页显示条数
+                    $('.' + this.opts.tool.pagingSizeCls, this.$tableBottomBar).val(this.opts.store.pagesize);
+                    //隐藏跳转
+                    $('.' + this.opts.tool.pagingJumpCls, this.$tableBottomBar).hide();
+
+                    this.$tableBottomBar.show();
                 }
-
-                //点击事件
-                me.addListeners('pageBtn', $that.find('a:not(.disabled):not(.on)'));
-            });
-
-            if(this.$tableBottomBar){
-                //分页信息显示
-                $('.' + this.opts.tool.pagingInfoCls, this.$tableBottomBar).html('当前第 <b>' + this.curPage + '</b> / <b>' + me.totalPage + '</b> 页， 共有 <b>' + this.total + '</b> 条记录');
-                //每页显示条数
-                $('.' + this.opts.tool.pagingSizeCls, this.$tableBottomBar).val(this.opts.store.pagesize);
-
-                this.$tableBottomBar.show();
             }
         } else {
             if(this.$tableBottomBar){
@@ -1028,6 +1080,7 @@
                     if(this.opts.tool.pagingBar){
                         $tableBottomBar
                             .append('<div class="table-bottom-left">'+
+                                '<span class="mr-10">每页</span>'+
                                 '<span class="page-size mr-10">'+
                                     '<select class="normal-select ' + this.opts.tool.pagingSizeCls + '">'+
                                         '<option value="5">5</option>'+
@@ -1037,9 +1090,10 @@
                                         '<option value="25">25</option>'+
                                     '</select>'+
                                 '</span>'+
+                                '<span class="mr-10">条</span>'+
                                 '<span class="' + this.opts.tool.pagingCls + ' mr-10"></span>'+
-                                '<span class="page-jump">'+
-                                    '<input class="form-control mr-10 ' + this.opts.tool.pagingJumpCls + '" type="text">'+
+                                '<span class="' + this.opts.tool.pagingJumpCls + '">'+
+                                    '<input class="form-control mr-10 paging-value" type="text">'+
                                     '<a class="btn btn-primary btn-go" href="javascript:void(0);">GO</a>'+
                                 '</span>'+
                             '</div>')
@@ -1113,12 +1167,18 @@
                 });
                 //跳转页面
                 $('.btn-go', this.$tableBottomBar).bind('click', function() {
-                    var pageNum = parseInt($('.' + me.opts.tool.pagingJumpCls, me.$tableBottomBar).val());
+                    var pageNum = parseInt($('.paging-value', me.$tableBottomBar).val());
 
-                    if($.isNumeric(pageNum) && pageNum >= 1){
-                        me.loadPage(pageNum);
-                    }else if(pageNum <= me.totalPage){
-                        me.gridObj.lastPage();
+                    if($.isNumeric(pageNum)){
+                        if(pageNum >= 1){
+                            if(pageNum <= me.totalPage){
+                                me.loadPage(pageNum);
+                            }else{
+                                me.gridObj.lastPage();
+                            }
+                        }else{
+                            me.gridObj.firstPage();
+                        }
                     }else{
                         if(window.parent.parent.tip){
                             window.parent.parent.tip('请输入正确的数字', 'danger');
@@ -1127,10 +1187,10 @@
                         }
                     }
 
-                    $('.' + me.opts.tool.pagingJumpCls, me.$tableBottomBar).val('');
+                    $('.paging-value', me.$tableBottomBar).val('');
                 });
                 //回车跳转
-                $('.' + me.opts.tool.pagingJumpCls, me.$tableBottomBar).bind('keydown', function(event){
+                $('.paging-value', me.$tableBottomBar).bind('keydown', function(event){
                     if(event.keyCode === 13){
                         $('.btn-go', this.$tableBottomBar).trigger('click');
                     }
@@ -1231,7 +1291,7 @@
      * @return {Object} grid 返回的grid对象
      */
     $.fn.grid = function(config) {
-        if (!this) {
+        if (this.length === 0) {
             return false;
         }
 

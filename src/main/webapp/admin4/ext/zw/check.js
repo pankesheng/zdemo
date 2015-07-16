@@ -4,7 +4,7 @@
  * @extends jquery-1.8.3
  * @markdown
  * #校验插件
- * 版本 0.2.2 日期 2015-4-13
+ * 版本 0.2.3 日期 2015-4-13
  * 校验条件列表详见Config options
  *
  * 示例：
@@ -264,7 +264,7 @@
                 });
 
                 //忽略data-ignore为true的元素
-                if ($control.data('ignore') == "true") {
+                if ($control.data('ignore') === true) {
                     continue;
                 }
 

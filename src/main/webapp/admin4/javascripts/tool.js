@@ -102,6 +102,7 @@ function showAlert(msg, yes, no) {
             area: ['auto','auto'],
             dialog: {
                 msg: msg,
+                type: -1,
                 btns: 2,                    
                 btn: ['确定','取消'],
                 yes: yes
