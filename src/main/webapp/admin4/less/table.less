@@ -1,3 +1,4 @@
+// out: ../stylesheets/table.css, soucemap: true, compress: true
 @charset 'utf-8';
 @yahei: Microsoft YaHei, '微软雅黑', MicrosoftJhengHei;
 .min-limit (@type, @limit){
@@ -48,6 +49,9 @@ body{
 .table{
     width: 100%;
     text-align: center;
+    tbody{
+        display: table-row-group;
+    }
     th{
         height: 36px;
         padding: 0 10px;

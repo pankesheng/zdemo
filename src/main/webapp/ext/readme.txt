@@ -1,4 +1,8 @@
 
+版本记录
+	2015-07-23	V1.0
+	
+
 --DD_belatedPNG		>> 解决IE6图片透明
 	
 --jquery

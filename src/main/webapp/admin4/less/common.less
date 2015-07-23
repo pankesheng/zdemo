@@ -7,6 +7,12 @@
 @warning: #f7c228;
 @danger: #d9534f;
 @primary: #417dea;
+.dots () {
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
     margin: 0;
     padding: 0;
@@ -487,7 +493,16 @@ form{
     }
 }
 .form-table{
+    &.middle-label .form-label{
+        width: 150px;
+    }
+    &.big-label .form-label{
+        width: 200px;
+    }
     display: block;
+    tbody{
+        display: block;
+    }
     tr{
         display: block;
         &.valign-top td, &.valign-top .alert{
@@ -622,7 +637,6 @@ form{
     margin-bottom: 7px;
     border: 1px solid #d2d2d2;
     background-color: #f9f7f4;
-    overflow: hidden;
     *zoom: 1;
 }
 .panel-title{
@@ -863,6 +877,9 @@ form{
 .ui-selectbox:hover {
     border: 1px solid #508cf9;
 }
+.ui-selectbox.select-multiply:hover {
+    border: 1px solid #dadbda;
+}
 .ui-selectbox::-moz-focus-inner {
     border: 0;
     padding: 0;
@@ -997,6 +1014,117 @@ select[disabled] + .ui-selectbox:hover {
     color: #CCC;
     cursor: default;
     background: #FFF;
+}
+.select-multiply{
+    height: auto;
+    cursor: default;
+    .ui-selectbox-inner{
+        margin-top: -6px;
+        cursor: pointer;
+    }
+}
+.ui-selectbox-label{
+    padding: 6px 0 0 5px;
+    _padding-bottom: 6px;
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none;  /*webkit浏览器*/
+    -ms-user-select: none;   /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;
+    overflow: hidden;
+    *zoom: 1;
+    .ui-selectbox-label-item{
+        float: left;
+        margin: 0 5px 6px 0;
+        padding: 2px 5px;
+        border: 1px solid #aaa;
+        max-width: 100%;
+        border-radius: 3px;
+        background-color: #eeeeee;
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
+        background-image: -webkit-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+        background-image: -moz-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+        background-image: -o-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+        background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+        background-size: 100% 19px;
+        background-repeat: repeat-x;
+        background-clip: padding-box;
+        box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+        color: #333;
+        line-height: 13px;
+        white-space: nowrap;
+        cursor: default;
+        *zoom: 1;
+        a{
+            color: #333;
+            &:hover{
+                color: #333;
+                text-decoration: none;
+            }
+        }
+        .iconfont{
+            font-size: 14px;
+            cursor: pointer;
+        }
+    }
+}
+.ui-selectbox-drop{
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    z-index: 1010;
+    display: none;
+    margin-top: 1px;
+    _margin-top: 2px;
+    width: 100%;
+    border: 1px solid #dcdcdc;
+    border-top: 0;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    .ui-selectbox-drop-ul{
+        position: relative;
+        max-height: 200px;
+        _height: 200px;
+        color: #444;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .ui-selectbox-drop-option{
+        margin: 0;
+        height: 32px;
+        line-height: 32px;
+        color: #333;
+        background: #fff;
+        outline: 0 none;
+        .dots();
+        white-space: nowrap;
+        cursor: pointer;
+        a{
+            display: block;
+            padding: 0 10px;
+            height: 32px;
+            line-height: 32px;
+            color: #333;
+            &:hover{
+                color: #FFF;
+                background: #3870F3;
+                text-decoration: none;
+            }
+        }
+    }
+    .selected{
+        color: #ccc;
+        cursor: default;
+        a{
+            color: #ccc;
+            &:hover{
+                color: #ccc;
+                background-color: #999;
+                cursor: default;
+            }
+        }
+    }
 }
 /* 起始页 */
 .start-page{

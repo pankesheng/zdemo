@@ -773,7 +773,7 @@
 
             //对齐
             if (columns[j].align && (columns[j].align === 'left' || columns[j].align === 'right')) {
-                $td.css('align', columns[j].align);
+                $td.css('text-align', columns[j].align);
             }
             //宽度
             if (columns[j].width && typeof columns[j].width === 'number') {

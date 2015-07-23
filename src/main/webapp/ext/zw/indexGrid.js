@@ -1,3 +1,6 @@
+
+// 已弃用
+
 (function($){
 	var ajaxParams = new Object();
 	var opts = new Object();
