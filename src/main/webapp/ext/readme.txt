@@ -1,7 +1,12 @@
 
 版本记录
+
 	2015-07-23	V1.0
-	2015-07-59	V1.1	新增jquery_mobile的实例zdemo_ohedu和zdemo_ohedu_dynamic
+	
+	2015-07-29	V1.1
+		新增jquery_mobile的实例zdemo_ohedu和zdemo_ohedu_dynamic
+		新增 是否手机浏览器的判断 方法，详见 jquery_ua\dome.html
+	
 	
 
 --DD_belatedPNG		>> 解决IE6图片透明

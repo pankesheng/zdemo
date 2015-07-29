@@ -29,6 +29,11 @@ zutil.drawImage = function (ImgD,iwidth,iheight) {
 	}
 }
 
+// 判断是否为手机浏览器
+zutil.mobileBrowser = function() {
+	return (!!navigator.userAgent.match(/AppleWebKit.*Mobile.*/));
+}
+
 /**
  * 获取浏览器内核类型和版本号，返回JSON对象(如：{btype:"ie",bversion:"9.0"})
  * 依赖 jquery-1.8.1.min.js 和 jquery.ua.js。不支持jquery-1.9。
