@@ -1,6 +1,7 @@
 
 版本记录
 	2015-07-23	V1.0
+	2015-07-59	V1.1	新增jquery_mobile的实例zdemo_ohedu和zdemo_ohedu_dynamic
 	
 
 --DD_belatedPNG		>> 解决IE6图片透明
