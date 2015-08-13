@@ -1,7 +1,4 @@
 
-// 更新日志
-// 2015-07-16 v1.0
-
 // 后台管理系统各页面引入
 //		登录页：<script type="text/javascript" src="<%=request.getContextPath() %>/admin4/javascripts/zcommon.js?v=1" basepath="<%=request.getContextPath() %>" baseinit="iframeCheckLogin"></script>
 //		其他页：<script type="text/javascript" src="${contextPath}/admin4/javascripts/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
@@ -69,6 +66,7 @@ function _getParents(w){//获取父级win
 // 初始化图片上传功能
 // z_initImgUpload("upload1", "addOrModify_imgs", "${contextPath}", "Downloads-zt", 1);
 // 依赖：
+//	<script type="text/javascript" src="${contextPath}/ext/json/json2.js"></script>
 //	<link rel="stylesheet" type="text/css" href="${contextPath}/admin4/ext/uploadify/uploadify.css" media="screen" />
 //	<script type="text/javascript" src="${contextPath}/admin4/ext/uploadify/jquery.uploadify.min.js?t=<@z.z_now />"></script>
 function z_initImgUpload(uploadButtonId, imgListId, basePath, saveCatalog, maxCount) {
@@ -110,6 +108,7 @@ function z_initImgUpload(uploadButtonId, imgListId, basePath, saveCatalog, maxCo
 // z_initFlieUpload("upload2", "${contextPath}", "Downloads-zt", "linkUrl");
 // z_initFlieUpload("upload2", "${contextPath}", "Downloads-zt", "linkUrl", "上传文件");
 // 依赖：
+//	<script type="text/javascript" src="${contextPath}/ext/json/json2.js"></script>
 // 	<link rel="stylesheet" type="text/css" href="${contextPath}/admin4/ext/uploadify/uploadify.css" media="screen" />
 // 	<script type="text/javascript" src="${contextPath}/admin4/ext/uploadify/jquery.uploadify.min.js?t=<@z.z_now />"></script>
 function z_initFlieUpload(uploadButtonId, basePath, saveCatalog, resultPathInputId, buttonText) {

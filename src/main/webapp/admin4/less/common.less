@@ -136,9 +136,9 @@ a:hover {
 /* 标签 */
 .label{
     display: inline;
-    *display: inline;
     *zoom: 1;
-    padding: .2em .6em .3em;
+    padding: .3em .6em .3em .6em;
+    *padding-top: .5em;
     font-size: 12px;
     line-height: 1;
     color: #fff;
@@ -474,6 +474,9 @@ form{
             width: auto;
             margin-right: 10px;
         }
+        .form-select{
+
+        }
         .ui-selectbox{
             margin-right: 10px;
             width: 168px;
@@ -552,7 +555,6 @@ form{
 .form-group{
     margin-bottom: 10px;
     font-family: @yahei;
-    overflow: hidden;
     *zoom: 1;
 }
 .form-control{
@@ -618,6 +620,44 @@ form{
 .multiple-form-info{
     width: 74px;
     text-align: center;
+}
+.pic-preview{
+    position: relative;
+    display: none;
+    padding: 5px;
+    border: 1px solid #d2d2d2;
+    font-family: @yahei;
+    img{
+        display: block;
+        width: 355px;
+    }
+    .pic-preview-shade{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        background-color: #292929;
+        opacity: 0.8;
+        filter: opacity(80);
+        cursor: pointer;
+    }
+    .pic-preview-text{
+        position: absolute;
+        width: 80px;
+        height: 40px;
+        top: 50%;
+        left: 50%;
+        margin-left: -40px;
+        margin-top: -30px;
+        font-size: 30px;
+        text-align: center;
+        line-height: 40px;
+        color: #fff;
+    }
 }
 /* 路径 */
 .place {
@@ -1198,10 +1238,16 @@ select[disabled] + .ui-selectbox:hover {
     color: #333;
 }
 .start-list.multiple{
+    width: 500px;
     overflow: hidden;
     *zoom: 1;
     ul{
         float: left;
+    }
+    li{
+        float: left;
+        width: 225px;
+        .dots();
     }
 }
 .start-list li{
@@ -1217,11 +1263,10 @@ select[disabled] + .ui-selectbox:hover {
 }
 .icon-block {
     position: relative;
-    .left-arrow {
+    .left-arrow, .right-arrow {
         position: absolute;
-        top: 20px;
-        left: 0;
-        font-size: 50px;
+        top: 45px;
+        font-size: 30px;
         color: #366dd1;
         &:hover{
             color: #4F89F0;
@@ -1232,20 +1277,11 @@ select[disabled] + .ui-selectbox:hover {
             cursor: default;
         }
     }
+    .left-arrow{
+        left: 0;
+    }
     .right-arrow{
-        position: absolute;
-        top: 20px;
         right: 0;
-        font-size: 50px;
-        color: #366dd1;
-        &:hover{
-            color: #4F89F0;
-            text-decoration: none;
-        }
-        &.disabled{
-            color: #ccc;
-            cursor: default;
-        }
     }
 }
 .app-warp{
@@ -1261,14 +1297,18 @@ select[disabled] + .ui-selectbox:hover {
     li{
         float: left;
         width: 95px;
-        padding: 14px 22px;
+        padding: 5px 10px;
         text-align: center;
+        img{
+            width: 70px;
+            height: 70px;
+        }
         p{
             width: 100%;
+            height: 36px;
             -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
             overflow: hidden;
-            white-space: nowrap;
         }
     }
     a{
@@ -1277,5 +1317,36 @@ select[disabled] + .ui-selectbox:hover {
     a:hover{
         text-decoration: none;
         color: #366dd1;
+    }
+}
+.iframe-dialog-title{
+    padding: 0 10px;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid #e0e0e0;
+    line-height: 30px;
+    font-size: 14px;
+    .iconfont{
+        color: #92b0e6;
+    }
+}
+.iframe-dialog-list{
+    width: 295px;
+    padding: 10px 20px;
+    li{
+        float: left;
+        width: 48px;
+        height: 88px;
+        margin: 10px 25px;
+        img{
+            width: 48px;
+            height: 48px;
+        }
+        p{
+            height: 36px;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     }
 }

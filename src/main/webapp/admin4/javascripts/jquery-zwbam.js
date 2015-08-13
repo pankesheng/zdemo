@@ -42,7 +42,7 @@
     var _methods = {
         //初始化
         init: function() {
-            console.log('call init()');
+            //console.log('call init()');
         },
         //设置顶部菜单
         setTopMenu: function(itemName){
@@ -66,11 +66,17 @@
             //生成器
             var maker = function(item){
                 //一级dom
-                var $firstNodeDom = $('<div class="left-menu-first-node"><div class="first-title"><div class="text">' + item.name + '</div></div><div class="first-children"></div></div>');
+                var $firstNodeDom = $('<div class="left-menu-first-node"><div class="first-children"></div></div>');
                 //二级菜单dom
                 var $secondNodeDom = $('<div class="left-menu-second-node"><div class="second-title"><i class="icon"></i></div></div>');
                 //三级菜单dom
                 var $thirdNodeDom = $('<ul class="menu-son"></ul>');
+
+                if(item.url === '#'){
+                    $firstNodeDom.prepend('<div class="first-title"><div class="text">' + item.name + '</div></div>');
+                }else{
+                    $firstNodeDom.prepend('<a href="' + item.url + '" class="first-title text navigation" data-id="' + item.id + '" target="rightFrame"><div class="text">' + item.name + '</div></a>');
+                }
 
                 if(! $.isEmptyObject(item.childs)){
                     var secondNode = item.childs;
@@ -105,6 +111,8 @@
 
                         $firstNodeDom.find('.first-children').append($secondNodeDomClone);
                     };
+                }else{
+                    $firstNodeDom.find('.first-children').remove();
                 }
 
                 if(item.open === true){

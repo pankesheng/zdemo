@@ -26,7 +26,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe629;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>1</span>
                         </a>
                     </li>
                     <li>
@@ -34,7 +34,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe606;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>2</span>
                         </a>
                     </li>
                     <li>
@@ -42,7 +42,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe625;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>3</span>
                         </a>
                     </li>
                     <li>
@@ -50,7 +50,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe61b;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>4</span>
                         </a>
                     </li>
                     <li>
@@ -58,7 +58,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe61a;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>5</span>
                         </a>
                     </li>
                     <li>
@@ -66,7 +66,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe616;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>6</span>
                         </a>
                     </li>
                     <li>
@@ -74,7 +74,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe609;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>7</span>
                         </a>
                     </li>
                     <li>
@@ -82,7 +82,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe610;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>8</span>
                         </a>
                     </li>
                     <li>
@@ -90,7 +90,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe605;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>9</span>
                         </a>
                     </li>
                     <li>
@@ -98,7 +98,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe604;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>10</span>
                         </a>
                     </li>
                     <li>
@@ -106,7 +106,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe602;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>11</span>
                         </a>
                     </li>
                     <li>
@@ -114,7 +114,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe601;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>12</span>
                         </a>
                     </li>
                     <li>
@@ -122,7 +122,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe60f;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>13</span>
                         </a>
                     </li>
                     <li>
@@ -130,7 +130,7 @@
                             <span class="shortcut-block">
                                 <i class="iconfont">&#xe624;</i>
                             </span>
-                            <span>快捷方式</span>
+                            <span>14</span>
                         </a>
                     </li>
                 </ul>
@@ -330,7 +330,7 @@
         var $dom = $('#app-list');
         var liNums = (function(){
             var listWidth = $dom.width();
-            iconWidth = $dom.find('li').outerWidth() | 139;
+            iconWidth = $dom.find('li').outerWidth();
             var liNums = parseInt(listWidth / iconWidth);
 
             return liNums;
@@ -347,11 +347,18 @@
         function init () {
             $dom.each(function(index, el) {
                 var length = $(this).find('li').length;
+                var totalPage = length % liNums === 0 ? length / liNums : parseInt(length / liNums) + 1;
 
                 $(this).data({
                     'curPage': 1,
-                    'totalPage': length % liNums === 0 ? length / liNums : parseInt(length / liNums) + 1
+                    'totalPage': totalPage
                 });
+
+                if(totalPage > 1){
+                    $('.right-arrow').removeClass('disabled');
+                }else{
+                    $('.right-arrow').addClass('disabled');
+                }
             });
         }
         function addListeners () {

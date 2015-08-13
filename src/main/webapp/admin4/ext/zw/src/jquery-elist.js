@@ -54,6 +54,8 @@
         baseCls: 'ui-selectbox select-multiply',
         //额外样式
         extraCls: '',
+        //默认提示
+        placeholder: '请选择',
         //启用动画
         enableAnimation: true,
         //启用树形

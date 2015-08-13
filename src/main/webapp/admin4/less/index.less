@@ -1,3 +1,4 @@
+// out: ../stylesheets/index.css, soucemap: true, compress: true
 @charset 'utf-8';
 @yahei: Microsoft YaHei, '微软雅黑', MicrosoftJhengHei;
 .min-limit (@type, @limit){
@@ -145,6 +146,12 @@ html, body {
         color: #fff;
         background-color: #508cf9;
         border: 1px solid #d2d4d4;
+        a{
+            color: #fff;
+            &:hover{
+                color: #fff;
+            }
+        }
     }
     .active{
         background-color: #d1e0ed;
@@ -184,9 +191,9 @@ html, body {
     }
 }
 .left-menu-list {
-    position: relative;
+    _position: relative;
     .left-menu-first-node {
-        position: relative;
+        _position: relative;
         //margin-bottom: -1px;
         font-size: 14px;
         .first-icon {
@@ -198,6 +205,7 @@ html, body {
             background: url(../images/leftico.png) no-repeat;
         }
         .first-title{
+            display: block;
             height: 33px;
             padding-left: 35px;
             line-height: 35px;
