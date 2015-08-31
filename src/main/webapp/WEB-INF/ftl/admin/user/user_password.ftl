@@ -2,69 +2,91 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="${contextPath}/admin/styles/reset.css?v=${sversion}" media="screen" />
-	<link rel="stylesheet" type="text/css" href="${contextPath}/admin/styles/common.css?v=${sversion}" media="screen" />
-	<link rel="stylesheet" type="text/css" href="${contextPath}/admin/styles/form.css?v=${sversion}" media="screen" />
-	<link rel="stylesheet" type="text/css" href="${contextPath}/admin/styles/button.css?v=${sversion}" media="screen" />
-	
+	<link rel="stylesheet" type="text/css" href="${contextPath}/admin/stylesheets/common.css?v=${sversion}" media="screen" />
+	<link rel="stylesheet" type="text/css" href="${contextPath}/admin/stylesheets/table.css?v=${sversion}" media="screen" />
 	<script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
-	<script type="text/javascript" src="${contextPath}/ext/json/json2.js"></script>
-	<link rel="stylesheet" type="text/css" href="${contextPath}/ext/jquery_validform/style.css" media="screen" />
-	<script type="text/javascript" src="${contextPath}/ext/jquery_validform/Validform_v5.3.2.js"></script>
-	<script type="text/javascript" src="${contextPath}/ext/laydate/laydate.js"></script>
+	<script type="text/javascript" src="${contextPath}/ext/jquery_form/jquery.form.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/ext/layer/layer.min.js"></script>
-	<script type="text/javascript" src="${contextPath}/ext/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
+	<script type="text/javascript" src="${contextPath}/ext/laydate/laydate.js"></script>
+	<link rel="stylesheet" type="text/css" href="${contextPath}/ext/jquery_uploadify/uploadify.css" media="screen" />
+	<script type="text/javascript" src="${contextPath}/ext/jquery_uploadify/jquery.uploadify.js?t=<@z.z_now />"></script>
+	<link rel="stylesheet" href="${contextPath}/ext/jquery_zcj/jquery.zimgslider.css?v=${sversion}" />
+	<script type="text/javascript" src="${contextPath}/ext/jquery_zcj/jquery.zimgslider.js?v=${sversion}"></script>
+	<script type="text/javascript" src="${contextPath}/admin/ext/jquery/selectbox.js"></script>
+	<script type="text/javascript" src="${contextPath}/admin/ext/zw/check.js?v=${sversion}"></script>
+	<script type="text/javascript" src="${contextPath}/admin/javascripts/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
 </head>
 <body>
-<div class="space">
-	<form id="form" action="${contextPath}/user/updatepassword.ajax" method="post">
-		<table class="form">
-			<tr>
-				<td class="label"><label><b>*</b>原密码：</label></td>
-				<td><input datatype="*" type="text" name="oldpassword" maxlength="20" size="20"></td>
-			</tr>
-			<tr>
-				<td class="label"><label><b>*</b>新密码：</label></td>
-				<td><input datatype="*4-20" type="password" id="newpassword" name="newpassword" maxlength="20" size="20"></td>
-			</tr>
-			<tr>
-				<td class="label"><label><b>*</b>确认密码：</label></td>
-				<td><input datatype="*4-20" recheck="newpassword" type="password" id="newpassword2" name="newpassword2" maxlength="20" size="20"></td>
-			</tr>
-		</table>
-	    <div style="overflow:hidden; height:10px;"></div>
-	    <table id="buttons" class="form">
-	        <tr>
-	            <td class="label"><label class="label">&nbsp;</label></td>
-	            <td>
-	                <input type="submit" class="c-btn primary-label" value="修改">
-	            </td>
-	        </tr>
-	    </table>
-	</form>
-</div>
-
+	<div class="place">
+        <span class="label-span">位置：</span>
+        <ul id="place-list" class="place-ul">
+            <li>首页</li>
+        </ul>
+    </div>
+    <div class="body-warp">
+        <div class="panel">
+            <div class="panel-title">
+                <i class="form-icon"></i>
+                <span class="title-text">修改密码</span>
+            </div>
+            <div class="panel-body">
+                <form id="saveform" method="post">
+			        <table class="form-table">
+			            <tr>
+			                <td><label class="form-label" for="oldpassword">原密码<b class="red">*</b></label></td>
+			                <td>
+			                	<input class="form-control" name="oldpassword" id="oldpassword" type="text" data-check="must" maxlength="20"/>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td><label class="form-label" for="newpassword">新密码<b class="red">*</b></label></td>
+			                <td>
+			                	<input class="form-control" name="newpassword" id="newpassword" type="password" data-check="must|min-len: 4" maxlength="20"/>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td><label class="form-label" for="newpassword2">确认密码<b class="red">*</b></label></td>
+			                <td>
+			                	<input class="form-control" name="newpassword2" id="newpassword2" type="password" data-check="must|min-len: 4|fit: newpassword" maxlength="20"/>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td><label class="form-label">&nbsp;</label></td>
+			                <td>
+			                    <input class="btn btn-success btn-large" type="button" onclick="_save()" value="提交">
+			                    <input class="btn btn-danger btn-large" type="reset" value="重置">
+			                    <input class="btn btn-danger btn-large return-btn" type="button" onclick="_back()" value="返回">
+			                </td>
+			            </tr>
+			        </table>
+			    </form>
+            </div>
+        </div>
+    </div>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#form").Validform({
-			tiptype: '4',
-			tipSweep:true,// 默认为false，为true时提示信息将只会在表单提交时触发显示，各表单元素blur时不会触发信息提示。
-			showAllError:true,// 默认为false，true：提交表单时所有错误提示信息都会显示；false：一碰到验证不通过的对象就会停止检测后面的元素，只显示该元素的错误信息。
-			postonce:true,// 默认为false，指定是否开启二次提交防御，true开启，不指定则默认关闭；为true时，在数据成功提交后，表单将不能再继续提交。
-			ajaxPost:true,
-			beforeSubmit:function(curform){
-			},
-			callback:function(data){
-				if(data.s){
-					alert(data.d||"操作成功！");
-				}else{
-					alert(data.d);
-				}
+function _save() {
+	$("#saveform").ajaxSubmit({
+		url : '${contextPath}/user/updatepassword.ajax',
+		dataType : 'json',
+		beforeSubmit : function(formData, jqForm, options) {
+			if(!$("#saveform").check())return false;
+			if(!window.confirm("确定提交?"))return false;
+		    return true;
+		},
+		success : function(data, statusText, xhr) {
+			if(data.s){
+				z_alert_success(data.d||"操作成功！");
+				_back();
+			}else{
+				z_alert_error(data.d);
 			}
-		});
-		
-		$('#form :input:not(:hidden):not(:button):first').focus();
+		    return true;
+		}
 	});
+}
+function _back() {
+	window.location.href = '${contextPath}/index/container.do';
+}
 </script>
 </body>
 </html>

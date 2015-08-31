@@ -18,9 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.thanone.zdemo.common.BuiPageResult;
 import com.thanone.zdemo.common.Configuration;
 import com.thanone.zdemo.common.WebContext;
+import com.thanone.zdemo.common.ZwPageResult;
 import com.thanone.zdemo.dto.ExportExcelUserDto;
 import com.thanone.zdemo.entity.user.User;
 import com.thanone.zdemo.service.user.UserService;
@@ -48,16 +48,16 @@ public class UserAction extends BasicAction {
 		}
 		out.write(ServiceResult.GSON_DT.toJson(sr));
 	}
-	
+
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		WebContext.removeLoginUserAndSession(request);
 		return "/login.jsp";
 	}
-	
+
 	@RequestMapping("/tolist")
 	public String tolist(Model model) {
-		
+
 		return "/WEB-INF/ftl/admin/user/user_list.ftl";
 	}
 
@@ -65,7 +65,7 @@ public class UserAction extends BasicAction {
 	public void list(String searchKey, Integer searchRole, Integer searchState, PrintWriter out) {
 		Map<String, Object> qbuilder = new HashMap<String, Object>();
 		if (StringUtils.isNotBlank(searchKey)) {
-			qbuilder.put("realname", "%"+searchKey+"%");
+			qbuilder.put("realname", "%" + searchKey + "%");
 		}
 		if (searchRole != null) {
 			qbuilder.put("role", searchRole);
@@ -73,21 +73,38 @@ public class UserAction extends BasicAction {
 		if (searchState != null) {
 			qbuilder.put("state", searchState);
 		}
-		List<User> userList = userService.findByPage(null, qbuilder);
-		page.setRows(userList);
+		page.setRows(userService.findByPage(null, qbuilder));
 		page.setTotal(userService.getTotalRows(qbuilder));
-		out.write(BuiPageResult.converByServiceResult(ServiceResult.initSuccess(page)));
+		out.write(ZwPageResult.converByServiceResult(ServiceResult.initSuccess(page)));
 	}
-	
+
 	@RequestMapping("/toadd")
 	public String toadd(Model model) {
 		return "/WEB-INF/ftl/admin/user/user_modify.ftl";
 	}
-	
+
 	@RequestMapping("/tomodify/{id}")
 	public String tomodify(@PathVariable Long id, Model model) {
 		model.addAttribute("obj", userService.findById(id));
 		return "/WEB-INF/ftl/admin/user/user_modify.ftl";
+	}
+
+	@RequestMapping("/delete")
+	public void delete(HttpServletRequest request, Long[] id, PrintWriter out) {
+		if (id == null || id.length == 0) {
+			out.write(ServiceResult.initErrorJson("请选择需要删除的记录！"));
+			return;
+		} else if (Arrays.asList(id).contains(WebContext.getLoginUserId(request))) {
+			out.write(ServiceResult.initErrorJson("不能删除自己的账号！"));
+			return;
+		}
+		userService.deleteByIds(Arrays.asList(id));
+		out.write(ServiceResult.initSuccessJson(null));
+	}
+
+	@RequestMapping("/password")
+	public String password(Model model) {
+		return "/WEB-INF/ftl/admin/user/user_password.ftl";
 	}
 
 	@RequestMapping("/modify")
@@ -102,7 +119,7 @@ public class UserAction extends BasicAction {
 			out.write(ServiceResult.initErrorJson("真实姓名不能为空！"));
 			return;
 		}
-		
+
 		// 判断用户名是否存在
 		if (id == null) {
 			int count = userService.getTotalRows(userService.initQbuilder("username", obj.getUsername()));
@@ -117,7 +134,7 @@ public class UserAction extends BasicAction {
 				return;
 			}
 		}
-		
+
 		// 修改自己的账号信息
 		if (id != null && id.equals(WebContext.getLoginUserId(request))) {
 			Integer loginRole = WebContext.getLoginUserRole(request);
@@ -129,7 +146,7 @@ public class UserAction extends BasicAction {
 				return;
 			}
 		}
-		
+
 		obj.init();
 		if (id == null) {
 			obj.setId(UtilString.getLongUUID());
@@ -137,7 +154,7 @@ public class UserAction extends BasicAction {
 		} else {
 			obj.setId(id);
 			userService.update(obj);
-			
+
 			// 如果是修改自己的账号信息，则需要同时修改session中的信息
 			if (id.equals(WebContext.getLoginUserId(request))) {
 				WebContext.updateLoginUser(request, obj);
@@ -145,20 +162,7 @@ public class UserAction extends BasicAction {
 		}
 		out.write(ServiceResult.initSuccessJson(null));
 	}
-	
-	@RequestMapping("/delete")
-	public void delete(HttpServletRequest request, Long[] ids, PrintWriter out) {
-		if (ids == null || ids.length == 0) {
-			out.write(ServiceResult.initErrorJson("请选择需要删除的记录！"));
-			return;
-		} else if (Arrays.asList(ids).contains(WebContext.getLoginUserId(request))) {
-			out.write(ServiceResult.initErrorJson("不能删除自己的账号！"));
-			return;
-		}
-		userService.deleteByIds(Arrays.asList(ids));
-		out.write(ServiceResult.initSuccessJson(null));
-	}
-	
+
 	@RequestMapping("/valid/{id}")
 	public void valid(HttpServletRequest request, @PathVariable Long id, PrintWriter out) {
 		userService.updateState(id, 1);
@@ -170,12 +174,7 @@ public class UserAction extends BasicAction {
 		userService.updateState(id, 0);
 		out.write(ServiceResult.initSuccessJson(null));
 	}
-	
-	@RequestMapping("/password")
-	public String password(Model model) {
-		return "/WEB-INF/ftl/admin/user/user_password.ftl";
-	}
-	
+
 	@RequestMapping("/updatepassword")
 	public void updatepassword(HttpServletRequest request, String oldpassword, String newpassword, PrintWriter out) {
 		if (StringUtils.isBlank(oldpassword) || StringUtils.isBlank(newpassword)) {
@@ -199,16 +198,17 @@ public class UserAction extends BasicAction {
 		}
 		out.write(ServiceResult.initErrorJson("操作错误！"));
 	}
-	
+
 	@RequestMapping("/export")
 	public void export(PrintWriter out) {
 		// 查询数据
 		Map<String, Object> qbuilder = new HashMap<String, Object>();
 		List<User> stList = userService.find(null, qbuilder, null);
 		List<ExportExcelUserDto> dtoList = ExportExcelUserDto.byEntityList(stList);
-		
+
 		// 通过模板生成Excel
-		String absoluteFile = Configuration.getRealPath() + File.separator + "template" + File.separator + ExportExcelUserDto.FILENAME_TEMPLAT;
+		String absoluteFile = Configuration.getRealPath() + File.separator + "template" + File.separator
+				+ ExportExcelUserDto.FILENAME_TEMPLAT;
 		String path = File.separator + "download" + File.separator + UtilString.getUUID() + ".xls";
 		String downloadFile = Configuration.getRealPath() + path;
 		try {

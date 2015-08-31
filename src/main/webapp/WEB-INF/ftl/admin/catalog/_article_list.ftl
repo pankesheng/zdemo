@@ -14,23 +14,17 @@
 <body>
 	<div class="place">
         <span class="label-span">位置：</span>
-        <span>设置 - 用户管理</span>
+        <span>基本功能 - 资讯管理</span>
     </div>
     <div class="body-warp">
         <div class="panel filter-block">
             <form class="form-inline">
                 <div class="form-group">
-                    <select id="searchRole" class="form-select">
-                        <option value="">--请选择角色--</option>
-		    			<option value="1">超级管理员</option>
-		    			<option value="2">普通用户</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select id="searchState" class="form-select">
-                        <option value="">--请选择状态--</option>
-		    			<option value="1">启用</option>
-		    			<option value="0">冻结</option>
+                    <select id="catalogId" class="form-select">
+                        <option value="">--请选择栏目--</option>
+                        <#list catalogList as cat>
+		    			<option value="${cat.id}">${(cat.name)!}</option>
+						</#list>
                     </select>
                 </div>
                 <div class="form-group">
@@ -44,7 +38,6 @@
         <div class="panel table-tool-bar">
             <a class="btn" href="javascript:void(0);" onclick="add()"><i class="add-btn iconfont">&#xe619;</i>新增</a>
             <a class="btn" href="javascript:void(0);" onclick="removeItems()"><i class="remove-btn iconfont">&#xe608;</i>删除</a>
-            <a class="btn" href="javascript:void(0);" onclick="zexport()"><i class="iconfont">&#xe612;</i>导出</a>
         </div>
         <table class="table" id="table"></table>
     </div>
@@ -53,44 +46,22 @@
     $(function() {
         grid = $('#table').grid({
             store: {
-				url: '${contextPath}/user/list.ajax'
+				url: '${contextPath}/web/article/list.ajax'
             },
             tool: {
                 pagingBar: true
             },
             columns: [
             {
-                title: '真实姓名',
-                dataIndex: 'realname'
+                title: '栏目',
+                dataIndex: 'catalogName'
             },{
-				title: '账号',
-				dataIndex: 'username',
-				nowrap: true
+                title: '标题',
+                dataIndex: 'title'
+            },{
+				title: '发布时间',
+				dataIndex: 'pubDate'
 			},{
-				title: '密码',
-				dataIndex: 'password',
-                align: 'left'
-			},{
-                title: '角色',
-                dataIndex: 'role',
-                renderer: function(cellData, rowData){
-                    if(cellData == 1){
-						return '超级管理员';
-					}else if (cellData == 2){
-						return '普通用户';
-					}
-                }
-            },{
-                title: '状态',
-                dataIndex: 'state',
-                renderer: function(cellData, rowData){
-                    if(cellData){
-						return '<span style="color:blue">启用</span>';
-					}else{
-						return '<span style="color:red">冻结</span>';
-					}
-                }
-            },{
                 title: '操作',
                 dataIndex: 'id',
                 width: 300,
@@ -107,43 +78,35 @@
         
     //添加
 	function add(){
-		z_openIframe('新增', 700, 400, '${contextPath}/user/toadd.do');
-		// window.location.href = '${contextPath}/user/toadd.do';
+		window.location.href = '${contextPath}/web/article/toadd.do';
 	}
 	
 	//编辑
 	function editItem(id){
-		z_openIframe('编辑', 700, 400, '${contextPath}/user/tomodify/' + id + '.do');
-		// window.location.href = '${contextPath}/user/tomodify/' + id + '.do';
+		window.location.href = '${contextPath}/web/article/tomodify/' + id + '.do';
 	}
 
 	//删除
 	function removeItems(){
 		var data = grid.getSelectedDataString('id');
-		z_delete(data, '${contextPath}/user/delete.ajax');
-	}
-	
-	// 导出
-	function zexport() {
-		z_export("${contextPath}/user/export.ajax");
+		z_delete(data, '${contextPath}/web/article/delete.ajax');
 	}
 	
 	$('#search-btn').click(function(){
-    	var params = {
-    		searchRole: $('#searchRole').val(),
-    		searchKey: $('#searchKey').val(),
-    		searchState: $('#searchState').val(),
-    		start: 0
-    	};
-    	grid.load(params);
-    });
-    $('#searchKey').keydown(function(e){
+	    	var params = {
+	    		catalogId: $('#catalogId').val(),
+	    		searchKey: $('#searchKey').val(),
+	    		start: 0
+	    	};
+	    	grid.load(params);
+	    });
+	    $('#searchKey').keydown(function(e){
 		if(e.keyCode==13){
 		   $('#search-btn').click();
 		   return false;
 		}
 	});
-	$('#searchRole').add('#searchState').change(function(){
+	$('#catalogId').change(function(){
 		$('#search-btn').click();
 	});
 </script>

@@ -43,7 +43,7 @@
         <table width="100%" height="100%">
             <tr>
                 <td align="center" valign="middle">
-                    <img class="bg" src="<%=request.getContextPath() %>/admin4/images/404.png" alt="404" />
+                    <img class="bg" src="<%=request.getContextPath() %>/admin/images/404.png" alt="404" />
                     <a class="btn" href="<%=request.getContextPath() %>/login.jsp">返回首页</a>
                 </td>
             </tr>

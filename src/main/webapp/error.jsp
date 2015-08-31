@@ -50,7 +50,7 @@
             <tr>
                 <td align="center" valign="middle">
                     <div class="failed">
-                        <img src="<%=request.getContextPath() %>/admin4/images/failed-tip.png" alt="success-tip" />
+                        <img src="<%=request.getContextPath() %>/admin/images/failed-tip.png" alt="success-tip" />
                         <div class="tip">
                             <p>${error }</p>
                             <P>您可以选择</p>

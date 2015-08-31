@@ -26,7 +26,6 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 				<value>/file/upload.ajax</value>
 				<value>/user/login.ajax</value>
 				<value>/user/logout.do</value>
-				<value>/index/staticize.ajax</value>
 				<value>/www/.*</value>
 			</list>
 		</property>
@@ -35,7 +34,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 		<property name="pagesizeKey" value="limit"/>
 		<property name="offsetKey" value="start,offset"/>
 		<property name="defaultPagesize" value="20"/>
-		<property name="iframeCrossDomain" value="true"/>
+		<property name="iframeCrossDomain" value="false"/>
 	</bean>
 	<bean id="staticizeInterceptor" class="com.thanone.zdemo.interceptor.StaticizeInterceptor">
 		<property name="cmsHandler" ref="cmsHandler"/>
@@ -46,7 +45,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	<mvc:interceptors>
 		<ref bean="systemContextInterceptor"/>
 		<ref bean="loginInterceptor"/>
-		<ref bean="staticizeInterceptor"/>
+		<!-- <ref bean="staticizeInterceptor"/> -->
     </mvc:interceptors>
 
 	<!-- 全局的异常处理 -->
@@ -89,7 +88,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
         <property name="freemarkerVariables">
 			<map>
                 <entry key="contextPath" value="${configuration.contextPath}"></entry>
-                <entry key="sversion" value="14242"></entry><!-- WEB静态样式文件和脚本文件的版本号 -->
+                <entry key="sversion" value="1"></entry><!-- WEB静态样式文件和脚本文件的版本号 -->
 			</map>
 		</property>
         <property name="freemarkerSettings">

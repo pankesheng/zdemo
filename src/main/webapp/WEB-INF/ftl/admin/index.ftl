@@ -1,39 +1,48 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="renderer" content="webkit">
-    <title>首页</title>
-    <link rel="stylesheet" href="${contextPath}/admin2/stylesheets/common.css" />
-    <link rel="stylesheet" href="${contextPath}/admin2/stylesheets/index.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>后台管理系统</title>
+	<link rel="stylesheet" href="${contextPath}/admin/stylesheets/common.css?v=${sversion}" />
+	<link rel="stylesheet" href="${contextPath}/admin/stylesheets/index.css?v=${sversion}" />
 </head>
 <body>
-    <iframe class="top" src="${contextPath}/index/top.do" height="88" frameborder="0" scrolling="no"></iframe>
+    <iframe class="top" src="${contextPath}/index/top.do" height="88" frameborder="0" name="topFrame"></iframe>
     <!-- 有top页加class top-iframe-margin -->
     <div id="container" class="container top-iframe-margin">
-        <iframe class="container-iframe" src="${contextPath}/index/container.do" scrolling="yes" noresize="noresize" frameborder="0"></iframe>
+        <iframe class="container-iframe" id="container-iframe" name="contentFrame" src="${contextPath}/index/container.do" scrolling="yes" noresize="noresize" frameborder="0"></iframe>
     </div>
-    <div class="top-collapse" id="top-collapse" title="折叠"></div>
+    <!-- 顶部折叠按钮 不需要请删除 -->
+    <a class="top-collapse" id="top-collapse" href="javascript:void(0);" title="折叠"></a>
     <script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="${contextPath}/admin/javascripts/tool.js?v=${sversion}"></script>
     <script>
-        $(function(){
-            var height = 0;
+        var height = 0;
+        var leftHeight = 0;
 
-            $('#top-collapse').toggle(function() {
-                height = $('#container').height();
-                $('#container').height('100%').removeClass('top-iframe-margin');
-                $(this).attr('title', '展开').css({
-                    top: '0',
-                    backgroundPosition: '0 0'
-                });
-            }, function() {
-                $('#container').height(height).addClass('top-iframe-margin');
-                $(this).attr('title', '折叠').css({
-                    top: '88px',
-                    backgroundPosition: '-56px 0'
-                });
-            });
+        $(function(){
+            /*顶部折叠按钮*/
+            $('#top-collapse').toggle(toggleCollapse, toggleExpanding);
         });
+        /*折叠顶部*/
+        function toggleCollapse (argument) {
+            height = $('#container').height();
+            $('#container').height($(document).height() - 35).removeClass('top-iframe-margin').css('top', '35px');
+            $(this).attr('title', '展开').css({
+                top: '35px',
+                backgroundPosition: '-7px -29px'
+            });
+            window.frames['topFrame'].Header.switchingMode();
+        }
+        /*展开顶部*/
+        function toggleExpanding (argument) {
+            $('#container').height(height).addClass('top-iframe-margin').attr('style', '');
+            $(this).attr('title', '折叠').css({
+                top: '88px',
+                backgroundPosition: '-7px -2px'
+            });
+            window.frames['topFrame'].Header.switchingMode();
+        }
     </script>
 </body>
 </html>

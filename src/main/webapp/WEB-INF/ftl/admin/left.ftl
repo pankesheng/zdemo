@@ -1,28 +1,77 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title></title>
-    <link rel="stylesheet" href="${contextPath}/admin2/stylesheets/common.css" />
-    <link rel="stylesheet" href="${contextPath}/admin2/stylesheets/index.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" href="${contextPath}/admin/stylesheets/common.css?v=${sversion}" />
+	<link rel="stylesheet" href="${contextPath}/admin/stylesheets/index.css?v=${sversion}" />
 </head>
 <body>
-	<div class="left-menu">
-        <div class="left-menu-list"></div>
+    <div class="left-menu">
+        <div class="left-menu-title">后台管理系统示例</div>
+        <div class="left-menu-list">
+            <#-- <div class="left-menu-first-node">
+                <div class="first-title">
+                    <div class="text">一级菜单</div>
+                </div>
+                <div class="first-children" style="display: block;">
+                    <div class="left-menu-second-node">
+                        <div class="second-title active">
+                            <i class="icon"></i>
+                            <a href="javascript:void(0);" class="text navigation" target="rightFrame">二级菜单</a>
+                        </div>
+                        <ul class="menu-son" style="display: block;">
+                            <li class="">
+                                <i class="li-icon"></i>
+                                <a href="#" class="navigation" target="rightFrame">三级菜单</a>
+                            </li>
+                            <li>
+                                <i class="li-icon"></i>
+                                <a href="#" class="navigation" target="rightFrame">三级菜单</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
+        </div>
     </div>
     <script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
-    <script type="text/javascript" src="${contextPath}/ext/zcommon.js?v=${sversion}" basepath="${contextPath}" baseinit="ajaxCheckLogin"></script>
+    <script type="text/javascript" src="${contextPath}/admin/ext/jquery/jquery.nicescroll.min.js"></script>
     <!--[if lt IE 8]>
     <script type="text/javascript" src="${contextPath}/ext/DD_belatedPNG/DD_belatedPNG.js"></script>
     <script>
         DD_belatedPNG.fix('.first-icon, .right-arrow, background, background');
     </script>
     <![endif]-->
-    <script type="text/javascript" src="${contextPath}/admin2/javascripts/jquery-zwbam-0.0.1.js"></script>
+    <script type="text/javascript" src="${contextPath}/admin/javascripts/jquery-zwbam.js?v=${sversion}"></script>
     <script>
-        $('.left-menu-list').zwbam('initMenu', '${contextPath}/index/menu.ajax?t=<@z.z_now />');
+        $(function(){
+            $('.left-menu-list').zwbam('initMenu', {
+                //回调
+                onCompleted: function(){
+                    var params = window.parent.Container.getUrlParams();
+                    
+                    if(params && params.go){
+                        var $a = $('.left-menu').find('a[data-id="' + params.go +'"]');
+                        if($a.length){
+                            $a.trigger('click');
+                            window.parent.frames['rightFrame'].location.href = $a.attr('href');
+                        }
+                    }
+                    $('.left-menu').niceScroll({
+                        cursorcolor: '#7db7fb',
+                        cursorwidth: '6px',
+                        cursorborderradius: 2,
+                        autohidemode: true,
+                        background: '#d0d0d0',
+                        cursoropacitymin: 1,
+                        cursorborder: 'none',
+                        horizrailenabled: false
+                    });
+                },
+                data: '${contextPath}/index/menu.ajax?t=<@z.z_now />' 
+            });
+        });
     </script>
 </body>
 </html>

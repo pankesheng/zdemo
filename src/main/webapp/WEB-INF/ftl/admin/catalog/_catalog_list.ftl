@@ -14,23 +14,23 @@
 <body>
 	<div class="place">
         <span class="label-span">位置：</span>
-        <span>设置 - 用户管理</span>
+        <span>基本功能 - 栏目管理</span>
     </div>
     <div class="body-warp">
-        <div class="panel filter-block">
+        <#-- <div class="panel filter-block">
             <form class="form-inline">
                 <div class="form-group">
                     <select id="searchRole" class="form-select">
                         <option value="">--请选择角色--</option>
-		    			<option value="1">超级管理员</option>
-		    			<option value="2">普通用户</option>
+            		    			<option value="1">超级管理员</option>
+            		    			<option value="2">普通用户</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <select id="searchState" class="form-select">
                         <option value="">--请选择状态--</option>
-		    			<option value="1">启用</option>
-		    			<option value="0">冻结</option>
+            		    			<option value="1">启用</option>
+            		    			<option value="0">冻结</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -40,11 +40,11 @@
                     <a href="javascript:void(0);" class="btn" id="search-btn"><i class="iconfont">&#xe61b;</i>搜索</a>
                 </div>
             </form>
-        </div>
+        </div> -->
         <div class="panel table-tool-bar">
             <a class="btn" href="javascript:void(0);" onclick="add()"><i class="add-btn iconfont">&#xe619;</i>新增</a>
             <a class="btn" href="javascript:void(0);" onclick="removeItems()"><i class="remove-btn iconfont">&#xe608;</i>删除</a>
-            <a class="btn" href="javascript:void(0);" onclick="zexport()"><i class="iconfont">&#xe612;</i>导出</a>
+            <#-- <a class="btn" href="javascript:void(0);" onclick="zexport()"><i class="iconfont">&#xe612;</i>导出</a> -->
         </div>
         <table class="table" id="table"></table>
     </div>
@@ -53,36 +53,21 @@
     $(function() {
         grid = $('#table').grid({
             store: {
-				url: '${contextPath}/user/list.ajax'
+				url: '${contextPath}/web/catalog/list.ajax'
             },
             tool: {
                 pagingBar: true
             },
             columns: [
             {
-                title: '真实姓名',
-                dataIndex: 'realname'
+                title: '栏目名称',
+                dataIndex: 'name'
             },{
-				title: '账号',
-				dataIndex: 'username',
-				nowrap: true
+				title: '排序号',
+				dataIndex: 'orders'
 			},{
-				title: '密码',
-				dataIndex: 'password',
-                align: 'left'
-			},{
-                title: '角色',
-                dataIndex: 'role',
-                renderer: function(cellData, rowData){
-                    if(cellData == 1){
-						return '超级管理员';
-					}else if (cellData == 2){
-						return '普通用户';
-					}
-                }
-            },{
                 title: '状态',
-                dataIndex: 'state',
+                dataIndex: 'states',
                 renderer: function(cellData, rowData){
                     if(cellData){
 						return '<span style="color:blue">启用</span>';
@@ -107,37 +92,38 @@
         
     //添加
 	function add(){
-		z_openIframe('新增', 700, 400, '${contextPath}/user/toadd.do');
+		z_openIframe('新增', 700, 400, '${contextPath}/web/catalog/toadd.do');
 		// window.location.href = '${contextPath}/user/toadd.do';
 	}
 	
 	//编辑
 	function editItem(id){
-		z_openIframe('编辑', 700, 400, '${contextPath}/user/tomodify/' + id + '.do');
+		z_openIframe('编辑', 700, 400, '${contextPath}/web/catalog/tomodify/' + id + '.do');
 		// window.location.href = '${contextPath}/user/tomodify/' + id + '.do';
 	}
 
 	//删除
 	function removeItems(){
 		var data = grid.getSelectedDataString('id');
-		z_delete(data, '${contextPath}/user/delete.ajax');
+		z_delete(data, '${contextPath}/web/catalog/delete.ajax');
 	}
 	
+	<#-- 
 	// 导出
 	function zexport() {
 		z_export("${contextPath}/user/export.ajax");
 	}
 	
 	$('#search-btn').click(function(){
-    	var params = {
-    		searchRole: $('#searchRole').val(),
-    		searchKey: $('#searchKey').val(),
-    		searchState: $('#searchState').val(),
-    		start: 0
-    	};
-    	grid.load(params);
-    });
-    $('#searchKey').keydown(function(e){
+	    	var params = {
+	    		searchRole: $('#searchRole').val(),
+	    		searchKey: $('#searchKey').val(),
+	    		searchState: $('#searchState').val(),
+	    		start: 0
+	    	};
+	    	grid.load(params);
+	    });
+	    $('#searchKey').keydown(function(e){
 		if(e.keyCode==13){
 		   $('#search-btn').click();
 		   return false;
@@ -145,7 +131,7 @@
 	});
 	$('#searchRole').add('#searchState').change(function(){
 		$('#search-btn').click();
-	});
+	}); -->
 </script>
 </body>
 </html>

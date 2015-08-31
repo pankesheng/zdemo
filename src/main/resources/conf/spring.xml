@@ -68,7 +68,6 @@
 	
 	<bean id="configuration" class="com.thanone.zdemo.common.Configuration">
 		<property name="contextPath" value="${configuration.contextPath}"/>
-		<property name="debug" value="${configuration.debug}"/>
 	</bean>
 
 </beans>

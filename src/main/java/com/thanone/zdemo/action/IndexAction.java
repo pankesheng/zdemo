@@ -25,58 +25,71 @@ import com.zcj.web.springmvc.action.BasicAction;
 @Component("indexAction")
 public class IndexAction extends BasicAction {
 
+	@RequestMapping("/index")
+	public String index(HttpServletRequest request, Model model) {
+		return "/WEB-INF/ftl/admin/index.ftl";
+	}
+
+	@RequestMapping("/top")
+	public String top(Model model) {
+		return "/WEB-INF/ftl/admin/top.ftl";
+	}
+
 	@RequestMapping("/container")
 	public String container(Model model) {
 		return "/WEB-INF/ftl/admin/container.ftl";
-	}
-
-	@RequestMapping("/index")
-	public String index(Model model) {
-		return "/WEB-INF/ftl/admin/index.ftl";
 	}
 
 	@RequestMapping("/left")
 	public String left(Model model) {
 		return "/WEB-INF/ftl/admin/left.ftl";
 	}
-	
-	@RequestMapping("/main")
-	public String main(Model model) {
-		return "/WEB-INF/ftl/admin/main.ftl";
-	}
-	
-	@RequestMapping("/top")
-	public String top(Model model) {
-		return "/WEB-INF/ftl/admin/top.ftl";
+
+	@RequestMapping("/start")
+	public String start(Model model) {
+		return "/WEB-INF/ftl/admin/start.ftl";
 	}
 
-	// 登陆后的菜单列表
+	// 登录后的菜单列表
 	@RequestMapping("/menu")
 	public void menu(HttpServletRequest request, PrintWriter out) {
-		
+
 		Integer role = WebContext.getLoginUserRole(request);
 
-		// 设置
 		MenuDto m31 = new MenuDto("账号管理", Configuration.getContextPath() + "/user/tolist.do");
-		MenuDto m33 = new MenuDto("修改密码", Configuration.getContextPath() + "/user/password.do");
-		MenuDto m34 = new MenuDto("注销", Configuration.getContextPath() + "/user/logout.do");
-
+		MenuDto m32 = new MenuDto("参数设置", Configuration.getContextPath() + "/user/tolist.do");
 		List<MenuDto> m3List = new ArrayList<MenuDto>();
-		if (User.ROLE_ADMIN.equals(role)) {			
+		if (User.ROLE_ADMIN.equals(role)) {
 			m3List.add(m31);
+			m3List.add(m32);
 		}
-		m3List.add(m33);
-		m3List.add(m34);
-		MenuDto m3 = new MenuDto("设置", "#", m3List);
+		MenuDto m3 = new MenuDto("设置", "#", Boolean.TRUE, m3List);
 
 		List<MenuDto> mList = new ArrayList<MenuDto>();
 		mList.add(m3);
-		MenuDto m = new MenuDto("功能列表", "#", mList);
+		MenuDto m = new MenuDto("功能列表", "#", Boolean.TRUE, mList);
 
 		List<MenuDto> menu = new ArrayList<MenuDto>();
 		menu.add(m);
 
 		String result = ServiceResult.initSuccessJson(menu);
+		out.write(result);
+	}
+
+	// 登录后的顶部子应用列表
+	@RequestMapping("/menutop")
+	public void menutop(HttpServletRequest request, PrintWriter out) {
+
+		MenuDto m1 = new MenuDto("应用1", Configuration.getContextPath() + "/admin/images/icon/icon1.png", "http://www.baidu.com/");
+		MenuDto m2 = new MenuDto("应用2", Configuration.getContextPath() + "/admin/images/icon/icon2.png", "http://www.baidu.com/");
+		MenuDto m3 = new MenuDto("应用3", Configuration.getContextPath() + "/admin/images/icon/icon3.png", "http://www.baidu.com/");
+
+		List<MenuDto> m3List = new ArrayList<MenuDto>();
+		m3List.add(m1);
+		m3List.add(m2);
+		m3List.add(m3);
+
+		String result = ServiceResult.initSuccessJson(m3List);
 		out.write(result);
 	}
 
