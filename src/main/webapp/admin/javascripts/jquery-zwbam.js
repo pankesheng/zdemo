@@ -190,7 +190,12 @@
             };
             //API接口
             if(option && typeof option.data === 'string'){
-                $.getJSON(option.data, function(json, textStatus) {
+                $.ajax({
+                    url: option.data,
+                    cache: false,
+                    type: 'GET',
+                    dataType: 'json'
+                }).success(function(json, textStatus){
                     if (! $.isEmptyObject(json)) {
                         init(json);
                     }else{
@@ -330,7 +335,12 @@
 
             //API接口
             if(typeof option === 'string'){
-                $.getJSON(option, function(json, textStatus) {
+                $.ajax({
+                    url: option,
+                    cache: false,
+                    type: 'GET',
+                    dataType: 'json'
+                }).success(function(json, textStatus){
                     if (! $.isEmptyObject(json)) {
                         data = json.d;
                         init();

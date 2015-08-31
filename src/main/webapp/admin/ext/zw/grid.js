@@ -171,21 +171,52 @@
              * @cfg {Boolean} [tool.checkboxSelect] 值为true时启用单选框
              * @cfg {Boolean} [tool.tableTip] 值为true时启用提示
              * @cfg {Boolean} [tool.pagingBar] 值为true时启用分页 排序参数为 偏移值offset 条数limit
+             * @cfg {String} [tool.tableBottomBarCls] 底部工具栏样式
              * @cfg {String} [tool.pagingCls] 插入分页按钮的DOM元素的class
              * @cfg {String} [tool.pagingInfoCls] 显示分页信息的DOM元素的class
              * @cfg {String} [tool.pagingSizeCls] 分页条数设置的DOM元素的class
              * @cfg {String} [tool.pagingJumpCls] 分页跳转的DOM元素的class
+             * @cfg {String} [tool.pagingContainerHtml] 分页按钮容器的html
+             *     双花括号内为动态内容不可更改，即标签语法，其他html可以随意更改。
+             *
+             *       <div class="table-bottom-left">
+             *          <span class="mr-10">每页</span>
+             *          <span class="page-size mr-10">
+             *              <select class="normal-select {{pagingSizeCls}}">
+             *                  <option value="10">10</option>
+             *                  <option value="20">20</option>
+             *                  <option value="50">50</option>
+             *                  <option value="100">100</option>
+             *              </select>
+             *          </span>
+             *          <span class="mr-10">条</span>
+             *          <span class="{{pagingCls}} mr-10"></span>
+             *          <span class="{{pagingJumpCls}}">
+             *              <input class="form-control mr-10 paging-value" type="text" />
+             *              <a class="btn btn-primary btn-go" href="javascript:void(0);">GO</a>
+             *          </span>
+             *      </div>
+             * @cfg {String} [tool.pagingInfoContainerHtml] 分页信息容器的html
+             *     双花括号内为动态内容不可更改，即标签语法，其他html可以随意更改。
+             *
+             *      <div class="page-function table-bottom-right">
+             *          <span class="{{pagingInfoCls}}"></span>
+             *      </div>
              * @cfg {String} [tool.pagingBtnHtml] 页码按钮的html
              * @cfg {String} [tool.pagingPrevBtnHtml] 上一页按钮的html
              * @cfg {String} [tool.pagingNextBtnHtml] 下一页按钮的html
              */
             tool: {
+                //启用序号
+                enableSerialNumber: false,
                 //启用选框
                 checkboxSelect: true,
                 //提示
                 tableTip: true,
                 //分页
                 pagingBar: false,
+                //底部工具栏样式
+                tableBottomBarCls: 'table-bottom-bar',
                 //分页样式
                 pagingCls: 'pagination',
                 //分页信息样式
@@ -194,6 +225,30 @@
                 pagingSizeCls: 'pagesize-value',
                 //分页跳转
                 pagingJumpCls: 'page-jump',
+                //分页按钮容器的html
+                pagingContainerHtml: 
+                '<div class="table-bottom-left">'+
+                    '<span class="mr-10">每页</span>'+
+                    '<span class="page-size mr-10">'+
+                        '<select class="normal-select {{pagingSizeCls}}">'+
+                            '<option value="10">10</option>'+
+                            '<option value="20">20</option>'+
+                            '<option value="50">50</option>'+
+                            '<option value="100">100</option>'+
+                        '</select>'+
+                    '</span>'+
+                    '<span class="mr-10">条</span>'+
+                    '<span class="{{pagingCls}} mr-10"></span>'+
+                    '<span class="{{pagingJumpCls}}">'+
+                        '<input class="form-control mr-10 paging-value" type="text" />'+
+                        '<a class="btn btn-primary btn-go" href="javascript:void(0);">GO</a>'+
+                    '</span>'+
+                '</div>',
+                //分页信息容器的html
+                pagingInfoContainerHtml:
+                '<div class="page-function table-bottom-right">'+
+                    '<span class="{{pagingInfoCls}}"></span>'+
+                '</div>',
                 //页码按钮的html
                 pagingBtnHtml: '<a class="num-page{{cls}}" href="javascript:void(0);">{{pageNum}}</a>\n',
                 //上一页按钮的html
@@ -697,6 +752,10 @@
             if (this.opts.tool.checkboxSelect === true) {
                 $tr.append('<th class="checkbox-th"><input class="checkbox selectAll" type="checkbox" /></th>');
             }
+            //渲染序号
+            if (this.opts.tool.enableSerialNumber === true) {
+                $tr.append('<th style="width: 30px;">序号</th>');
+            }
             //渲染表头
             for (var i = 0, len = this.opts.columns.length; i < len; i++) {
                 if (this.opts.columns[i].sortable === true) {
@@ -757,6 +816,10 @@
         //渲染单选框
         if (this.opts.tool.checkboxSelect) {
             $tr.append('<td><input class="checkbox" type="checkbox" /></td>');
+        }
+        //渲染序号
+        if (this.opts.tool.enableSerialNumber) {
+            $tr.append('<td>' + (rowIndex + 1) + '</td>');
         }
 
         for (var j = 0, columnLen = columns.length; j < columnLen; j++) {
@@ -1135,7 +1198,7 @@
                         return $.error('thumb mode need thumbRenderer function to render');
                     }
 
-                    var $li = $('<li class="thumb-item">' + content + '</li>');
+                    var $li = $('<li class="' + me.opts.schema.thumbItemCls + '">' + content + '</li>');
 
                     $li.data(rowData);
                     me.$thumb.append($li);
@@ -1143,33 +1206,12 @@
             },
             tableBottomBar: function(){
                 if(!this.$tableBottomBar){
-                    var $tableBottomBar = $('<div class="table-bottom-bar clearfix"></div>');
+                    var $tableBottomBar = $('<div class="' + this.opts.tool.tableBottomBarCls + '"></div>');
 
                     if(this.opts.tool.pagingBar){
                         $tableBottomBar
-                            .append('<div class="table-bottom-left">'+
-                                '<span class="mr-10">每页</span>'+
-                                '<span class="page-size mr-10">'+
-                                    '<select class="normal-select ' + this.opts.tool.pagingSizeCls + '">'+
-                                        '<option value="5">5</option>'+
-                                        '<option value="10">10</option>'+
-                                        '<option value="15">15</option>'+
-                                        '<option value="20">20</option>'+
-                                        '<option value="25">25</option>'+
-                                    '</select>'+
-                                '</span>'+
-                                '<span class="mr-10">条</span>'+
-                                '<span class="' + this.opts.tool.pagingCls + ' mr-10"></span>'+
-                                '<span class="' + this.opts.tool.pagingJumpCls + '">'+
-                                    '<input class="form-control mr-10 paging-value" type="text">'+
-                                    '<a class="btn btn-primary btn-go" href="javascript:void(0);">GO</a>'+
-                                '</span>'+
-                            '</div>')
-                            .append(
-                                '<div class="page-function table-bottom-right">'+
-                                    '<span class="' + this.opts.tool.pagingInfoCls + '"></span>'+
-                                '</div>'
-                            );
+                            .append(this.tpl(this.opts.tool.pagingContainerHtml, this.opts.tool))
+                            .append(this.tpl(this.opts.tool.pagingInfoContainerHtml, this.opts.tool));
 
                         me.$wrapper.append($tableBottomBar);
                         me.$tableBottomBar = $tableBottomBar;

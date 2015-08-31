@@ -88,7 +88,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
         <property name="freemarkerVariables">
 			<map>
                 <entry key="contextPath" value="${configuration.contextPath}"></entry>
-                <entry key="sversion" value="1"></entry><!-- WEB静态样式文件和脚本文件的版本号 -->
+                <entry key="sversion" value="2"></entry><!-- WEB静态样式文件和脚本文件的版本号 -->
 			</map>
 		</property>
         <property name="freemarkerSettings">

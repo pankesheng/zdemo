@@ -18,6 +18,16 @@
     overflow: hidden;
     white-space: nowrap;
 }
+.clearfix(){
+    *zoom: 1;
+    &:after{
+        content: ".";
+        display: block;
+        height: 0;
+        visibility: hidden;
+        clear: both;
+    }
+}
 
 body{
     background-color: #eeedec;
@@ -206,6 +216,7 @@ body{
     border: 1px solid #fff;
     border-top: none;
     background-color: #dfe7ef;
+    .clearfix;
     .table-bottom-left{
         float: left;
         width: 50%;
@@ -221,6 +232,9 @@ body{
     .ui-selectbox{
         height: 28px;
         line-height: 28px;
+    }
+    .pagesize{
+        margin-right: 10px;
     }
 }
 .pagination{
