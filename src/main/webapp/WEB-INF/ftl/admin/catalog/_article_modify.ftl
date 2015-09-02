@@ -74,7 +74,9 @@
 			            <tr>
 			                <td><label class="form-label">内容<b class="red">*</b></label></td>
 			                <td>
+			                	<#--
 			                	<script id="editor" name="content" type="text/plain" style="width:800px;height:400px;"><#noescape>${(obj.content)!}</#noescape></script>
+			                	 -->
 			                </td>
 			            </tr>
 			            <tr>
