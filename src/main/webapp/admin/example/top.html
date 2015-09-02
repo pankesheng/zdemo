@@ -10,7 +10,8 @@
 </head>
 <body>
     <div class="header clearfix">
-        <div class="function-block">
+        <!-- 旧版菜单 -->
+        <!-- <div class="function-block">
             <p class="function-list">
                 <i class="icon"></i>
                 <a class="help" href="#">帮助</a>
@@ -22,6 +23,22 @@
                 <i class="icon"></i>
                 <span class="user-name">测试管理</span>
             </p>
+        </div> -->
+        <div class="function-block action-block">
+            <ul class="action-list">
+                <li class="action-item">
+                    <div class="action-user-nums">99+</div>
+                    <span>在线人数<span class="mini-user-nums">99+</span></span>
+                </li>
+                <li class="action-item" id="btn-show-user-list">
+                    <div class="action-user"></div>
+                    <span class="action-more-icon">黄小鸭</span>
+                </li>
+                <li class="action-item" id="btn-show-more-list">
+                    <div class="action-more"></div>
+                    <span class="action-more-icon">更多</span>
+                </li>
+            </ul>
         </div>
         <h1 class="web-title">后台管理系统示例</h1>
         <div class="icon-bar clearfix" id="iconBar">
@@ -40,6 +57,33 @@
         </div>
         <div class="mini-list" id="mini-list"></div>
     </div>
+    <ul class="top-list hide" id="user-top-list">
+        <li class="top-list-item">
+            <a href="##">你好，黄小鸭</a>
+        </li>
+        <li class="top-list-item">
+            <i class="iconfont">&#xe641;</i>
+            <a href="##">修改密码</a>
+        </li>
+        <li class="top-list-item">
+            <i class="iconfont">&#xe642;</i>
+            <a href="##">退出登录</a>
+        </li>
+    </ul>
+    <ul class="top-list hide" id="user-more-list">
+        <li class="top-list-item">
+            <i class="iconfont">&#xe645;</i>
+            <a href="##">版本更新</a>
+        </li>
+        <li class="top-list-item">
+            <i class="iconfont">&#xe604;</i>
+            <a href="##">问题反馈</a>
+        </li>
+        <li class="top-list-item">
+            <i class="iconfont">&#xe646;</i>
+            <a href="##">帮助中心</a>
+        </li>
+    </ul>
     <script type="text/javascript" src="../ext/jquery/jquery-1.8.1.min.js"></script>
     <!--[if lt IE 8]>
     <script type="text/javascript" src="../ext/jquery/jquery.pngFix.js"></script>
@@ -73,16 +117,42 @@
                 return $.fn.zwbam('getCurrentSelectedTopMenuUrl');
             }
         };
+        var isListShow = false;
+
         $(function(){
             if(window.parent.$('.top').height() === 35){
                 Header.switchingMode();
             }
+            //弹出
+            $('#btn-show-user-list').click(function(){
+                if(isListShow){
+                    removeTopList();
+                    isListShow = false;
+                }else{
+                    showTopList.apply(this, [$('#user-top-list')])
+                    isListShow = true;
+                }
+            });
+            $('#btn-show-more-list').click(function(){
+                if(isListShow){
+                    removeTopList();
+                    isListShow = false;
+                }else{
+                    showTopList.apply(this, [$('#user-more-list')])
+                    isListShow = true;
+                }
+            });
+            
             $('#iconBar').zwbam('initTopMenu', {
                 "s": 1,
                 "callback": function(){
-                    $.fn.zwbam('setTopMenu', '智课');
+                    $.fn.zwbam('setTopMenu', '首页');
                 },
                 "d": [{
+                    title: '首页',
+                    imgUrl: '../images/icon/icon-index.png',
+                    url: 'http://cn.engadget.com'
+                },{
                     title: '智课',
                     imgUrl: '../images/icon/icon1.png',
                     url: 'http://cn.engadget.com'
@@ -149,6 +219,31 @@
                 }]
             });
         });
+        function showTopList($clone){
+            var $this = $(this);
+            var offset = $this.offset();
+            var $clone = $clone.clone();
+            var $arrow = $('<div class="top-list-arrow"></div>');
+            var $body = window.parent.$('body');
+
+            $clone.css({
+                position: 'absolute',
+                top: offset.top + $this.height() + 8,
+                right: $('body').width() - offset.left - $this.width() - 10
+            }).show();
+            $arrow.css({
+                position: 'absolute',
+                top: offset.top + $this.height() + 3,
+                right: $('body').width() - offset.left - $this.width()
+            });
+            $body.find('.top-list-arrow').remove().end()
+                .find('.top-list').remove().end()
+                .append($clone).append($arrow);
+        }
+        function removeTopList(){
+            window.parent.$('body').find('.top-list-arrow').remove().end()
+                .find('.top-list').remove();
+        }
         function switchingMiniMode(){
             this.mode = 'mini';
             $('.function-block').addClass('mini');

@@ -184,6 +184,22 @@ function z_openIframe(title, width, height, src) {
 	});
 }
 
+// 调用后台 AJAX 操作，完成后：刷新列表、关闭所有弹窗、并弹出操作结果。
+// 依赖插件：layer、grid
+function z_ajaxoper(url, oper) {
+	layer.confirm('确认'+oper+'？', function() {
+		$.post(url, function(data){
+			if(data.s!=1){
+				z_alert_layer(data.d||"操作失败！");
+	        } else {
+	        	grid.refresh();
+				layer.closeAll();
+				z_alert_success(data.d||"操作成功！");
+	        }
+		}, "json");
+	});
+}
+
 // 操作。完成后自动调用 grid.refresh()
 // 依赖插件：layer、grid、tool
 function z_oper(dataString, url, oper) {

@@ -453,6 +453,63 @@ html, body {
                 margin-right: 0;
                 *margin: 0;
             }
+            .action-item{
+                width: auto;
+            }
+            .mini-user-nums{
+                display: inline;
+            }
+            .action-user-nums, .action-user, .action-more{
+                display: none;
+            }
+        }
+    }
+    .action-block{
+        margin-top: 12px;
+        &.mini{
+            width: auto;
+        }
+    }
+    .action-list{
+        margin-right: -18px;
+        *zoom: 1;
+        &:after{
+            display: block;
+            height: 0;
+            content: '.';
+            visibility: hidden;
+            clear: both;
+        }
+        .mini-user-nums{
+            display: none;
+            margin-left: 5px;
+        }
+        .action-item{
+            float: left;
+            width: 50px;
+            margin-right: 18px;
+            text-align: center;
+        }
+        .action-user-nums, .action-user, .action-more{
+            width: 50px;
+            height: 48px;
+            margin-bottom: 2px;
+        }
+        .action-more-icon{
+            padding-right: 2px;
+            background: url('../images/action-footer-icon.png') 100% 100% no-repeat;
+            cursor: pointer;
+        }
+        .action-user-nums{
+            font-size: 18px;
+            line-height: 48px;
+            background: url('../images/icon-nums-bg.png') 0 0 no-repeat;
+        }
+        .action-user{
+            background: url('../images/icon-user-bg.png') 0 0 no-repeat;
+        }
+        .action-more{
+            background: url('../images/icon-more-bg.png') 0 0 no-repeat;
         }
     }
     .function-list{
@@ -512,4 +569,27 @@ html, body {
             background: url();
         }
     }
+}
+.top-list{
+    background-color: #fff;
+    border: 1px solid #e8e6e6;
+    border-bottom: none;
+    .top-list-item{
+        padding: 0 12px;
+        height: 30px;
+        line-height: 30px;
+        color: #666;
+        border-bottom: 1px solid #e8e6e6;
+        a{
+            color: #666;
+        }
+    }
+    .iconfont{
+        margin-right: 5px;
+    }
+}
+.top-list-arrow{
+    width: 9px;
+    height: 6px;
+    background: url('../images/top-list-arrow.gif') 0 0 no-repeat;
 }

@@ -8,8 +8,8 @@
 	<script type="text/javascript" src="${contextPath}/ext/jquery_form/jquery.form.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/ext/layer/layer.min.js"></script>
 	<script type="text/javascript" src="${contextPath}/ext/laydate/laydate.js"></script>
-	<link rel="stylesheet" type="text/css" href="${contextPath}/ext/jquery_uploadify/uploadify.css" media="screen" />
-	<script type="text/javascript" src="${contextPath}/ext/jquery_uploadify/jquery.uploadify.js?t=<@z.z_now />"></script>
+	<link rel="stylesheet" type="text/css" href="${contextPath}/admin/ext/uploadify/uploadify.css" media="screen" />
+	<script type="text/javascript" src="${contextPath}/admin/ext/uploadify/jquery.uploadify.min.js?t=<@z.z_now />"></script>
 	<link rel="stylesheet" href="${contextPath}/ext/jquery_zcj/jquery.zimgslider.css?v=${sversion}" />
 	<script type="text/javascript" src="${contextPath}/ext/jquery_zcj/jquery.zimgslider.js?v=${sversion}"></script>
 	<script type="text/javascript" src="${contextPath}/admin/ext/jquery/selectbox.js"></script>

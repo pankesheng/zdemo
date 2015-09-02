@@ -50,6 +50,26 @@
     </div>
 <script>
     var grid = {};
+    
+    <#--
+    		{
+                title: '图片',
+                dataIndex: 'pictureUrl',
+                renderer: function(cell, row) {
+                	return "<a href='${contextPath}"+cell+"' target='_blank'><img height='30' width='60' src='${contextPath}"+cell+"'/></a>";
+                }
+            },{
+				title: '店铺名称',
+				dataIndex: 'id',
+				renderer: function(cell, row) {
+					if (row.store) {
+						return (row.store.name||"");
+					}
+					return "";
+				}
+			}
+     -->
+    
     $(function() {
         grid = $('#table').grid({
             store: {
