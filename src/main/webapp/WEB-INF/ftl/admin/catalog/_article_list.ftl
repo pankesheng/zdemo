@@ -36,8 +36,8 @@
             </form>
         </div>
         <div class="panel table-tool-bar">
-            <a class="btn" href="javascript:void(0);" onclick="add()"><i class="add-btn iconfont">&#xe619;</i>新增</a>
-            <a class="btn" href="javascript:void(0);" onclick="removeItems()"><i class="remove-btn iconfont">&#xe608;</i>删除</a>
+            <a class="btn" href="###" onclick="add()"><i class="add-btn iconfont">&#xe619;</i>新增</a>
+            <a class="btn" href="###" onclick="removeItems()"><i class="remove-btn iconfont">&#xe608;</i>删除</a>
         </div>
         <table class="table" id="table"></table>
     </div>
@@ -68,7 +68,7 @@
                 renderer: function(cellData, rowData){
                 	var result = '';
                 	result += '<div style="width:300px;overflow:hidden;">';
-                		result += '<a class="btn btn-primary" href="javascript:void(0);" onclick="editItem(\''+cellData+'\');">编辑</a>\n';
+                		result += '<a class="btn btn-primary" href="###" onclick="editItem(\''+cellData+'\');">编辑</a>\n';
                 	result += '</div>';
                 	return result;
                 }
