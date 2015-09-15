@@ -7,6 +7,9 @@
 		
 	2015-08-31	V1.2
 		1、删除已废弃的zw插件
+		
+	2015-09-15	V1.3
+		1、新增 是否微信浏览器的判断 方法，详见 jquery_ua\dome.html
 	
 
 --jquery_form		>> Form表单AJAX提交插件

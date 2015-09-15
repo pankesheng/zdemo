@@ -3,6 +3,8 @@ admin/*
 	
 	Build：16210
 	
+	2015-09-02	V2.1	新增示例：_z_detail.html
+	
 admin/javascripts/zcommon.js
 
 	2015-07-23	V1.0	初始化

@@ -29,6 +29,12 @@ zutil.drawImage = function (ImgD,iwidth,iheight) {
 	}
 }
 
+// 判断是否为微信浏览器
+zutil.weixinBrowser = function() {
+	var ua = navigator.userAgent.toLowerCase();
+    return (ua.match(/MicroMessenger/i)=="micromessenger");
+}
+
 // 判断是否为手机浏览器
 zutil.mobileBrowser = function() {
 	return (!!navigator.userAgent.match(/AppleWebKit.*Mobile.*/));
