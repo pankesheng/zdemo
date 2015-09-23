@@ -26,7 +26,7 @@
 				<li data-role="list-divider" data-theme="b">${(cat.name)!}<span class="ui-li-count" onclick="_list(${cat.id});">更多</span></li>
 				<#list artMap[(cat.id)?string] as art>
 				<li><a href="${contextPath}/mobile/detail.do?id=${art.id}">
-						<h3>${(art.title)!}</h3>
+						${(art.title)!}
 						<p>[${((art.showtime)?string("yyyy-MM-dd"))!}]</p>
 				</a></li>
 				</#list>
@@ -34,7 +34,7 @@
 			</ul>
 		</div>
 		<div data-role="footer" data-theme="b">
-			<h4>主办单位：温州市瓯海区教育局</h4>
+			<h4>主办单位：温州市瓯海区教育局</br>浙ICP备05082032号</h4>
 		</div>
 	</div>
 </body>

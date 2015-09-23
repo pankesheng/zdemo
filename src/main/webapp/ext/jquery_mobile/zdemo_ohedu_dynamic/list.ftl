@@ -36,7 +36,7 @@ function _more() {
 			<ul id="listview_articles" data-role="listview">
 				<#list rows as art>
 				<li><a href="${contextPath}/mobile/detail.do?id=${art.id}">
-						<h3>${(art.title)!}</h3>
+						${(art.title)!}
 						<p>[${((art.showtime)?string("yyyy-MM-dd"))!}]</p>
 				</a></li>
 				</#list>
@@ -45,7 +45,7 @@ function _more() {
 			<a id="button_more" href="javascript: _more();" data-role="button">更多</a>
 		</div>
 		<div data-role="footer" data-theme="b">
-			<h4>主办单位：温州市瓯海区教育局</h4>
+			<h4>主办单位：温州市瓯海区教育局</br>浙ICP备05082032号</h4>
 		</div>
 	</div>
 	<script id="articleTemplate" type="text/x-jquery-tmpl">
