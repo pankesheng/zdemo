@@ -26,7 +26,7 @@
 			</ul>
 		</div>
 		<div data-role="footer" data-theme="b">
-			<h4>主办单位：温州市瓯海区教育局</br>浙ICP备05082032号</h4>
+			<h4>主办单位：温州市瓯海区教育局</br>承办单位：温州市瓯海区教师发展中心</br>瓯海教育信息中心</br>浙ICP备05082032号</br><a data-role="button" target="_blank" href="${contextPath}/index.html?type=no">电脑版</a></h4>
 		</div>
 	</div>
 </body>

@@ -28,7 +28,7 @@
 <body>
 	<div data-role="page" data-title="瓯海教育网" data-theme="c">
 		<div data-role="header" data-theme="b">
-			<h1>瓯海教育网</h1>
+			<h1><img alt="" src="${contextPath}/www/images/mobile_index_logo.png" height="40px"></h1>
 			<a href="${contextPath}/mobile/menu.do" data-role="button" data-icon="grid" data-iconpos="notext" class="ui-btn-right"  data-transition="flip">栏目</a>
 		</div>
 		<div data-role="content">
@@ -94,7 +94,7 @@
 				</a></li>
 				</#list>
 				
-				<li data-role="list-divider" data-theme="b">教育技术<span class="ui-li-count" onclick="_lists(14);">更多</span></li>
+				<li data-role="list-divider" data-theme="b">教育装备<span class="ui-li-count" onclick="_lists(14);">更多</span></li>
 				<#list articleMap["14"] as art>
 				<li><a href="${contextPath}/mobile/detail.do?id=${(art.id)!}">
 						${(art.title)!}
@@ -104,7 +104,7 @@
 			</ul>
 		</div>
 		<div data-role="footer" data-theme="b">
-			<h4>主办单位：温州市瓯海区教育局</br>浙ICP备05082032号</h4>
+			<h4>主办单位：温州市瓯海区教育局</br>承办单位：温州市瓯海区教师发展中心</br>瓯海教育信息中心</br>浙ICP备05082032号</br><a data-role="button" target="_blank" href="${contextPath}/index.html?type=no">电脑版</a></h4>
 		</div>
 	</div>
 </body>

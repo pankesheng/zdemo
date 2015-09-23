@@ -8,6 +8,11 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/ext/jquery_mobile/jquery.mobile.structure-1.4.5.min.css" media="screen" />
 <script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="${contextPath}/ext/jquery_mobile/jquery.mobile-1.4.5.min.js"></script>
+<style type="text/css">
+.zdetail_img img{
+	max-width: 200px;
+}
+</style>
 </head>
 <body>
 	<div data-role="page" data-title="瓯海教育网 - ${(obj.title)!}" data-theme="c">
@@ -17,13 +22,13 @@
 		</div>
 		<div data-role="content">
 			<div class="ui-body ui-body-c ui-corner-all">
-				<h3>${(obj.title)!}</h3>
+				<h3 align="center">${(obj.title)!}</h3>
 				<p style="color: #666666">${((obj.showtime)?string("yyyy-MM-dd"))!} ${(obj.userName)!}</p>
-				<font size="4">${(obj.context)!}</font>
+				<font size="4" class="zdetail_img">${(obj.context)!}</font>
 			</div>
 		</div>
 		<div data-role="footer" data-theme="b">
-			<h4>主办单位：温州市瓯海区教育局</br>浙ICP备05082032号</h4>
+			<h4>主办单位：温州市瓯海区教育局</br>承办单位：温州市瓯海区教师发展中心</br>瓯海教育信息中心</br>浙ICP备05082032号</br><a data-role="button" target="_blank" href="${contextPath}/index.html?type=no">电脑版</a></h4>
 		</div>
 	</div>
 </body>
