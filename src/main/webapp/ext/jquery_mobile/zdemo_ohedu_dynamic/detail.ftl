@@ -9,8 +9,9 @@
 <script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="${contextPath}/ext/jquery_mobile/jquery.mobile-1.4.5.min.js"></script>
 <style type="text/css">
-.zdetail_img img{
-	max-width: 200px;
+.zdetail_img p img{
+max-width:100%;
+height:auto;
 }
 </style>
 </head>
@@ -24,12 +25,26 @@
 			<div class="ui-body ui-body-c ui-corner-all">
 				<h3 align="center">${(obj.title)!}</h3>
 				<p style="color: #666666">${((obj.showtime)?string("yyyy-MM-dd"))!} ${(obj.userName)!}</p>
-				<font size="4" class="zdetail_img">${(obj.context)!}</font>
+				<font size="4" class="zdetail_img">
+				${(obj.context)!}
+				<!-- JiaThis Button BEGIN -->
+				<div class="jiathis_style_32x32">
+					<a class="jiathis_button_qzone"></a>
+					<a class="jiathis_button_tsina"></a>
+					<a class="jiathis_button_tqq"></a>
+					<a class="jiathis_button_weixin"></a>
+					<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+					<a class="jiathis_counter_style"></a>
+				</div>
+				<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+				<!-- JiaThis Button END -->
+				</font>
 			</div>
 		</div>
 		<div data-role="footer" data-theme="b">
 			<h4>主办单位：温州市瓯海区教育局</br>承办单位：温州市瓯海区教师发展中心</br>瓯海教育信息中心</br>浙ICP备05082032号</br><a data-role="button" target="_blank" href="${contextPath}/index.html?type=no">电脑版</a></h4>
 		</div>
 	</div>
+
 </body>
 </html>

@@ -13,7 +13,7 @@
 	<div data-role="page" data-title="瓯海教育网" data-theme="c">
 		<div data-role="header" data-theme="b">
 			<a data-role="button" data-icon="back" data-iconpos="notext" data-rel="back">返回</a>
-			<h1>${(searchValue)!}</h1>
+			<h1>${(searchValue?html)!}</h1>
 		</div>
 		<div data-role="content">
 			<ul data-role="listview">
