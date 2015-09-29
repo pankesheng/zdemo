@@ -1,4 +1,6 @@
 
+当前版本：1.4.3
+
 1、引入Jar包
 	<dependency>
 		<groupId>commons-codec</groupId>
