@@ -18,6 +18,7 @@ jQuery(function(){
 	jQuery(window).load(function(){
 		var maxWidth = $(window).width() - 20;
 		$(".zdetail_img img").each(function(i){
+			$(this).parents("p").css({"text-indent": "0"});
 			if (this.width > maxWidth) {			
 				$(this).css({"width": "100%", "height": "auto", "display": "block"});
 			}
