@@ -7,16 +7,27 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/ext/jquery_mobile/theme-classic.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/ext/jquery_mobile/jquery.mobile.structure-1.4.5.min.css" media="screen" />
 <script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
+<script>
+$(document).bind("mobileinit", function() {
+	$.mobile.ajaxEnabled=false;
+});
+</script>
 <script type="text/javascript" src="${contextPath}/ext/jquery_mobile/jquery.mobile-1.4.5.min.js"></script>
-<style type="text/css">
-.zdetail_img p img{
-max-width:100%;
-height:auto;
-}
-</style>
+<script type="text/javascript">
+jQuery(function(){
+	jQuery(window).load(function(){
+		var maxWidth = $(window).width() - 20;
+		$(".zdetail_img img").each(function(i){
+			if (this.width > maxWidth) {			
+				$(this).css({"width": "100%", "height": "auto", "display": "block"});
+			}
+		});
+	});
+});
+</script>
 </head>
 <body>
-	<div data-role="page" data-title="瓯海教育网 - ${(obj.title)!}" data-theme="c">
+	<div data-role="page" id="detail_jq_page" data-title="瓯海教育网 - ${(obj.title)!}" data-theme="c">
 		<div data-role="header" data-theme="b">
 			<a data-role="button" data-icon="back" data-iconpos="notext" data-rel="back">返回</a>
 			<h1>瓯海教育网</h1>
