@@ -36,10 +36,10 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 		<property name="defaultPagesize" value="20"/>
 		<property name="iframeCrossDomain" value="false"/>
 	</bean>
-	<bean id="staticizeInterceptor" class="com.thanone.zdemo.interceptor.StaticizeInterceptor">
+	<!-- <bean id="staticizeInterceptor" class="com.thanone.zdemo.interceptor.StaticizeInterceptor">
 		<property name="cmsHandler" ref="cmsHandler"/>
 		<property name="freemarkerConfig" ref="freemarkerConfig"/>
-	</bean>
+	</bean> -->
 	
 	<!-- 拦截器组；按顺序执行；拦截所有请求，包括静态资源的访问 -->
 	<mvc:interceptors>
