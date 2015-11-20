@@ -143,6 +143,12 @@
                 }
             });
             /*表单提交*/
+            $('.form-control').bind('keydown', function(event){
+                if(event.keyCode === 13){
+                    $('#login-submit').trigger('click');
+                    return false;
+                }
+            });
             $('#login-submit').bind('click', function(){
                 //cookies
                 if($('#remember-password').is(':checked')){

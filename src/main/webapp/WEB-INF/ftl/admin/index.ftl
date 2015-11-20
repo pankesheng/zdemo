@@ -7,42 +7,39 @@
 	<link rel="stylesheet" href="${contextPath}/admin/stylesheets/index.css?v=${sversion}" />
 </head>
 <body>
-    <iframe class="top" src="${contextPath}/index/top.do" height="88" frameborder="0" name="topFrame"></iframe>
-    <!-- 有top页加class top-iframe-margin -->
-    <div id="container" class="container top-iframe-margin">
-        <iframe class="container-iframe" id="container-iframe" name="contentFrame" src="${contextPath}/index/container.do" scrolling="yes" noresize="noresize" frameborder="0"></iframe>
-    </div>
+	<!-- changes 需要使用JS来动态调整以正常显示下拉列表，由内容区取得获得正常高度，切换折叠模式时动态更改高度 -->
+	<!-- changes 增加 属性allowTransparency="true" 修正IE下iframe背景为白色非透明问题 -->
+	<iframe class="top" height="36" src="${contextPath}/index/top.do" frameborder="0" name="topFrame" id="topFrame" allowTransparency="true"></iframe>
+	
+	<!-- 有top页加class top-iframe-margin -->
+	<div id="container" class="container">
+		<iframe class="container-iframe" id="container-iframe" name="contentFrame" src="${contextPath}/index/container.do" scrolling="yes" noresize="noresize" frameborder="0"></iframe>
+	</div>
+
     <!-- 顶部折叠按钮 不需要请删除 -->
     <a class="top-collapse" id="top-collapse" href="javascript:void(0);" title="折叠"></a>
     <script type="text/javascript" src="${contextPath}/ext/jquery/jquery-1.8.1.min.js"></script>
     <script type="text/javascript" src="${contextPath}/admin/javascripts/tool.js?v=${sversion}"></script>
+    <script type="text/javascript" src="${contextPath}/admin/javascripts/jquery-zwbam.js"></script>
     <script>
-        var height = 0;
-        var leftHeight = 0;
-
-        $(function(){
-            /*顶部折叠按钮*/
-            $('#top-collapse').toggle(toggleCollapse, toggleExpanding);
-        });
-        /*折叠顶部*/
-        function toggleCollapse (argument) {
-            height = $('#container').height();
-            $('#container').height($(document).height() - 35).removeClass('top-iframe-margin').css('top', '35px');
-            $(this).attr('title', '展开').css({
-                top: '35px',
-                backgroundPosition: '-7px -29px'
-            });
-            window.frames['topFrame'].Header.switchingMode();
-        }
-        /*展开顶部*/
-        function toggleExpanding (argument) {
-            $('#container').height(height).addClass('top-iframe-margin').attr('style', '');
-            $(this).attr('title', '折叠').css({
-                top: '88px',
-                backgroundPosition: '-7px -2px'
-            });
-            window.frames['topFrame'].Header.switchingMode();
-        }
-    </script>
+		
+		//根据链接参数配置窗口显示模式
+		var paramobj = $.fn.zwbam('getUrlParams');
+		//减少创建图标按钮时的视觉显示冲突
+		if (paramobj.mode && paramobj.mode === "mini") {
+			$('#container').addClass("mini-iframe-margin")
+			$('.top').height(36);
+		} else {
+			$('#container').addClass("top-iframe-margin")
+			$('.top').height(88);
+		}
+		$(function () {
+			//顶部折叠按钮
+			$('#top-collapse').click(function () {
+				window.frames['topFrame'].Header.switchingMode();
+			});
+	
+		})
+	</script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 
 admin/*
 	
-	Build：16210
+	Build：17318
 	
-	2015-09-02	V2.1	新增示例：_z_detail.html
+	2015-11-20	V2.2	修改用法：index.ftl/left.ftl/top.ftl
 	
 admin/javascripts/zcommon.js
 
