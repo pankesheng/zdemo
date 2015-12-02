@@ -3,7 +3,7 @@ admin/*
 	
 	Build：17318
 	
-	2015-11-20	V2.2	修改用法：index.ftl/left.ftl/top.ftl
+	2015-11-20	V2.2	修改用法：index.ftl、left.ftl、top.ftl
 	
 admin/javascripts/zcommon.js
 
