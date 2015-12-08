@@ -44,7 +44,7 @@
 
 		//dom引用
 		this.$me = $dom;
-		//包装div
+			//包装div
 		this.$wrapper = $dom.wrap('<div class="grid-wrapper"></div>').parent('.grid-wrapper');
 		//当前页数
 		this.curPage = 0;
@@ -296,7 +296,8 @@
 			 *
 			 *     alert(grid.config);
 			 */
-			me:me.$me,
+			me: me,
+			$me: me.$me,
 			config: config,
 			/**
 			 * 添加记录
@@ -454,8 +455,8 @@
 					}
 				}
 
-				selections.prop('checked', false);
-				me.$me.find('.selectAll').prop('checked', false);
+				/*selections.prop('checked', false);
+				me.$me.find('.selectAll').prop('checked', false);*/
 
 				return values;
 			},
@@ -633,6 +634,11 @@
 
 		if (this.opts.store.autoLoad) {
 			this.loadPage(1);
+		}
+
+		//add 增加回调
+		if (this.opts.event.callback) {
+			this.opts.event.callback(this);
 		}
 	};
 
@@ -815,7 +821,7 @@
 
 		//渲染单选框
 		if (this.opts.tool.checkboxSelect) {
-			$tr.append('<td><input class="checkbox" type="checkbox" data-index=' +  rowIndex + ' data-offset=' + (this.ajaxParams.offset + rowIndex) + ' /></td>');
+			$tr.append('<td><input class="checkbox" type="checkbox" data-index=' + rowIndex + ' data-offset=' + (this.ajaxParams.offset + rowIndex) + ' /></td>');
 		}
 		//渲染序号
 		if (this.opts.tool.enableSerialNumber) {

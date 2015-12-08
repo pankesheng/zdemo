@@ -254,6 +254,13 @@ body {
 				height: 10px;
 				margin: 12px 2px 0 35px;
 			}
+			.li-icon {
+				float: left;
+				background:url(../images/list.gif) -7px -20px no-repeat;
+				width: 9px;
+				height: 10px;
+				margin: 12px 2px 0 35px;
+			}
 			.text {
 				display: block;
 				padding-left: 35px;
@@ -337,8 +344,8 @@ body {
 		height: 100%;
 		padding-right: 5px;
 		img {
-			margin-top: 10%;
-			height: 80%;
+			margin-top: 6px;
+			height: 24px;
 		}
 	}
 	.web-title {

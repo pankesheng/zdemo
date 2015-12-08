@@ -22,7 +22,6 @@ website:	http://code.google.com/p/jquerytree/
 }
 
 .ztree {
-	
 	/*
 	padding: 5px;
 */
@@ -40,7 +39,7 @@ website:	http://code.google.com/p/jquerytree/
 
 .ztree li ul {
 	margin: 0;
-	padding: 0 0 0 10px
+	padding: 0 0 0 14px
 }
 
 .ztree li ul.line {
@@ -50,22 +49,24 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li a {
 	overflow: hidden;
 	text-overflow: ellipsis;
-	padding: 1px 3px 0 0;
-	margin: 0;
-	cursor: pointer;
 	/*
-	height: 17px;
+	padding: 1px 3px 0 0;
 */
-	color: #333;
-	background-color: transparent;
+	padding: 0px 5px;
+	margin: 0;
+	/* margin-right: 10px; */
+	cursor: pointer;
+	/* height: 17px; */
+	color: hsl(0, 0%, 20%);
+	background-color: hsla(0, 0%, 0%, 0);
 	text-decoration: none;
 	vertical-align: top;
-	display: inline-block;
-	width: 100%;
+	display: block;
+	/* width: 100%; */
 	height: 30px;
-	/*
-			padding-top: 0px;
-*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/* padding-top: 0px; */
 }
 
 .ztree li a:hover {
@@ -75,7 +76,6 @@ website:	http://code.google.com/p/jquerytree/
 	text-decoration: none;
 	background-color: #eee;
 }
-
 
 .ztree li a.curSelectedNode {
 	/*
@@ -100,9 +100,11 @@ background-color: #FFE6B0;
 	border: 1px #FFB951 solid;
 	opacity: 0.8;
 }
+
 .ztree li a.level0.curSelectedNode {
-background-color: transparent;
+	background-color: transparent;
 }
+
 .ztree li a.tmpTargetNode_inner {
 	padding-top: 0px;
 	background-color: #316AC5;
@@ -138,8 +140,8 @@ background-color: transparent;
 .ztree li span.button {
 	line-height: 0;
 	margin: 0;
-	width: 16px;
-	height: 16px;
+	width: 8px;
+	height: 8px;
 	display: inline-block;
 	vertical-align: middle;
 	border: 0 none;
@@ -150,9 +152,8 @@ background-color: transparent;
 	background-attachment: scroll;
 	/*background-image: url("./img/zTreeStandard.png");
 	*background-image: url("./img/zTreeStandard.gif")*/
-	margin-top: -7px;
 	background-image: url("./img/left_menuForOutLook.png");
-	*background-image: url("./img/left_menuForOutLook.gif")
+	*background-image: url("./img/left_menuForOutLook.gif");
 }
 
 .ztree li span.button.chk {
@@ -243,6 +244,7 @@ background-color: transparent;
 }
 
 .ztree li span.button.switch {
+	display: none;
 	/*width: 18px;
 	height: 18px*/
 	width: 16px;
@@ -319,20 +321,21 @@ background-color: transparent;
 }
 
 .ztree li span.button.ico_open {
-	margin-right: 2px;
-	background-position: -110px -16px;
-	vertical-align: top;
-	*vertical-align: middle
+	margin-right: 4px;
+	background-position: -6px -8px;
 }
 
 .ztree li span.button.ico_close {
-	margin-right: 2px;
-	background-position: -110px 0;
 	vertical-align: top;
-	*vertical-align: middle
+	width: 8px;
+	height: 8px;
+	margin-right: 4px;
+	margin-top: 11px;
+	background-position: -24px -6px;
 }
 
 .ztree li span.button.ico_docu {
+	display: none;
 	margin-right: 2px;
 	background-position: -110px -32px;
 	vertical-align: top;
@@ -415,6 +418,19 @@ ul.ztree.zTreeDragUL {
 	background:none;
 }*/
 
+.ztree li a.level0 .ico_open {
+	width: 11px;
+	height: 11px;
+	background-position: -4px -24px;
+}
+
+.ztree li a.level0 .ico_close {
+	width: 11px;
+	height: 11px;
+	background-position: -23px -22px;
+	margin-top: 9px;
+}
+
 .ztree li a.level0 span {
 	font-size: 14px;
 }
@@ -436,4 +452,3 @@ ul.ztree.zTreeDragUL {
 .ztree li span.button.noline_close.level0 {
 	background-position: -18px -18px;
 }
-

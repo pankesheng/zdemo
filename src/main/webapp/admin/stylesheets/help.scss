@@ -241,76 +241,7 @@
 	}
 }
 
-.pagination {
-	text-align: center;
-	padding-top: 30px;
-	padding-bottom: 50px;
-	.num-page {
-		display: inline-block;
-		vertical-align: middle;
-		*display: inline;
-		*zoom: 1;
-		color: #333;
-		font-size: 12px;
-		text-decoration: none;
-		width: 32px;
-		height: 32px;
-		margin: 0 2px;
-		line-height: 32px;
-		border: 1px solid #ccc;
-		border-radius: 3px;
-		background-color: #f5f5f5;
-		white-space: nowrap;
-		cursor: pointer;
-		-ms-touch-action: manipulation;
-		touch-action: manipulation;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-		&:hover,
-		&.on {
-			border-color: #366dd1;
-			background-color: #fff;
-			color: #366dd1;
-		}
-		&:active {}
-		&.disabled {
-			opacity: .65;
-			filter: alpha(opacity=65);
-			cursor: default
-		}
-		&.next-page,
-		&.prev-page,
-		&.first-page,
-		&.last-page {
-			width: auto;
-			padding: 0px 10px;
-			color: #fff;
-			border-color: #366dd1;
-			background-color: #366dd1
-		}
-		&.next-page:hover,
-		&.prev-page:hover,
-		&.first-page:hover,
-		&.last-page:hover {
-			border-color: #255dc3;
-			background-color: #255dc3;
-		}
-	}
-	.jump-container {
-		margin-left: 5px;
-		vertical-align: middle;
-		.jump-page {
-			width: 32px;
-			padding: 5px 0 2px;
-			margin: 0 5px;
-			border: none;
-			border-bottom: 1px solid #aaa;
-			text-align: center;
-		}
-	}
-}
+
 
 .help-catalog {
 	position: absolute;

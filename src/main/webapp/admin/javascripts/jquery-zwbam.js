@@ -82,7 +82,7 @@
 			} else {
 				$('.header').find('a.selected').removeClass('selected');
 				//$('.header').find('[data-id=index] a').addClass('selected');
-				$('.header').find('[data-title=首页] a').addClass('selected');
+				$('.header').find('[data-title]:first a').addClass('selected');
 			}
 		},
 
@@ -128,7 +128,7 @@
 			}
 			return params;
 		},
-		//菜单生成器
+		//左侧菜单生成器
 		initMenu: function (option) {
 			//目标dom
 			var $doms = $(this);
@@ -178,6 +178,9 @@
 								$thirdNodeDomClone.show();
 								$thirdNodeDomClone.prev().addClass("selected")
 							}
+						}else{
+														$secondNodeDomClone.find(".icon").attr("class","li-icon");
+
 						}
 
 						$firstNodeDom.find('.first-children').append($secondNodeDomClone);

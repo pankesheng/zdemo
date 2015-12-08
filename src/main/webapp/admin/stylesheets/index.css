@@ -18,8 +18,7 @@ body {
 
 /* line 24, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
 #container.top-iframe-margin {
-  top: 88px; 
-}
+  top: 88px; }
 
 /* changes */
 /* line 32, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
@@ -247,24 +246,31 @@ body {
       height: 10px;
       margin: 12px 2px 0 35px; }
     /* line 257, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    .left-menu-list .left-menu-second-node .second-title .li-icon {
+      float: left;
+      background: url(../images/list.gif) -7px -20px no-repeat;
+      width: 9px;
+      height: 10px;
+      margin: 12px 2px 0 35px; }
+    /* line 264, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .left-menu-list .left-menu-second-node .second-title .text {
       display: block;
       padding-left: 35px; }
-    /* line 262, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 269, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .left-menu-list .left-menu-second-node .second-title.selected .icon {
       background-position: -17px -4px; }
-    /* line 266, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 273, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .left-menu-list .left-menu-second-node .second-title a:hover {
       background-color: #d1e0ed;
       color: #508cf9; }
-  /* line 271, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 278, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .left-menu-list .left-menu-second-node .menu-son {
     position: relative;
     display: none;
     line-height: 30px;
     font-weight: normal;
     zoom: 1; }
-    /* line 277, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 284, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .left-menu-list .left-menu-second-node .menu-son li {
       position: relative;
       *float: left;
@@ -273,7 +279,7 @@ body {
       cursor: pointer;
       overflow: hidden;
       zoom: 1; }
-      /* line 285, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 292, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .left-menu-list .left-menu-second-node .menu-son li .li-icon {
         float: left;
         margin-left: 45px;
@@ -281,11 +287,11 @@ body {
         width: 16px;
         height: 16px;
         margin-top: 7px; }
-      /* line 293, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 300, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .left-menu-list .left-menu-second-node .menu-son li.hover {
         background-color: #d1e0ed;
         text-decoration: none; }
-      /* line 297, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 304, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .left-menu-list .left-menu-second-node .menu-son li a {
         display: block;
         -o-text-overflow: ellipsis;
@@ -293,41 +299,41 @@ body {
         overflow: hidden;
         white-space: nowrap;
         border-right: 1px solid #b7d5df; }
-        /* line 304, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+        /* line 311, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
         .left-menu-list .left-menu-second-node .menu-son li a:hover {
           color: #508cf9;
           text-decoration: none; }
-  /* line 312, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 319, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .left-menu-list .active .left-menu-second-node {
     display: block; }
 
 /*top.html 2015-3-3 jyw*/
-/* line 320, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+/* line 327, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
 .header {
   min-width: 800px;
   height: 88px;
   padding: 0 18px;
   background-color: #366dd1;
   zoom: 1; }
-  /* line 326, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 333, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .logo {
     visibility: hidden;
     float: left;
     margin-top: 14px;
     padding-right: 10px; }
-    /* line 331, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 338, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .logo img {
       display: block; }
-  /* line 335, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 342, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .mini-logo {
     margin-top: 0px;
     height: 100%;
     padding-right: 5px; }
-    /* line 339, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 346, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .mini-logo img {
-      margin-top: 10%;
-      height: 80%; }
-  /* line 344, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      margin-top: 6px;
+      height: 24px; }
+  /* line 351, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .web-title {
     visibility: hidden;
     float: left;
@@ -336,18 +342,18 @@ body {
     color: #fff;
     letter-spacing: 2px;
     text-shadow: 2px 0px 5px #000; }
-    /* line 352, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 359, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .web-title.mini-title {
       font-size: 16px;
       line-height: 36px;
       font-weight: normal;
       text-shadow: none; }
-  /* line 359, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 366, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .icon-list {
     float: left;
     overflow: hidden;
     *zoom: 1; }
-  /* line 364, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 371, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .icon-index {
     float: left;
     width: 78px;
@@ -355,25 +361,25 @@ body {
     font-size: 12px;
     text-align: center;
     cursor: pointer; }
-    /* line 371, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 378, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .icon-index a {
       display: block;
       width: 48px;
       height: 68px;
       padding: 10px 16px 10px 14px;
       color: #fff; }
-      /* line 378, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 385, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .icon-index a:hover,
       .header .icon-index a.selected {
         background: url("../images/icon-2.png") -136px 0 no-repeat;
         text-decoration: none; }
-    /* line 383, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 390, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .icon-index img {
       display: block;
       width: 48px;
       height: 48px;
       z-index: -999; }
-    /* line 389, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 396, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .icon-index p {
       width: 48px;
       line-height: 30px;
@@ -381,17 +387,17 @@ body {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap; }
-  /* line 398, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 405, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .icon-bar {
     display: none;
     overflow: hidden;
     *zoom: 1;
     height: 88px;
     float: left; }
-    /* line 404, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 411, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .icon-bar .icon-ul {
       *zoom: 1; }
-      /* line 406, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 413, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .icon-bar .icon-ul li {
         float: left;
         width: 78px;
@@ -399,25 +405,25 @@ body {
         font-size: 12px;
         text-align: center;
         cursor: pointer; }
-        /* line 413, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+        /* line 420, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
         .header .icon-bar .icon-ul li a {
           display: block;
           width: 48px;
           height: 68px;
           padding: 10px 16px 10px 14px;
           color: #fff; }
-          /* line 420, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+          /* line 427, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
           .header .icon-bar .icon-ul li a:hover,
           .header .icon-bar .icon-ul li a.selected {
             background: url("../images/icon-2.png") -136px 0 no-repeat;
             text-decoration: none; }
-        /* line 425, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+        /* line 432, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
         .header .icon-bar .icon-ul li img {
           display: block;
           width: 48px;
           height: 48px;
           z-index: -999; }
-        /* line 431, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+        /* line 438, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
         .header .icon-bar .icon-ul li p {
           width: 48px;
           line-height: 30px;
@@ -425,7 +431,7 @@ body {
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap; }
-  /* line 442, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 449, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .next-list {
     display: none;
     float: left;
@@ -434,29 +440,29 @@ body {
     padding: 10px 16px 10px 14px;
     overflow: hidden;
     *zoom: 1; }
-    /* line 450, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 457, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .next-list .next-btn {
       display: block;
       width: 48px;
       height: 48px;
       background: url("../images/icon-2.png") -22px 0 no-repeat;
       cursor: pointer; }
-      /* line 456, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 463, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .next-list .next-btn:hover {
         background-position: -78px 0; }
-    /* line 460, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 467, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .next-list p {
       width: 48px;
       color: #fff;
       text-align: center;
       line-height: 22px; }
-  /* line 467, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 474, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .dots-list {
     padding-top: 13px;
     _padding-top: 14px;
     line-height: 5px;
     text-align: center; }
-    /* line 472, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 479, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .dots-list li {
       display: inline-block;
       *display: inline;
@@ -465,13 +471,13 @@ body {
       margin-left: 4px;
       margin-right: 3px;
       *zoom: 1; }
-      /* line 484, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 491, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .dots-list li.selected a:link,
       .header .dots-list li.selected a:visited,
       .header .dots-list li.selected a:visited,
       .header .dots-list li.selected a:hover {
         background-position: 0px -65px; }
-    /* line 489, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 496, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .dots-list li a {
       display: block;
       width: 5px;
@@ -480,14 +486,14 @@ body {
       cursor: pointer;
       overflow: hidden;
       *zoom: 1; }
-  /* line 499, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 506, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .nums-list {
     display: none;
     width: 48px;
     line-height: 30px;
     color: #fff;
     text-align: center; }
-  /* line 506, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 513, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .function-block {
     visibility: hidden;
     float: right;
@@ -497,18 +503,18 @@ body {
     color: #fff;
     *zoom: 1;
     position: relative; }
-    /* line 515, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 522, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .function-block a {
       color: #fff; }
-    /* line 518, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 525, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .function-block.mini {
       width: 325px;
       margin: 0px;
       padding-top: 8px; }
-      /* line 522, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 529, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .function-block.mini .function-list {
         float: right; }
-      /* line 525, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 532, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .function-block.mini .user {
         *display: inline;
         float: left;
@@ -519,55 +525,55 @@ body {
         white-space: nowrap;
         margin-right: 0;
         *margin: 0; }
-      /* line 536, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 543, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .function-block.mini .action-item {
         width: auto; }
-      /* line 539, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 546, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .function-block.mini .mini-user-nums {
         display: inline; }
-      /* line 544, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 551, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .function-block.mini .action-user-nums,
       .header .function-block.mini .action-user,
       .header .function-block.mini .action-more {
         display: none; }
-  /* line 550, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 557, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .action-block.mini {
     width: auto; }
-  /* line 554, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 561, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .action-list {
     margin-right: -18px;
     *zoom: 1; }
-    /* line 557, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 564, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .action-list:after {
       display: block;
       height: 0;
       content: '.';
       visibility: hidden;
       clear: both; }
-    /* line 564, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 571, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .action-list .mini-user-nums {
       display: none;
       margin-left: 5px; }
-    /* line 568, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 575, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .action-list .action-item {
       float: left;
       width: 48px;
       margin-right: 18px;
       text-align: center; }
-    /* line 576, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 583, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .action-list .action-user-nums,
     .header .action-list .action-user,
     .header .action-list .action-more {
       width: 50px;
       height: 48px;
       margin-bottom: 2px; }
-    /* line 581, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 588, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .action-list .action-more-icon {
       display: inline-block;
       width: 53px;
       cursor: pointer;
       font-size: 0px; }
-      /* line 586, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 593, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .action-list .action-more-icon span {
         white-space: nowrap;
         overflow: hidden;
@@ -575,31 +581,31 @@ body {
         max-width: 48px;
         margin-right: 5px;
         font-size: 12px; }
-      /* line 594, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 601, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .action-list .action-more-icon .action-more-icon-arrow {
         display: inline-block;
         width: 5px;
         height: 5px;
         margin-left: -5px;
         background: url("../images/action-footer-icon.png") 100% 100% no-repeat; }
-    /* line 602, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 609, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .action-list .action-user-nums {
       font-size: 18px;
       line-height: 50px;
       background: url("../images/icon-nums-bg.png") 0 0 no-repeat; }
-    /* line 607, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 614, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .action-list .action-user {
       cursor: pointer;
       background: url("../images/icon-user-bg.png") 0 0 no-repeat; }
-    /* line 611, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 618, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .action-list .action-more {
       cursor: pointer;
       background: url("../images/icon-more-bg.png") 0 0 no-repeat; }
-  /* line 616, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 623, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .function-list {
     padding-left: 10px;
     margin-bottom: 10px; }
-    /* line 619, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 626, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .function-list .icon {
       display: inline-block;
       *display: inline;
@@ -609,24 +615,24 @@ body {
       background: url("../images/icon-2.png") 0 3px no-repeat;
       _background-position: 0 2px;
       vertical-align: middle; }
-    /* line 629, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 636, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .function-list a {
       padding: 0 10px;
       vertical-align: middle; }
-      /* line 632, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 639, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .function-list a.split {
         border-left: 1px dashed #d0cec2; }
-      /* line 635, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 642, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .function-list a:hover {
         text-decoration: underline; }
-      /* line 638, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 645, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .function-list a.help {
         padding-left: 5px; }
-  /* line 643, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 650, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .user {
     margin-right: 10px;
     text-align: right; }
-    /* line 646, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 653, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .user .icon {
       display: inline-block;
       *display: inline;
@@ -635,23 +641,23 @@ body {
       height: 18px;
       background: url("../images/icon-2.png") 0 -16px no-repeat;
       vertical-align: middle; }
-    /* line 655, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 662, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .user .user-name {
       padding-left: 5px;
       vertical-align: middle; }
-  /* line 660, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 667, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .header .mini-list {
     display: none;
     float: left;
     height: 36px;
     line-height: 36px; }
-    /* line 665, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 672, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .mini-list ul {
       float: left; }
-      /* line 667, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 674, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .mini-list ul li {
         float: left; }
-        /* line 669, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+        /* line 676, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
         .header .mini-list ul li a {
           display: block;
           font-size: 14px;
@@ -661,7 +667,7 @@ body {
           /* border-right: 1px solid #13397e changes  */
           /* changes add */
           background: url(../images/v_line.png) no-repeat right center; }
-          /* line 678, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+          /* line 685, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
           .header .mini-list ul li a:hover {
             position: relative;
             z-index: 100;
@@ -669,15 +675,15 @@ body {
             padding-left: 11px;
             background: none;
             background-color: #4c84e9; }
-          /* line 686, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+          /* line 693, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
           .header .mini-list ul li a.selected {
             background: none;
             background-color: #4c84e9; }
-        /* line 691, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+        /* line 698, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
         .header .mini-list ul li .mini-index:hover {
           margin-left: 0px;
           padding-left: 10px; }
-    /* line 697, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 704, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .mini-list .more-list {
       visibility: hidden;
       float: left;
@@ -690,7 +696,7 @@ body {
       /* changes add */
       position: relative;
       cursor: pointer; }
-      /* line 709, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 716, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .mini-list .more-list .more-list-arrow {
         border: 4px solid transparent;
         font-size: 0px;
@@ -702,10 +708,10 @@ body {
         transform-origin: center 2px;
         transition: all 0.3s linear;
         cursor: pointer; }
-      /* line 721, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 728, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .mini-list .more-list:hover .more-list-arrow {
         transform: rotate(180deg); }
-    /* line 725, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 732, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .header .mini-list .more {
       float: none;
       position: relative;
@@ -713,29 +719,29 @@ body {
       left: -10px;
       background-color: #366dd1;
       cursor: pointer; }
-      /* line 732, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+      /* line 739, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
       .header .mini-list .more li {
         float: none; }
-        /* line 734, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+        /* line 741, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
         .header .mini-list .more li a {
           background: none; }
-          /* line 736, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+          /* line 743, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
           .header .mini-list .more li a:hover {
             margin-left: 0px;
             padding-left: 10px; }
 
-/* line 746, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+/* line 753, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
 .list-container {
   position: relative; }
 
-/* line 750, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+/* line 757, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
 .top-list {
   width: 100px;
   background-color: #fff;
   border: 1px solid #d6e0f2;
   position: relative;
   box-shadow: 1px 0px 15px rgba(54, 109, 209, 0.2); }
-  /* line 756, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 763, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .top-list .top-list-item {
     margin-left: -1px;
     padding: 0 12px;
@@ -743,14 +749,14 @@ body {
     line-height: 30px;
     color: #666;
     border-bottom: 1px solid #e8e6e6; }
-    /* line 763, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+    /* line 770, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
     .top-list .top-list-item a {
       color: #666; }
-  /* line 767, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+  /* line 774, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
   .top-list .iconfont {
     margin-right: 5px; }
 
-/* line 772, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
+/* line 779, G:/SVN/Html/前端库/后台系统初版/html/stylesheets/index.scss */
 .top-list-arrow {
   width: 9px;
   height: 6px;

@@ -13,6 +13,17 @@
 <body>
 	<div class="left-menu">
 		<div class="left-menu-title"><a href="#">后台管理系统示例</a></div>
+		<div class="left-menu-top">
+			<ul>
+				<li class="left-menu-top-btn">
+					<i class="icon">
+              <img src="../images/top-icon-1.png" width="18" height="18">
+          </i>
+					<!-- data-path是存放右侧的路径的 href要对应 -->
+					<a class="navigation" href="start.html" target="rightFrame">首页</a>
+				</li>
+			</ul>
+		</div>
 		<div class="left-menu-list">
 			<div class="left-menu-first-node">
 				<div class="first-title">
@@ -73,6 +84,7 @@
 
 					//根据链接参数，设置左侧菜单高亮，且右侧框架跳转
 					var paramobj = $.fn.zwbam('getUrlParams', parent.parent.location.search);
+					console.log(paramobj.go)
 					if (paramobj.go) {
 						var $a = $('.left-menu').find('a[data-id="' + paramobj.go + '"]');
 
@@ -96,7 +108,7 @@
 				},
 				data: {
 					"d": [{
-						name: "一级菜单",
+						name: "把我当成一级菜单",
 						url: "#",
 						"open": false,
 						"childs": [{
@@ -113,32 +125,52 @@
                             }]
                         }]
                         }, {
-						"name": "示例",
+						"name": "示例页",
 						"url": "#",
 						"open": true,
 						"childs": [{
 							"name": "动态示例页",
 							"url": "#",
-							"open": false,
+							"open": true,
 							"childs": [{
 								"name": "表格页",
 								"url": "./dynamic-table.html"
-                            }, {
-								"name": "左树表格",
-								"url": "./dynamic-tree-table.html"
                             }, {
 								"name": "表单页",
 								"url": "./dynamic-form.html"
                             }]
                         }, {
+							"name": "新增页面",
+							"url": "#",
+							"open": true,
+
+							"childs": [{
+								"name": "选择弹出页（未完成）",
+								"id":"ls",
+								"url": "./popupselectbox.html"
+                            }, {
+								"name": "左树表格",
+								"url": "./dynamic-tree-table.html"
+                            }, {
+								"name": "字体图标",
+								"url": "./fonticon.html"
+                            }, {
+								"name": "比较页",
+								"id": "compare",
+								"url": "./compare.html"
+                            }, {
+								"name": "文章列表",
+								"url": "./help.html"
+                            }, {
+								"name": "文单详情页",
+								"url": "./detail.html"
+                            }]
+
+                        }, {
 							"name": "静态示例页",
 							"url": "#",
 							"open": true,
 							"childs": [{
-								"name": "临时",
-								"id": "ls",
-								"url": "./OrganizationSelect.html"
-                            }, {
 								"name": "全局样式",
 								"id": "global", //add 可通过绑定id值，url直接跳转到该分类，并打开
 								"url": "./global.html"
@@ -147,14 +179,11 @@
 								"url": "./component.html"
                             }, {
 								"name": "按钮",
+															"id":"an",
 								"url": "./buttons.html"
                             }, {
 								"name": "文章页",
 								"url": "./article.html"
-                            }, {
-								"name": "比较页",
-								"id": "compare",
-								"url": "./compare.html"
                             }, {
 								"name": "表格页",
 								"url": "./table.html"
@@ -179,13 +208,7 @@
                             }, {
 								"name": "404",
 								"url": "./404.html"
-                            }, {
-								"name": "文章列表",
-								"url": "./help.html"
-                            }, {
-								"name": "文单详情页",
-								"url": "./detail.html"
-                            }]
+                            }, ]
                         }]
                     }]
 				}

@@ -1,7 +1,7 @@
-
+﻿
 admin/*
 	
-	Build：17318
+	Build：17634
 	
 	2015-11-20	V2.2	修改用法：index.ftl、left.ftl、top.ftl
 	

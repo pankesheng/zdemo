@@ -111,6 +111,7 @@
 	<script type="text/javascript" src="../javascripts/jquery-zwbam.js"></script>
 	<script type="text/javascript">
 		$(window).load(function () {
+
 			/*顶部框架暴露对象*/
 			Header = {
 				//当前模式
@@ -151,6 +152,7 @@
 				}
 
 			};
+
 			//changes 取得当前框架父亲视图区的高度的值
 			curAreaHeight = window.parent.$('.top').height();
 
@@ -245,14 +247,6 @@
 			//初次进入首页时，设置选中的顶部菜单：1.默认首页进入，选中首页，2.由未知链接跳转传入参数选定
 			$('#iconBar').zwbam('initTopMenu', {
 				"s": 1,
-				callback: function () {
-					//获取当前连接有参数就设置指定参数，无参数不变动，错误参数则跳至首页
-					Header.setTopMenu(paramobj.title);
-					if (paramobj.jump) {
-						Header.setContainerUrl();
-					}
-
-				},
 				"d": [{
 					title: '智课',
 					imgUrl: '../images/icon/icon1.png',
@@ -317,7 +311,14 @@
 					title: '应用中心6',
 					imgUrl: '../images/icon/icon13.png',
 					url: 'http://cn.engadget.com'
-                }]
+                }],
+				callback: function () {
+					//获取当前连接有参数就设置指定参数，无参数不变动，错误参数则跳至首页
+					Header.setTopMenu(paramobj.title);
+					if (paramobj.jump) {
+						Header.setContainerUrl();
+					}
+				},
 			});
 
 
@@ -413,6 +414,7 @@
 				$("#action-user-nums").find(".action-user-nums").css("backgroundPosition", "0 0");
 				$("#btn-show-more-list,#btn-show-user-list,#action-user-nums").css("color", "#fff");
 			}
+			//
 		});
 	</script>
 </body>
