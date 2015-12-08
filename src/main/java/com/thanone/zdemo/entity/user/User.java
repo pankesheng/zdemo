@@ -17,9 +17,10 @@ public class User extends BasicEntity {
 	private String username;
 	private String password;
 	private Integer role;// 角色（1：超级管理员；2：普通用户）
-
 	private String realname;// 真实姓名
 	private Integer state;// 状态（1：启用；0：冻结）
+	
+	private String show_state;// 状态字符串【不存数据库】
 
 	public void init() {
 		if (getState() == null || getState() != 1) {
@@ -45,6 +46,14 @@ public class User extends BasicEntity {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getShow_state() {
+		return show_state;
+	}
+
+	public void setShow_state(String show_state) {
+		this.show_state = show_state;
 	}
 
 	public String getPassword() {
