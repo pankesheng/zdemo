@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-import com.thanone.zdemo.entity.user.User;
+import com.thanone.zdemo.entity.example.Example;
 import com.zcj.util.freemarker.FreemarkerUtil;
 import com.zcj.util.freemarker.MyFreeMarkerConfigurer;
 
@@ -23,7 +23,7 @@ public class FileAll {
 
 	private static final String DATABASETYPE = "MySQL";// MySQL、SqlServer
 
-	private static Class<?>[] carray = new Class<?>[] { User.class };
+	private static Class<?>[] carray = new Class<?>[] { Example.class };
 
 	@Test
 	public void test1() {

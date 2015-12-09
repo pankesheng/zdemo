@@ -57,7 +57,7 @@ public class IndexAction extends BasicAction {
 		Integer role = WebContext.getLoginUserRole(request);
 
 		MenuDto m31 = new MenuDto("账号管理", Configuration.getContextPath() + "/user/tolist.do");
-		MenuDto m32 = new MenuDto("参数设置", Configuration.getContextPath() + "/user/tolist.do");
+		MenuDto m32 = new MenuDto("示例", Configuration.getContextPath() + "/example/tolist.do");
 		List<MenuDto> m3List = new ArrayList<MenuDto>();
 		if (User.ROLE_ADMIN.equals(role)) {
 			m3List.add(m31);

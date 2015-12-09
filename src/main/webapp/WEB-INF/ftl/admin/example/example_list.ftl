@@ -14,17 +14,16 @@
 <body>
 	<div class="place">
         <span class="label-span">位置：</span>
-        <span>基本功能 - 资讯管理</span>
+        <span>XXXX - XXXX</span>
     </div>
     <div class="body-warp">
         <div class="panel filter-block">
             <form class="form-inline">
                 <div class="form-group">
-                    <select id="catalogId" class="form-select">
-                        <option value="">--请选择栏目--</option>
-                        <#list catalogList as cat>
-		    			<option value="${cat.id}">${(cat.name)!}</option>
-						</#list>
+                    <select id="role" class="form-select">
+                        <option value="">--请选择角色--</option>
+		    			<option value="1">超级管理员</option>
+		    			<option value="2">普通用户</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -38,6 +37,7 @@
         <div class="panel table-tool-bar">
             <a class="btn" href="###" onclick="add()"><i class="add-btn iconfont">&#xe619;</i>新增</a>
             <a class="btn" href="###" onclick="removeItems()"><i class="remove-btn iconfont">&#xe608;</i>删除</a>
+            <a class="btn" href="###" onclick="zexport()"><i class="iconfont">&#xe612;</i>导出</a>
         </div>
         <table class="table" id="table"></table>
     </div>
@@ -46,22 +46,48 @@
     $(function() {
         grid = $('#table').grid({
             store: {
-				url: '${contextPath}/web/article/list.ajax'
+				url: '${contextPath}/example/list.ajax'
             },
             tool: {
                 pagingBar: true
             },
             columns: [
             {
-                title: '栏目',
-                dataIndex: 'catalogName'
+                title: '用户名',
+                dataIndex: 'username'
             },{
-                title: '标题',
-                dataIndex: 'title'
+                title: '图片',
+                dataIndex: 'imgs',
+                renderer: function(cell, row) {
+                	var imgsArray = cell.split(",");
+                	var result = "";
+                	for (i in imgsArray) {
+                		result = result + "<a href='${contextPath}"+imgsArray[i]+"' target='_blank'><img height='30' width='60' src='${contextPath}"+imgsArray[i]+"'/></a>";
+                		result = result + "&nbsp;&nbsp;&nbsp;&nbsp;";
+                	}
+                	return result;
+                }
             },{
-				title: '发布时间',
-				dataIndex: 'pubDate'
-			},{
+                title: '角色',
+                dataIndex: 'role',
+                renderer: function(cellData, rowData){
+                    if(cellData == 1){
+						return '超级管理员';
+					}else if (cellData == 2){
+						return '普通用户';
+					}
+                }
+            },{
+                title: '状态',
+                dataIndex: 'state',
+                renderer: function(cellData, rowData){
+                    if(cellData){
+						return '<span style="color:blue">启用</span>';
+					}else{
+						return '<span style="color:red">冻结</span>';
+					}
+                }
+            },{
                 title: '操作',
                 dataIndex: 'id',
                 width: 300,
@@ -78,35 +104,42 @@
         
     //添加
 	function add(){
-		window.location.href = '${contextPath}/web/article/toadd.do';
+		// z_openIframe('新增', 700, 400, '${contextPath}/example/toadd.do');
+		window.location.href = '${contextPath}/example/toadd.do';
 	}
 	
 	//编辑
 	function editItem(id){
-		window.location.href = '${contextPath}/web/article/tomodify/' + id + '.do';
+		// z_openIframe('编辑', 700, 400, '${contextPath}/example/tomodify/' + id + '.do');
+		window.location.href = '${contextPath}/example/tomodify/' + id + '.do';
 	}
 
 	//删除
 	function removeItems(){
 		var data = grid.getSelectedDataString('id');
-		z_delete(data, '${contextPath}/web/article/delete.ajax');
+		z_delete(data, '${contextPath}/example/delete.ajax');
+	}
+	
+	// 导出
+	function zexport() {
+		z_export("${contextPath}/example/export.ajax");
 	}
 	
 	$('#search-btn').click(function(){
-	    	var params = {
-	    		catalogId: $('#catalogId').val(),
-	    		searchKey: $('#searchKey').val(),
-	    		start: 0
-	    	};
-	    	grid.load(params);
-	    });
-	    $('#searchKey').keydown(function(e){
+    	var params = {
+    		role: $('#role').val(),
+    		searchKey: $('#searchKey').val(),
+    		start: 0
+    	};
+    	grid.load(params);
+    });
+    $('#searchKey').keydown(function(e){
 		if(e.keyCode==13){
 		   $('#search-btn').click();
 		   return false;
 		}
 	});
-	$('#catalogId').change(function(){
+	$('#role').change(function(){
 		$('#search-btn').click();
 	});
 </script>
