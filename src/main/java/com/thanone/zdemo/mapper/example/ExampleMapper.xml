@@ -12,11 +12,28 @@
 			<if test="qbuilder.role != null">AND t_example.role = #{qbuilder.role}</if>
 			<if test="qbuilder.theTimeBegin != null">AND t_example.theTime &gt;= #{qbuilder.theTimeBegin}</if>
 			<if test="qbuilder.theTimeEnd != null">AND t_example.theTime &lt; #{qbuilder.theTimeEnd}</if>
+			<!-- 
+				<if test="qbuilder.states != null">AND t_xxx.state in
+					<foreach item="state" index="index" collection="qbuilder.states" open="(" separator="," close=")">
+						#{state}
+					</foreach>
+				</if>
+			 -->
 		</where>
 	</sql>
 	
 	<select id="find" resultType="Example">
 		SELECT * FROM t_example
+		<!-- 
+		SELECT
+			t_example.*,
+			a.name 'aname',
+			b.name 'bname'
+		FROM
+			t_example
+			LEFT JOIN t_aaa a ON a.id=t_xxx.aid
+			LEFT JOIN t_bbb b ON b.id=t_xxx.bid
+		 -->
 		<if test="qbuilder != null">
 			<include refid="qbuilder"/>
 		</if>

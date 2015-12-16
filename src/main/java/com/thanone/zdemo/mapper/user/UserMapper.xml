@@ -12,33 +12,11 @@
 			<if test="qbuilder.password != null">AND t_user.password = #{qbuilder.password}</if>
 			<if test="qbuilder.role != null">AND t_user.role = #{qbuilder.role}</if>
 			<if test="qbuilder.state != null">AND t_user.state = #{qbuilder.state}</if>
-			<!-- 
-				<if test="qbuilder.timebegin != null">AND t_xxx.time &gt;= #{qbuilder.timebegin}</if>
-				<if test="qbuilder.timeend != null">AND t_xxx.time &lt; #{qbuilder.timeend}</if>
-				<if test="qbuilder.imgsvalue != null">AND t_xxx.imgs is not null AND t_xxx.imgs != ''</if>
-				<if test="qbuilder.dgcjnotnull != null">AND t_backbone.dgcj is not null</if>
-				<if test="qbuilder.dgcjisnull != null">AND t_backbone.dgcj is null</if>
-				<if test="qbuilder.states != null">AND t_xxx.state in
-					<foreach item="state" index="index" collection="qbuilder.states" open="(" separator="," close=")">
-						#{state}
-					</foreach>
-				</if>
-			 -->
 		</where>
 	</sql>
 	
 	<select id="find" resultType="User">
 		SELECT * FROM t_user
-		<!-- 
-		SELECT
-			t_user.*,
-			a.name 'aname',
-			b.name 'bname'
-		FROM
-			t_xxx
-			LEFT JOIN t_aaa a ON a.id=t_xxx.aid
-			LEFT JOIN t_bbb b ON b.id=t_xxx.bid
-		 -->
 		<if test="qbuilder != null">
 			<include refid="qbuilder"/>
 		</if>
