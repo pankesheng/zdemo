@@ -25,16 +25,16 @@ INSERT INTO `t_user` VALUES ('1', 'admin', '123456', '1', '系统管理员', '1'
 DROP TABLE IF EXISTS `t_example`;
 CREATE TABLE `t_example` (
   `id` bigint(20) NOT NULL,
-  `username` varchar(100) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `url` varchar(500) DEFAULT NULL,
-  `imgs` text DEFAULT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `url` varchar(1000) DEFAULT NULL,
+  `imgs` varchar(4000) DEFAULT NULL,
   `theTime` datetime DEFAULT NULL,
-  `persons` text DEFAULT NULL,
+  `persons` varchar(4000) DEFAULT NULL,
   `role` int(11) DEFAULT NULL,
   `valid` int(11) DEFAULT NULL,
-  `descr` text DEFAULT NULL,
-  `content` text DEFAULT NULL,
+  `descr` varchar(4000) DEFAULT NULL,
+  `content` varchar(4000) DEFAULT NULL,
   `ctime` datetime DEFAULT NULL,
   `utime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)

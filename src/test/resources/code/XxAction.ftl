@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ${packages}.common.ZwPageResult;
 import ${packages}.entity.${modules}.${classes};
 import ${packages}.service.${modules}.${classes}Service;
+import com.zcj.util.UtilString;
 import com.zcj.web.dto.ServiceResult;
 import com.zcj.web.springmvc.action.BasicAction;
 
@@ -40,7 +40,7 @@ public class ${classes}Action extends BasicAction {
 	@RequestMapping("/list")
 	public void list(String searchKey, PrintWriter out) {
 		Map<String, Object> qbuilder = new HashMap<String, Object>();
-		if (StringUtils.isNotBlank(searchKey)) {
+		if (UtilString.isNotBlank(searchKey)) {
 			qbuilder.put("name", "%" + searchKey + "%");
 		}
 		page.setRows(${classes?lower_case}Service.findByPage(null, qbuilder));
@@ -71,8 +71,21 @@ public class ${classes}Action extends BasicAction {
 
 	@RequestMapping("/modify")
 	public void modify(HttpServletRequest request, Long id, ${classes} obj, PrintWriter out) {
-		// TODO 
-		out.write(ServiceResult.initSuccessJson(null));
+		ServiceResult sr = ServiceResult.initSuccess(null);
+		if (obj == null) {
+			sr = ServiceResult.initErrorParam();
+		}
+
+		if (sr.success()) {
+			if (id == null) {
+				obj.setId(UtilString.getLongUUID());
+				${classes?lower_case}Service.insert(obj);
+			} else {
+				${classes?lower_case}Service.update(obj);
+			}
+			sr = ServiceResult.initSuccess(null);
+		}
+		out.write(ServiceResult.GSON_DT.toJson(sr));
 	}
 
 }
