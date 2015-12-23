@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.zcj.util.coder.database.TableColumn;
 import com.zcj.util.coder.database.TableColumnType;
+import com.zcj.util.coder.query.QueryColumnType;
 import com.zcj.web.mybatis.entity.BasicEntity;
 
 /**
@@ -17,20 +18,35 @@ public class Example extends BasicEntity {
 	private static final long serialVersionUID = -576202652932342342L;
 
 	@TableColumnType(nullable = false)
+	@QueryColumnType("=")
 	private String username;// 用户名
+
 	@TableColumnType(nullable = false)
+	@QueryColumnType("=")
 	private String password;// 密码
+
 	@TableColumnType(length = 1000)
 	private String url;// URL地址
+
 	@TableColumnType(length = TableColumn.LENGTH_MAX_STRING)
 	private String imgs;// 图片地址集合
+
+	@QueryColumnType("time")
 	private Date theTime;// 时间
+
 	@TableColumnType(length = TableColumn.LENGTH_MAX_STRING)
 	private String persons;// 人员Key集合
+
+	@QueryColumnType(value = { "=", "in" })
 	private Integer role;// 角色（1：超级管理员；2：普通用户）
+
+	@QueryColumnType("=")
 	private Integer valid;// 状态（1：有效；0：无效）
+
 	@TableColumnType(length = TableColumn.LENGTH_MAX_STRING)
+	@QueryColumnType("like")
 	private String descr;// 描述
+
 	@TableColumnType(length = TableColumn.LENGTH_MAX_STRING)
 	private String content;// 编辑器内容
 
