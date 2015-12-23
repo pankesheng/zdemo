@@ -14,6 +14,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import com.thanone.zdemo.entity.example.Example;
+import com.zcj.util.coder.database.Database;
+import com.zcj.util.coder.database.Table;
+import com.zcj.util.coder.database.TableColumn;
+import com.zcj.util.coder.database.TableColumnType;
 import com.zcj.util.freemarker.FreemarkerUtil;
 import com.zcj.util.freemarker.MyFreeMarkerConfigurer;
 
@@ -21,7 +25,7 @@ public class FileAll {
 
 	private static final String SAVEPATH = "D:/";
 
-	private static final String DATABASETYPE = "MySQL";// MySQL、SqlServer
+	private static final String DATABASETYPE = Database.TYPE_MYSQL;// MySQL、SqlServer
 
 	private static Class<?>[] carray = new Class<?>[] { Example.class };
 
@@ -43,19 +47,10 @@ public class FileAll {
 	}
 
 	private void allTable(Class<?>[] carray) {
-		List<TableBean> tables = new ArrayList<TableBean>();
+		List<Table> tables = new ArrayList<Table>();
 		for (Class<?> c : carray) {
-			String tableName = "t_" + StringUtils.lowerCase(c.getSimpleName());
-			List<TableColumn> columns = new ArrayList<TableColumn>();
-			Field[] fs = c.getDeclaredFields();
-			for (Field f : fs) {
-				if (valid(f)) {
-					columns.add(new TableColumn(f.getName(), fieldTypeToSqlType(f)));
-				}
-			}
-			tables.add(new TableBean(tableName, columns));
+			tables.add(initTable(c, DATABASETYPE));
 		}
-
 		Map<String, Object> root = new HashMap<String, Object>();
 		root.put("tables", tables);
 		root.put("databasename", carray[0].getName().split("\\.")[2]);
@@ -66,93 +61,56 @@ public class FileAll {
 		}
 	}
 
-	private static String fieldTypeToSqlType(Field ff) {
-		if ("MySQL".equals(DATABASETYPE)) {
+	private static Table initTable(Class<?> c, String databaseType) {
+		String tableName = "t_" + StringUtils.lowerCase(c.getSimpleName());
+		List<TableColumn> columns = new ArrayList<TableColumn>();
+		Field[] fs = c.getDeclaredFields();
+		for (Field f : fs) {
+			if (valid(f)) {
+				String[] typeAndLength = initDefaultTypeAndLengthByField(databaseType, f);
+				String tType = typeAndLength[0];
+				Integer tLength = typeAndLength[1] == null ? null : Integer.valueOf(typeAndLength[1]);
+				Boolean tNullable = true;
+				if (f.isAnnotationPresent(TableColumnType.class)) {
+					TableColumnType sqlType = f.getAnnotation(TableColumnType.class);
+					if (sqlType.length() != 0) {
+						tLength = sqlType.length();
+					}
+					if (!sqlType.nullable()) {
+						tNullable = false;
+					}
+				}
+				columns.add(new TableColumn(f.getName(), tType, tLength, tNullable));
+			}
+		}
+		return new Table(tableName, columns);
+	}
+
+	private static String[] initDefaultTypeAndLengthByField(String databaseType, Field ff) {
+		if (Database.TYPE_MYSQL.equals(databaseType)) {
 			if ("class java.lang.Integer".equals(ff.getType().toString())) {
-				return "int(11)";
+				return new String[] { "int", "11" };
 			} else if ("class java.lang.Long".equals(ff.getType().toString())) {
-				return "bigint(20)";
+				return new String[] { "bigint", "20" };
 			} else if ("class java.lang.String".equals(ff.getType().toString())) {
-				return "varchar(100)";
+				return new String[] { "varchar", "100" };
 			} else if ("class java.util.Date".equals(ff.getType().toString())) {
-				return "datetime";
+				return new String[] { "datetime", null };
 			} else if ("class java.lang.Float".equals(ff.getType().toString())) {
-				return "float";
+				return new String[] { "float", null };
 			}
-		} else if ("SqlServer".equals(DATABASETYPE)) {
+		} else if (Database.TYPE_SQLSERVER.equals(databaseType)) {
 			if ("class java.lang.Integer".equals(ff.getType().toString())) {
-				return "[int]";
+				return new String[] { "int", null };
 			} else if ("class java.lang.Long".equals(ff.getType().toString())) {
-				return "[bigint]";
+				return new String[] { "bigint", null };
 			} else if ("class java.lang.String".equals(ff.getType().toString())) {
-				return "[nvarchar](100)";
+				return new String[] { "nvarchar", "100" };
 			} else if ("class java.util.Date".equals(ff.getType().toString())) {
-				return "[datetime]";
+				return new String[] { "datetime", null };
 			}
 		}
-		return "";
-	}
-
-	public class TableColumn {
-		private String name;
-		private String type;
-
-		public TableColumn() {
-			super();
-		}
-
-		public TableColumn(String name, String type) {
-			super();
-			this.name = name;
-			this.type = type;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public String getType() {
-			return type;
-		}
-
-		public void setType(String type) {
-			this.type = type;
-		}
-	}
-
-	public class TableBean {
-		private String name;
-		private List<TableColumn> columns;
-
-		public TableBean() {
-			super();
-		}
-
-		public TableBean(String name, List<TableColumn> columns) {
-			super();
-			this.name = name;
-			this.columns = columns;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public List<TableColumn> getColumns() {
-			return columns;
-		}
-
-		public void setColumns(List<TableColumn> columns) {
-			this.columns = columns;
-		}
+		return new String[] { null, null };
 	}
 
 	private static boolean valid(Field f) {
