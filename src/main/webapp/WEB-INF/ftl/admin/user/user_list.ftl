@@ -119,8 +119,8 @@
 
 	//删除
 	function removeItems(){
-		var data = grid.getSelectedDataString('id');
-		z_delete(data, '${contextPath}/user/delete.ajax');
+		var data = grid.getSelectedData('id');
+		z_delete2(data, '${contextPath}/user/delete.ajax');
 	}
 	
 	// 导出

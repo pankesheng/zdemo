@@ -200,8 +200,62 @@ function z_ajaxoper(url, oper) {
 	});
 }
 
+// 删除。完成后自动调用 grid.refresh()
+// 依赖插件：layer、grid、tool
+// dataString格式：[1,2,3]
+function z_delete2(dataString, url) {
+	z_oper2(dataString, url, "删除");
+}
+
 // 操作。完成后自动调用 grid.refresh()
 // 依赖插件：layer、grid、tool
+// dataString格式：[1,2,3]
+function z_oper2(dataString, url, oper) {
+	if (!dataString || dataString.length == 0) {
+		z_alert_layer('请选择至少一条记录！');
+		return false;
+	}
+	var ids = "";
+	for (i in dataString) {
+		ids += dataString[i];
+		if (i < dataString.length-1) {
+			ids += ",";
+		}
+	}
+	layer.confirm('确认'+oper+'？', function() {
+		$.post(url, {"ids":ids}, function(data){
+			if(data.s!=1){
+				z_alert_layer(data.d||"操作失败！");
+	        } else {
+	        	grid.refresh();
+				layer.closeAll();
+				z_alert_success(data.d||"操作成功！");
+	        }
+		}, "json");
+	});
+}
+
+// 导出
+function z_export(url) {
+	$.ajax({url:url,data:{},type:"post",dataType:"json", success: function(data){
+        if(data.s!=1){
+        	z_alert_error(data.d);
+        	return;
+        }
+        var url = _z_basepath+"/file/download.ajax?path="+encodeURI(data.d.url)+"&fileName="+encodeURI(data.d.fileName);
+        window.location.href=url;
+	}});
+}
+
+
+
+
+
+
+/** 
+ * @deprecated
+ * 有url长度限制，由z_oper2()方法代替。
+  */
 function z_oper(dataString, url, oper) {
 	if (dataString.length == 0) {
 		z_alert_layer('请选择至少一条记录！');
@@ -226,20 +280,10 @@ function z_oper(dataString, url, oper) {
 	});
 }
 
-// 删除。完成后自动调用 grid.refresh()
-// 依赖插件：layer、grid、tool
+/** 
+ * @deprecated
+ * 有url长度限制，由z_delete()方法代替。
+  */
 function z_delete(dataString, url) {
 	z_oper(dataString, url, "删除");
-}
-
-// 导出
-function z_export(url) {
-	$.ajax({url:url,data:{},type:"post",dataType:"json", success: function(data){
-        if(data.s!=1){
-        	z_alert_error(data.d);
-        	return;
-        }
-        var url = _z_basepath+"/file/download.ajax?path="+encodeURI(data.d.url)+"&fileName="+encodeURI(data.d.fileName);
-        window.location.href=url;
-	}});
 }

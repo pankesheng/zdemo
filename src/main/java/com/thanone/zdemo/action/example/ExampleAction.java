@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.thanone.zdemo.common.ZwPageResult;
 import com.thanone.zdemo.entity.example.Example;
 import com.thanone.zdemo.service.example.ExampleService;
+import com.zcj.util.UtilConvert;
 import com.zcj.util.UtilString;
 import com.zcj.web.dto.ServiceResult;
 import com.zcj.web.springmvc.action.BasicAction;
@@ -71,12 +72,13 @@ public class ExampleAction extends BasicAction {
 	}
 
 	@RequestMapping("/delete")
-	public void delete(HttpServletRequest request, Long[] id, PrintWriter out) {
-		if (id == null || id.length == 0) {
+	public void delete(HttpServletRequest request, String ids, PrintWriter out) {
+		if (UtilString.isBlank(ids)) {
 			out.write(ServiceResult.initErrorJson("请选择需要删除的记录！"));
 			return;
 		}
-		exampleService.deleteByIds(Arrays.asList(id));
+		Long[] s = UtilConvert.string2Long(ids.split(","));
+		exampleService.deleteByIds(Arrays.asList(s));
 		out.write(ServiceResult.initSuccessJson(null));
 	}
 

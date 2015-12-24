@@ -24,6 +24,7 @@ import com.thanone.zdemo.common.ZwPageResult;
 import com.thanone.zdemo.dto.ExportExcelUserDto;
 import com.thanone.zdemo.entity.user.User;
 import com.thanone.zdemo.service.user.UserService;
+import com.zcj.util.UtilConvert;
 import com.zcj.util.UtilString;
 import com.zcj.util.poi.excel.ExcelUtil;
 import com.zcj.web.dto.DownloadResult;
@@ -90,15 +91,17 @@ public class UserAction extends BasicAction {
 	}
 
 	@RequestMapping("/delete")
-	public void delete(HttpServletRequest request, Long[] id, PrintWriter out) {
-		if (id == null || id.length == 0) {
+	public void delete(HttpServletRequest request, String ids, PrintWriter out) {
+		if (UtilString.isBlank(ids)) {
 			out.write(ServiceResult.initErrorJson("请选择需要删除的记录！"));
 			return;
-		} else if (Arrays.asList(id).contains(WebContext.getLoginUserId(request))) {
+		}
+		Long[] s = UtilConvert.string2Long(ids.split(","));
+		if (Arrays.asList(s).contains(WebContext.getLoginUserId(request))) {
 			out.write(ServiceResult.initErrorJson("不能删除自己的账号！"));
 			return;
 		}
-		userService.deleteByIds(Arrays.asList(id));
+		userService.deleteByIds(Arrays.asList(s));
 		out.write(ServiceResult.initSuccessJson(null));
 	}
 
