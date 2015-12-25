@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.zcj.util.coder.database.TableColumn;
 import com.zcj.util.coder.database.TableColumnType;
-import com.zcj.util.coder.query.QueryColumnType;
+import com.zcj.util.coder.java.query.QueryColumnType;
 import com.zcj.web.mybatis.entity.BasicEntity;
 
 /**
