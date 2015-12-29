@@ -13,10 +13,10 @@ end;
 CREATE TABLE ${t.name} (
   id number(20) primary key NOT NULL,
   <#list t.columns as c>
-  ${c.name}` ${c.type} DEFAULT NULL,
+  ${c.name} ${c.type} DEFAULT NULL,
   </#list>
-  ctime` date DEFAULT NULL,
-  utime` date DEFAULT NULL
+  ctime date DEFAULT NULL,
+  utime date DEFAULT NULL
 );
 
 
