@@ -51,6 +51,8 @@ public class FileAll {
 			FreemarkerUtil.getInstance(freemarkerConfig).htmlFile(root, "/code/DatabaseMySQL.ftl", SAVEPATH + "init.sql");
 		} else if ("SqlServer".equals(DATABASETYPE)) {
 			FreemarkerUtil.getInstance(freemarkerConfig).htmlFile(root, "/code/DatabaseSqlServer.ftl", SAVEPATH + "init.sql");
+		} else if ("Oracle".equals(DATABASETYPE)){
+			FreemarkerUtil.getInstance(freemarkerConfig).htmlFile(root, "/code/DatabaseOracle.ftl",SAVEPATH+"init.sql");
 		}
 	}
 
@@ -79,6 +81,9 @@ public class FileAll {
 						SAVEPATH + code.getPackageName() + "/mapper/" + code.getModuleName() + "/" + code.getClassName() + "Mapper.xml");
 			} else if ("SqlServer".equals(DATABASETYPE)) {
 				FreemarkerUtil.getInstance(freemarkerConfig).htmlFile(root, "/code/XxMapperXmlSqlServer.ftl",
+						SAVEPATH + code.getPackageName() + "/mapper/" + code.getModuleName() + "/" + code.getClassName() + "Mapper.xml");
+			}  else if("Oracle".equals(DATABASETYPE)){
+				FreemarkerUtil.getInstance(freemarkerConfig).htmlFile(root, "/code/XxMapperXmlOracle.ftl",
 						SAVEPATH + code.getPackageName() + "/mapper/" + code.getModuleName() + "/" + code.getClassName() + "Mapper.xml");
 			}
 			FreemarkerUtil.getInstance(freemarkerConfig).htmlFile(root, "/code/XxService.ftl",
